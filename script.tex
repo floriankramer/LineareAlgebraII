@@ -4,12 +4,10 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{marvosym}
+\usepackage{amsthm}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
-\usepackage{xstring}
 \usepackage{tikz}
-\usepackage{amsthm}
 \usepackage{thmtools}
 \usepackage{titlesec}
 \usepackage{enumitem}
@@ -38,7 +36,7 @@
 \newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
 \newcommand{\IN}[1]{\index{#1|BH}}
 
-\title{Lineare Algebra I\\Mitschrieb}
+\title{Lineare Algebra II\\Mitschrieb}
 
 % title formatting of sections
 \titleformat{\chapter}[block]
@@ -50,6 +48,9 @@
 
 % ease of use commands
 \newcommand{\lb}{\lambda}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+
 \newcommand{\mlb}{\(\lb\)}
 \newcommand{\ii}{\mathrm{i}}
 \newcommand{\ee}{\mathrm{e}}
@@ -65,14 +66,11 @@
 \newcommand{\mC}{\(\mathbb{C}\)}
 \newcommand{\Rn}{\mathbb{R}^n}
 \newcommand{\mRn}{\(\mathbb{R}^n\)}
-\newcommand{\al}{\alpha}
-\newcommand{\be}{\beta}
-\newcommand{\vtwo}[2]{\begin{pmatrix}#1 \\ #2 \end{pmatrix}}
-\newcommand{\vthree}[3]{\begin{pmatrix}#1 \\ #2 \\ #3 \end{pmatrix}}
 \newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
 \renewcommand{\v}{\ve}
 \newcommand{\baseb}{\mathcal{B}}
 \newcommand{\basea}{\mathcal{A}}
+\newcommand{\En}{\mathrm{E}_n}
 
 \DeclareMathOperator{\abb}{Abb}
 \DeclareMathOperator{\Span}{span}
@@ -80,6 +78,7 @@
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\rg}{rg}
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Id}{Id}
@@ -93,11 +92,11 @@
 \DeclareMathOperator{\PE}{PE}
 \DeclareMathOperator{\MM}{M}
 \DeclareMathOperator{\TR}{Tr}
+\DeclareMathOperator{\Grad}{Grad}
 
-\newcommand{\En}{\mathrm{E}_n}
 
 % increase line height
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.3}
 
 % redefines description label for alternative enumeration in description environement
 \renewcommand*\descriptionlabel[1]{\hspace\labelsep\emph{#1}}
@@ -167,7 +166,7 @@
 \let\Chaptermark\chaptermark
 \def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
 \makeatletter
-\AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter{0 - Lineare Gleichungssysteme und der n-dimensionale reelle Raum}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
+% \AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter{0 - Lineare Gleichungssysteme und der n-dimensionale reelle Raum}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
 \patchcmd\thmtlo@chaptervspacehack
 {\addtocontents{loe}{\protect\addvspace{10\p@}}}
 {\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter\space-\space\Chaptername}}}
@@ -285,38 +284,233 @@
 \newcommand{\bigbigslant}[2]{{\raisebox{.4em}{\(#1\)}\hspace{-.2em}\left/\raisebox{-.4em}{\(#2\)}\right.}}
 
 \begin{document}
+\begin{titlepage}
+  \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+  \centering
+  \vspace{6cm}
+  \textsc{\large \thinspace}\\[0.5cm]
+  \vspace{4cm}
+  \HRule \\[0.8cm]
+  { \Huge  \textbf{Lineare Algebra \(\mathbf{II}\)}}\\[0.4cm]
+  \HRule \\[.5cm]
+  {\Large Inoffizieller Mitschrieb}\\[1.0cm]
+  Stand: \today
+  \\[11.5cm]
+  \begin{minipage}{0.65\textwidth}
+    \begin{center} \large
+      \textsl{Vorlesung gehalten von:}\\[1cm]
+      Prof. Dr. Amador Martín-Pizarro\\
+      Abteilung für Angewandte Mathematik\\
+      \textsc{\large Albert-Ludwigs-Universität Freiburg}
+    \end{center}
+  \end{minipage}\\[2.5cm]
+  \thispagestyle{empty}
+\end{titlepage}
 
 
-  \begin{titlepage}
-    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-    \centering
-    \vspace{6cm}
-    \textsc{\large \thinspace}\\[0.5cm]
-    \vspace{4cm}
-    \HRule \\[0.8cm]
-    { \Huge  \textbf{Lineare Algebra \(\mathbf{II}\)}}\\[0.4cm]
-    \HRule \\[.5cm]
-    {\Large Inoffizieller Mitschrieb}\\[1.0cm]
-    Stand: \today
-    \\[11.5cm]
-    \begin{minipage}{0.65\textwidth}
-      \begin{center} \large
-        \textsl{Vorlesung gehalten von:}\\[1cm]
-        Prof. Dr. Amador Martín-Pizarro\\
-        Abteilung für Angewandte Mathematik\\
-        \textsc{\large Albert-Ludwigs-Universität Freiburg}
-      \end{center}
-    \end{minipage}\\[2.5cm]
-    \thispagestyle{empty}
-  \end{titlepage}
+\chapter{Recap}
 
+\begin{definition}[Ring]
+  Ein (kommutativer) Ring (mit Einselement) ist eine Menge zusammen mit zwei
+  bin\"aren Operationen \(+, \cdot\), derart, dass:\\
+  \begin{itemize}
+    \item{\((R, +)\) ist eine abelsche Gruppe}
+    \item{\((R, \cdot)\) ist eine kommutative Halbgruppe}
+    \item{die Dsitributivgesetze:\\
+    \(a(x+y) = ax + ay\)\\
+    \((x + y) z = xz + yz\))}
+  \end{itemize}
+\end{definition}
 
-\section*{Einführung}
+\begin{definition}[Integrit\"atsbereich]
+  Ein Integrit\"atsbereich ist ein Ring ohne Nullteiler. Also
+  \(\forall x, y \in R : x \cdot y = 0 \Rightarrow x = 0 \lor y = 0\)
+\end{definition}
 
+\begin{definition}[K\"orper]
+  Ein K\"orper ist ein Ring der Art, dass
+  \begin{enumerate}
+    \item{\(1 \neq 0\)}
+    \item{
+      \(
+        \forall x \in K : x \neq 0
+        \Rightarrow \exists x^{-1} : xx^{-1} = x^{-1}x = 1
+      \)
+    }
+  \end{enumerate}
+\end{definition}
+
+\begin{bemerkung}
+  K\"orper sind Integrit\"atsbereiche.
+\end{bemerkung}
+
+\begin{definition}[Charakteristik]
+  Sei R ein nicht trivialer Ring \((0 \neq 1)\).
+  \(
+    \varphi : \Z \rightarrow R, z \mapsto
+    \begin{cases}
+      \sum_{i=1}^n 1 & n >= 0\\
+      -\sum_{i=1}^n 1 & \text{ansonsten}
+    \end{cases}
+  \)\\
+  Dann ist \(\varphi\) ein Ringhomomorphismus.\\
+  F\"ur den Kern von \(\varphi\) (\(\Ker(\varphi)\)) gibt es zwei
+  M\"oglichkeiten.
+  \begin{enumerate}
+    \item{\(\Ker(\varphi) = \{0\}, p = 0\)}
+    \item{
+      \(\Ker(\varphi) \neq \{0\}\). Dann gibt es ein kleinstes echt positives
+      Element \(p \in \Ker(\varphi)\).
+    }
+  \end{enumerate}
+  R hat dann Charakteristik p. Falls R ein Integritaetsbereich ist, dann ist p
+  eine Primzahl.
+  \textbf{Beispiele:}\\
+  \(\Z / n\Z = \{\bar{0}, \dots, \bar{n}\}\) hat Charakteristik n.\\
+  Insbesondere enth\"alt jeder K\"orper mit Charakteristik p eine ''Kopie'' von
+  \(\Z / m\Z\):\\
+  k hat Charakteristik p \(\Rightarrow \Z /p\Z
+  \overset{injectiv}{\leftrightarrow} K\).\\
+  Hier ist \(\Z/p\Z\) ein K\"orper:\\
+  \(a \in \Z/p\Z \setminus \{0\} \Rightarrow\) es ist a mit p teilerfremd.
+  \(1 = a \cdot b + p \cdot m \Rightarrow \bar{1} = \bar{a} \cdot \bar{b}\).
+\end{definition}
+
+\begin{definition}[Polynomring]
+  Sei K ein K\"orper. Der Polynomring \(K[T]\) in einer Variable R \"uber K ist
+  die Menge formeller Summen der Form:\\
+  \(f = \sum_{i = 0}^n a_i \cdot T^i, n \in \N\)\\
+  Der Grad von \(f \in K[T]\) ist definiert als:\\
+  \(\Grad(f) := max(m | m < n \land a_m \neq 0)\)\\
+  \(\Grad(0) := -1\)
+  Die Summe und das Produkt von Polynomen sind definiert als:\\
+  \(
+    \sum_{i=0}^n a_i T^i + \sum_{j=0}^m b_j T^j 
+    := \sum_{k=0}^{max(m,n)} (a_k b_k) T^k
+  \)\\
+  \(
+    \sum_{i=0}^n a_i T^i \cdot \sum_{j=0}^m b_j T^j 
+    := \sum_{k=0}^{m+j} = c_K T^k, c_k = \sum_i+j=k a_i b_j
+  \)\\
+\end{definition}
+
+\begin{bemerkung}
+  \(K[T]\) ist ein Integrit\"atsbereich.\\
+\end{bemerkung}
+
+\begin{korrolar}
+  Es seien \(f, g\) beide \(\neq 0\)\\
+  \(
+    \Rightarrow \Grad(f \cdot g)
+    = \Grad(f) + \Grad(g) \Rightarrow f \cdot g \neq 0
+  \)\\
+  \(\Grad(f+g) \le max(\Grad(f), \Grad(g))\)\\
+\end{korrolar}
+
+\begin{satz}[Division mit Rest]
+  Gegeben \(f, g \in K[T], \Grad(g) > 0\). Dann existieren eindeutige 
+  Polynome q, r, so dass \(f = g \dot q + r\), wobei \(\Grad(r) < \Grad(g)\).
+  \begin{proof}
+    Eindeutigkeit: Angenommen
+    \(f = g \cdot q + r = g \cdot q' + r', q \neq q' \lor r \neq r'\).\\
+    \(
+      \Rightarrow g(q - q') = r' - r
+      \Rightarrow \Grad(r' - r) = max(\Grad(r'), \Grad(r)) < \Grad(g)
+                  = \Grad(g(q - q'))
+      \Rightarrow\) Widerspruch \(
+      \Rightarrow q = q' \Rightarrow r = r'
+    \)
+    Existenz: Induktion auf \(\Grad(f)\)\\
+    \(\Grad(f) = 0 \Rightarrow f = g \cdot 0 + f\)\\
+    \(\Grad(f) = n + 1\)\\
+    \(\Grad(f) < \Grad(g) = m \Rightarrow f = g \cdot 0 + f\)\\
+    OBdA. \(n + 1 = \Grad(f) \ge \Grad(g) = m > 0\)\\
+    \(f = a_{n + 1} \cdot T^{n+1} + \hat{f},
+    \Grad(\hat{f}) \le n, a_{n + 1} \neq 0\)\\
+    Sei \(
+      f' = f - b_m^{-1} a_{n+1}T^{n+1-m} \cdot g \Rightarrow \Grad(f') \le n
+    \)
+    Ia: \(f' = g \cdot q' + r', \Grad(r') < \Grad(g)\)\\
+    \(
+      f' = f - b-b^{-1}a_{n+1}T{n + 1 - m} \cdot g
+      \Rightarrow f = g(b_n^{-1}a_{n+1}T^{n+1-m} +q')+r'
+      \Rightarrow \Grad(r') < \Grad(g)
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{definition}[Polynom Teilt]
+  \(f, g, q \in K[T]\), \(\Grad(g) > 0\)\\
+  \(g \text{ teilt } f  = g|_f\Leftrightarrow f = g \cdot q\)\\
+\end{definition}
+
+\begin{definition}[Nullstellen von Polynomen]
+  \(f \in K[T]\) besizt eine Nullstelle \(\lb \in K\) gdw.
+  \((T - \lb) |_f \Leftrightarrow f(\lb) = 0\).\\
+  f l\"asst sich dann schreiben als \(f = (T - \lb)q + r\).
+\end{definition}
+
+\begin{lemma}
+  \(f \in K[t], f\neq 0, \Grad(f) = n
+  \Rightarrow \) f besitzt h\"ochstens n Nullstellen in k.
+  \begin{proof}
+    \begin{itemize}
+      \item[\(n=0\)]{
+        \(\Rightarrow f = a_0, a_0 \neq 0\)
+      }
+      \item[\(n>0\)]{
+        Falls f keine Nullstellen in K besitzt \(\Rightarrow\) ok!\\
+        Sonst, sei \(\lb \in K\) eine Nullstelle von f.
+        \(f = (T -\lb) \cdot g, \Grad(g) = n-1 < n\)\\
+        I.A besitzt g h\"ochstens n - 1 Nullstellen. Jede Nullstelle von f ist
+        entweder \(\lb\) oder eine Nullstelle von g. \(\Rightarrow\) f hat
+        h\"ochstens n Nullstellen.\\
+      }
+    \end{itemize}
+  \end{proof}
+\end{lemma}
+
+\begin{definition}[Vielfachheit einer Nulstelle]
+  \(f \in K[T], f \neq 0, \lb \in K\) Nullstelle von f
+  \(\Rightarrow f = (T-\lb)^{K_\lb}\cdot g, g(\lb \neq 0\).
+  \(K_\lb\) ist die Vielfacheit der Nullstelle \(\lb\) in f.\\
+\end{definition}
+
+\begin{definition}
+  Ein K\"orper hei\ss{}t algebraisch abgeschlossen, falls jedes Polynom \"uber 
+  K positiven Grades eine Nullstelle besitzt.
+\end{definition}
+
+\textbf{Beispiele}
+Ist \(\R\) algebraisch abgeschlossen? Nein: \(T^2 + 1\).\\
+Bem.: \(\C\) ist algebraisch abgeschlossen.
+
+\begin{bemerkung}
+  Jeder algebraisch abgeschlossene K\"orper muss unendlich sein.
+  Sei \(K = \{\lb_1, \dots \lb_n\}, f = (T - \lb), \dots, (T - \lb_n) + 1\).\\
+\end{bemerkung}
+
+\begin{lemma}
+  K ist genau dann algebraisch abgeschlossen, wenn jedes Polynom positiven
+  Grades in lineare Faktoren zerf\"allt.\\
+  \(f = T(\lb_1) \dots (T - \lb_n)\).
+  \begin{proof}
+    \begin{itemize}
+      \item[\(\Leftarrow\)]{trivial}
+      \item[\(\Rightarrow\)]{
+        \(
+          \Grad(f) = n > 0
+          \Rightarrow f = (T - \lb_1) \cdot g, \Grad(g) \le n - 1 < n
+          \overset{I.A.}{\Rightarrow} f = c(T-\lb_1) \dots (T-\lb_n)
+        \)
+      }
+    \end{itemize}
+  \end{proof}
+\end{lemma}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
-\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
+% \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
 \addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
 \newpage
 \printindex
