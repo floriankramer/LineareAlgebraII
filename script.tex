@@ -1,0 +1,323 @@
+\documentclass{report}
+
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{marvosym}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{xstring}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{relsize}
+\usepackage{imakeidx}
+\usepackage{framed}
+\usepackage{etoolbox}
+\usepackage{float}
+
+% configure tikz circles & nodes
+\tikzset{
+  node style sp/.style={draw,circle,minimum size=1cm},
+  node style ge/.style={circle,minimum size=1cm},
+  arrow style mul/.style={draw,sloped,midway,fill=white},
+  arrow style plus/.style={midway,sloped,fill=white},
+}
+% tikz dependencies:
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, decorations.markings, positioning, tikzmark}
+
+% page size & margins:
+\usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
+
+% defines index commands with hyperref
+\makeindex[columns=3, title=Stichwortverzeichnis, intoc=true,options={-s index_style.ist}]
+\newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
+\newcommand{\IN}[1]{\index{#1|BH}}
+
+\title{Lineare Algebra I\\Mitschrieb}
+
+% title formatting of sections
+\titleformat{\chapter}[block]
+{\normalfont\huge\bfseries}{\Huge \thechapter. }{0em}{\Huge}
+\titlespacing*{\chapter}{0pt}{-15pt}{20pt}
+\titlespacing*{\section}{0pt}{0pt}{10pt}
+\titlespacing*{\subsection}{0pt}{0pt}{10pt}
+
+
+% ease of use commands
+\newcommand{\lb}{\lambda}
+\newcommand{\mlb}{\(\lb\)}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\mR}{\(\mathbb{R}\)}
+\newcommand{\mN}{\(\mathbb{N}\)}
+\newcommand{\mZ}{\(\mathbb{Z}\)}
+\newcommand{\mQ}{\(\mathbb{Q}\)}
+\newcommand{\mC}{\(\mathbb{C}\)}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\mRn}{\(\mathbb{R}^n\)}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\vtwo}[2]{\begin{pmatrix}#1 \\ #2 \end{pmatrix}}
+\newcommand{\vthree}[3]{\begin{pmatrix}#1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
+\renewcommand{\v}{\ve}
+\newcommand{\baseb}{\mathcal{B}}
+\newcommand{\basea}{\mathcal{A}}
+
+\DeclareMathOperator{\abb}{Abb}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\PE}{PE}
+\DeclareMathOperator{\MM}{M}
+\DeclareMathOperator{\TR}{Tr}
+
+\newcommand{\En}{\mathrm{E}_n}
+
+% increase line height
+\renewcommand{\baselinestretch}{1.2}
+
+% redefines description label for alternative enumeration in description environement
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\emph{#1}}
+
+% define main environment used for lemmas, definitions, corollaries, ...
+\makeatletter
+\newtheoremstyle{customdef} % name of the style to be used
+{12pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{12pt}        % measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
+{-7pt}        % measure of space to indent
+{\bfseries}   % name of head font
+{ \\[.125cm] }% punctuation between head and body
+{ }           % space after theorem head; " " = normal interword space
+{\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  \defemph{#3}}}}
+
+\newtheoremstyle{customenv} % name of the style to be used
+{12pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{12pt}        % measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
+{-7pt}        % measure of space to indent
+{\bfseries}   % name of head font
+{ \\[.125cm] }% punctuation between head and body
+{ }           % space after theorem head; " " = normal interword space
+{#3}
+\makeatother
+
+% define side environment used for remarks
+\newtheoremstyle{customrem} % name of the style to be used
+{0pt}         % measure of space to leave above the theorem. E.g.: 3pt
+{0pt}         % measure of space to leave below the theorem. E.g.: 3pt
+{}            % name of font to use in the body of the theorem
+{}            % measure of space to indent
+{\itshape}    % name of head font
+{}            % punctuation between head and body
+{.5em}        % space after theorem head; " " = normal interword space
+{}
+
+% define remarks:
+\theoremstyle{customrem}
+\newtheorem*{bemerkung}{Bemerkung\textnormal:}
+\newtheorem*{bemerkung2}{Bemerkungen\textnormal:}
+\newenvironment{bemerkungen}[1][]{\begin{bemerkung2}[#1]\leavevmode}{\end{bemerkung2}}
+
+% define definition environment names
+\theoremstyle{customdef}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem*{definitionn}{Definition} % without numbering
+\newtheorem{altdefinition}[definition]{Alternative Definition}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{korrolar}[definition]{Korollar}
+\newtheorem{satz}[definition]{Satz}
+\newtheorem*{satz*}{Satz} % without numbering
+\renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
+\theoremstyle{customenv}
+\newtheorem*{customenv}{customenv} % weird
+
+% define definition emphasis
+\newcommand{\defemph}[1]{\textsc{#1}}
+
+% disables autoindent
+\setlength{\parindent}{0em}
+
+% defines lists of theorems:
+
+\let\Chaptermark\chaptermark
+\def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
+\makeatletter
+\AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter{0 - Lineare Gleichungssysteme und der n-dimensionale reelle Raum}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
+\patchcmd\thmtlo@chaptervspacehack
+{\addtocontents{loe}{\protect\addvspace{10\p@}}}
+{\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter\space-\space\Chaptername}}}
+{}{}
+\AtEndDocument{\addtocontents{loe}{\protect\thmlopatch@endchapter}}
+\long\def\thmlopatch@chapter#1#2\thmlopatch@endchapter{%
+  \setbox\z@=\vbox{#2}%
+  \ifdim\ht\z@>\z@
+  \addvspace{10\p@}
+  \hbox{\bfseries\chaptername\ #1}\nobreak
+  #2
+  \addvspace{10\p@}
+  \fi
+}
+\def\thmlopatch@endchapter{}
+
+\def\ll@definition{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@definitionn{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@altdefinition{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@satz{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@lemma{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@korrolar{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@customenv{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\newcommand\thmtopatch@numbernametext[3][]{%
+  #3 #2%
+  \if\relax\detokenize{#1}\relax\else:\space\space #1\fi
+}
+
+\makeatother
+
+
+% replace ugly hyperref boxes with colored text
+\usepackage{xcolor}
+\hypersetup{
+  colorlinks,
+  linkcolor = {red!50!black},
+  urlcolor  = {blue!80!black}
+}
+\setcounter{chapter}{-1}
+
+% define coefficient matrix environment
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+% define new overline command
+\newcommand*\xoverline[2][.8]{%
+  \sbox{\myboxA}{$\m@th#2$}%
+  \setbox\myboxB\null% Phantom box
+  \ht\myboxB=\ht\myboxA%
+  \dp\myboxB=\dp\myboxA%
+  \wd\myboxB=#1\wd\myboxA% Scale phantom
+  \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+  \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+  \addtolength\mylenA{-\the\wd\myboxB}%
+  \ifdim\wd\myboxB<\wd\myboxA%
+  \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+  \else
+  \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+  \fi}
+\makeatother
+
+% defines bigslant for quotient (and bigbigslant for single nested quotients)
+\newcommand{\bigslant}[2]{{\raisebox{.1em}{\(#1\)}\hspace{-.2em}\left/\raisebox{-.1em}{\(#2\)}\right.}}
+\newcommand{\bigbigslant}[2]{{\raisebox{.4em}{\(#1\)}\hspace{-.2em}\left/\raisebox{-.4em}{\(#2\)}\right.}}
+
+\begin{document}
+
+
+  \begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+    \centering
+    \vspace{6cm}
+    \textsc{\large \thinspace}\\[0.5cm]
+    \vspace{4cm}
+    \HRule \\[0.8cm]
+    { \Huge  \textbf{Lineare Algebra \(\mathbf{II}\)}}\\[0.4cm]
+    \HRule \\[.5cm]
+    {\Large Inoffizieller Mitschrieb}\\[1.0cm]
+    Stand: \today
+    \\[11.5cm]
+    \begin{minipage}{0.65\textwidth}
+      \begin{center} \large
+        \textsl{Vorlesung gehalten von:}\\[1cm]
+        Prof. Dr. Amador Martín-Pizarro\\
+        Abteilung für Angewandte Mathematik\\
+        \textsc{\large Albert-Ludwigs-Universität Freiburg}
+      \end{center}
+    \end{minipage}\\[2.5cm]
+    \thispagestyle{empty}
+  \end{titlepage}
+
+
+\section*{Einführung}
+
+
+\newpage
+\renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
+\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
+\addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
+\newpage
+\printindex
+\end{document}
