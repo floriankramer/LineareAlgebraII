@@ -93,6 +93,7 @@
 \DeclareMathOperator{\MM}{M}
 \DeclareMathOperator{\TR}{Tr}
 \DeclareMathOperator{\Grad}{Grad}
+\DeclareMathOperator{\Char}{Char}
 
 
 % increase line height
@@ -363,8 +364,8 @@
       Element \(p \in \Ker(\varphi)\).
     }
   \end{enumerate}
-  R hat dann Charakteristik p. Falls R ein Integritaetsbereich ist, dann ist p
-  eine Primzahl.
+  R hat dann Charakteristik p \((\Char(R) = p)\). Falls R ein
+  Integritaetsbereich ist, dann ist p eine Primzahl.
   \textbf{Beispiele:}\\
   \(\Z / n\Z = \{\bar{0}, \dots, \bar{n}\}\) hat Charakteristik n.\\
   Insbesondere enth\"alt jeder K\"orper mit Charakteristik p eine ''Kopie'' von
@@ -382,7 +383,8 @@
   \(f = \sum_{i = 0}^n a_i \cdot T^i, n \in \N\)\\
   Der Grad von \(f \in K[T]\) ist definiert als:\\
   \(\Grad(f) := max(m | m < n \land a_m \neq 0)\)\\
-  \(\Grad(0) := -1\)
+  \(\Grad(0) := -1\)\\
+  Falls \(Grad(f) = n\) und \(n = 1\) hei\ss{}t das Polynom normiert.\\
   Die Summe und das Produkt von Polynomen sind definiert als:\\
   \(
     \sum_{i=0}^n a_i T^i + \sum_{j=0}^m b_j T^j 
@@ -470,7 +472,7 @@
   \end{proof}
 \end{lemma}
 
-\begin{definition}[Vielfachheit einer Nulstelle]
+\begin{definition}[Vielfachheit einer Nullstelle]
   \(f \in K[T], f \neq 0, \lb \in K\) Nullstelle von f
   \(\Rightarrow f = (T-\lb)^{K_\lb}\cdot g, g(\lb \neq 0\).
   \(K_\lb\) ist die Vielfacheit der Nullstelle \(\lb\) in f.\\
@@ -507,6 +509,270 @@ Bem.: \(\C\) ist algebraisch abgeschlossen.
     \end{itemize}
   \end{proof}
 \end{lemma}
+
+\begin{definition}[Vektorraum]
+  Vektorraum V \"uber K ist eine abelsche Gruppe \((V, +, 0_V)\) zusammen mit
+  einer Verkn\"upfung \(K \times V \to V\) \((\lb, v) \mapsto \lb v\) die die
+  folgenden Bedingungen erf\"ullt:\\
+  \begin{enumerate}
+    \item{\(\lb (v+w) = \lb v + \lb w\)}
+    \item{\(\lb(\mu \v) = (\lb \mu) v\)} 
+    \item{\((\lb + \mu) v = \lb v + \mu v\)}
+    \item{\(1_{k} v = v\)}
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Untervektorraum]
+  Ein Untervektorraum \(U \subset V\) ist eine Untergruppe, welche unter der
+  Skalarmultiplikation abgeschlossen ist. 
+\end{definition}
+
+\begin{bemerkung}
+  \(\{U_i\}_{i \in I}\) Untervektorr\"aume von V
+  \(\Rightarrow \bigcap_{i\in I} U_{i}\) ist Untervektorraum.
+  Insb. gebenen \(M \subset V\) existiert \(\Span(M) = <M> = \) der kleinste
+  Unterraum von V, der M enth\"alt.\\
+  \(\Span(M) = \sum_{i=1}^{n} \lb_{i} m_{i}\),
+  \(m_{i} \in M, \lb_{i} \in K, n \in \N\)\\
+  M ist ein Erzeugendensystem f\"ur \(\Span(M)\)\\
+  Au\ss{}erdem gilt:\\
+  \(\sum_{i\in I}U_{i} = \Span(\bigcup_{i \in I} U_{i})\)\\
+  \(M_{1} \subset M_{2} \Rightarrow \Span(M_{1}) \subset \Span(M_{2})\)
+\end{bemerkung}
+
+\begin{definition}[Lineare Unabh\"angigkeit]
+  Sei \(V\) ein Vektorraum \"uber K. Dann gilt \(v_{1}, \dots v_{n}\) sind
+  linear unabh\"angig falls
+  \(\forall \lb_{1}, \dots, \lb_{n} \in K : \sum \lb_{i} v_{i} 
+  \Rightarrow \lb_{1} = \dots = \lb_{n} = 0\) 
+  \(M \subset V\) ist linear unabh\"angig, falls jede endliche Teilmenge von M
+  linear unabh\"angig ist. \"Aquivalent dazu ist: M ist linear unabh\"angig, 
+  falls kein Element von M sich als Linearkombination der anderen schreiben
+  l\"asst.
+\end{definition}
+
+\begin{definition}[Basis]
+  Sei \(B = \{v_1, \dots, v_n\}, v_i \in V\).
+  Die folgenden Aussagen sind \"aquivalent und definieren eine Basis:
+  \begin{enumerate}
+    \item{B ist ein lineare unabh\"angiges Erzeugendensystem von V}
+    \item{
+      Jedes Element von V l\"asst sich eindeutig als Linearkombination der
+      Elemente in B schreiben.
+    }
+    \item{B ist ein minimales Erzeugendensystem.}
+    \item{B ist maximal lineare unabh\"angig.}
+  \end{enumerate}
+\end{definition}
+
+\begin{satz}[Basiserg\"anzungssatz]
+  Sei \(M \subset V\) lineare unabh\"angig, dann gilt \( \exists B \subset V\),
+  und B ist eine Basis welche M ent\"alt. Insbesondere hat jeder Vektorraum eine
+  Basis. ''Je zwei Basen sind in Bijektion''.
+\end{satz}
+
+\begin{definition}[Dimension]  
+  V ist endlichdimensional, falls V eine endliche Basis besitzt. Sonst ist V
+  unendlichdimensional. Fall V endlichdimensional ist, ist die Dimension von V
+  definert durch:\\
+  \(dim(V) = |B|\) mit B beliebeige Basis.
+\end{definition}
+
+\begin{satz}[Basisauswahlsatz]
+  Sei \(M \subset V\) ein Erzeugendensystem von V, dann gilt
+  \(\exists B \subset M\) mit B ist eine Basis von V.
+\end{satz}
+
+\begin{lemma}
+  Sei \(U \subset V\) ein Unterraum, dann gilt
+  \(\dim(V) < \infty \Rightarrow \dim(U) < \infty\)
+\end{lemma}
+
+\begin{lemma}
+  Die Dimension ist modular:
+  \(\dim(U_1 + U_2) + \dim(U_1 \cap U_2) = \dim(U_1) + \dim(U_2)\)
+\end{lemma}
+
+\begin{definition}[Direktes Produkt von Vektorr\"aumen]
+  \(
+  V = U_1 \oplus U_2 \Leftrightarrow V = U_1 + U_2 \land U_1 \cap U_2 = \{0\}
+  \)\\
+  \(V = \oplus_{i \in I} U_i \Leftrightarrow V = \sum_{i \in I} U_i \) und die
+  Familie ist transversal:
+  \(\{U_i\}_{i \in I} \to U_i \cap (\sum_{j \in I} U_j) = \{0\}\)
+\end{definition}
+
+\begin{definition}[Komplement\"ar]
+  Sei \(U \subset V\) ein Unterverktorraum, dann gilt
+  \(\exists \hat{U} \subset V : V = U \oplus \hat{U}\).\\
+  \(\hat{U}\) hei\ss{}t dann Komplement\"ar zu U.
+\end{definition}
+
+\textbf{Beispiele}\\
+\(K^2\) ist ein K-VR. \(\v{1\\0} \v{0\\1}\) ist eine Basis.\\
+\(U = \Span(\v{1\\0})\). \(K^2 = U \oplus \Span(\v{0\\1})\).
+\(K^2 = U \oplus \Span(\v{1 \\1}\).
+
+\begin{definition}[Lineare Abbildungen]
+  \(F : V \to W\) ist linear, falls gilt:
+  \(F(\lb v + \mu u) = \lb F(v) + \mu F(u)\)
+\end{definition}
+
+\begin{definition}[Kern und Bild]
+  \(\Ker(F) = \{v \in V \ F(v) = 0\}\)\\
+  \(\Ima(F) = \{w \in W| \exists v \in V : F(V) = w\}\)\\
+  \(\Ker(F)\) ist ein Untervektorraum von V, \(\Ima(F)\) ist ein Untervektorraum
+  von W.
+\end{definition}
+
+\begin{lemma}
+  Falls B eine Basis von V ist, ist \(F(B)\) ein Erzeugendensystem
+   von \(Im(F)\).
+  F ist injektiv genau dann wenn \(\Ker(F) = \{0\}\).
+\end{lemma}
+
+\begin{lemma}
+  V endlichdimensional: \(dim(V) = dim(Ker(F)) + dim(Im(F))\).\\
+  \(V / Ker(f) \cong \Ima(F)\).
+\end{lemma}
+
+\begin{bemerkung}
+  V, W endlichdimensional, \(\{v_1, \dots, v_n\}\) Basis von V \(V \cong K^n\),
+  \(v_i \mapsto e_i\).
+\end{bemerkung}
+
+\begin{definition}[Matrix]
+  Sei \(F : V \to W, dim(V) = n, dim(W) = m, \{v_1, \dots, v_n\}\) Basis von V,
+  \(\{w_1, \dots, w_n\}\) Basis von W.\\
+  \(K^n \cong V \overset{F}{\to} W \cong K^m\). Dadurch wird durch F und die
+  beiden Basen eine Abbildung von \(K^n\) nach \(K^m\) definiert. Diese
+  Diese Abbildung kann durch eine Matrix A dargestellt werden.\\
+  \(\v{\lb_1\\ \vdots \\ \lb_n} \mapsto A \v{\lb_1, \vdots \lb_n}\)\\
+  \(F(v_j) = \sum_{i=1}^m a_{ij}w_i\)\\
+  \(
+  F(v_1), \dots, F(v_n)\\
+  \begin{pmatrix}
+    a_{11} & \dots  & a_{1m}\\
+    \vdots & \ddots & \vdots\\
+    a_{n1} & \dots  & a_{nm}
+  \end{pmatrix}
+  \)
+  ist die mxn Matrix A.
+\end{definition}
+
+\begin{definition}[Rang einer Matrix]
+  \(Rg(A) = \dim(\Span(\text{Spaltenvektoren}))
+  = \dim(\Span(\text{Zeilenvektoren}))\)\\
+  \(F : V \to W\) linear. \(Rg(F) = Rg(A) = dim(\Ima(F))\), mit A eine beliebige
+  darstellende Matrix von F.
+\end{definition}
+
+\begin{satz}[Normalform]
+  Es seien V, W endlichdimensional. Dann existieren Basen \(\{v_1, \dots v_n\}\)
+   von V, \(\{w_1, \dots, w_n\}\) von W, so dass die darstellende Matrix von F
+   der Form
+  \(
+    \begin{pmatrix}
+      1      & \dots  & 0      & 0      & \dots  & 0\\
+      \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+      0      & \dots  & 1      & 0      & \dots  & 0\\
+      0      & \dots  & 0      & 0      & \dots  & 0\\
+      \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+      0      & \dots  & 0      & 0      & \dots  & 0 & 
+    \end{pmatrix}
+  \) ist.
+  \begin{proof}
+    Sei \(U = \Ker(F)\) und \(\{v_{r+1}, \dots, v_n\}\) eine Basis von
+    U. Sei \(U'\) ein Komplement von U in V \(\Rightarrow V = U \oplus U'\).
+    Sei \(\{v_1, \dots, v_r\}\) eine Basis von \(U'\).
+    \(B = \{v_1, \dots v_n\}\) ist eine Basis von V. \(\Ima(F)\) hat
+    \(\{F(v_1), \dots, F(v_r)\}\) als Basis.\\
+    \(
+      \sum_{i=1}^n \lb_i F(v_i) = 0
+      \Rightarrow F(\sum_{i=1}^n \lb_i v_i) = 0
+      \Rightarrow \sum_{i=1}^n \lb_i v_i) \in U
+                  \land \sum_{i=1}^n \lb_i v_i) \in U'
+      \Rightarrow \sum_{i=1}^n \lb_i v_i) = 0
+      \Rightarrow \lb_1 = \dots \lb_n = 0
+    \).
+    Erg\"anze \(\{F(v_1), \dots, F(v_r)\}\) zu einer Basis
+    \(B' = \{w_1, \dots, w_m\}\) von W.
+    \(
+      F(v_1), \dots, F(v_r), F(v_{r+1}), \dots, F(v_n)\\
+      \begin{pmatrix}
+        1      & \dots  & 0      & 0      & \dots  & 0\\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0      & \dots  & 1      & 0      & \dots  & 0\\
+        0      & \dots  & 0      & 0      & \dots  & 0\\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0      & \dots  & 0      & 0      & \dots  & 0 & 
+      \end{pmatrix}
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{definition}[Invertierbarkeit von Matrizen]
+  \(A \in M_{n\times n}(K)\) ist invertierbar, fall es eine Matrix
+  \(B \in M_{n\times n}(K)\) gibt, so dass \(A \cdot B = B \cdot A = Id_n\).
+  B wird dann als \(A^{-1}\) bezeichnet.\\
+  \(GL(n, k) = Gl_n(K) = \{A \in M_{n\times n}(K) \text{invertierbar}\}\) ist
+  eine Gruppe.\\
+  \(A \in GL_k(n) \Leftrightarrow \rg(A) = n\) (Eine Matrix ist genau dann
+  invertierbar, wenn sie regul\"ar ist).
+\end{definition}
+
+\begin{bemerkung}
+  Sei A regul\"ar. Dann besitz ein Gleichungssystem der Form
+  \(A \v{\lb_1\\ \vdots \\ \lb_n} = \v{b_1 \\ \vdots \\ b_n}\) die Eindeutige
+  L\"osung, \(A^{-1} \v{b_1 \\ \vdots \\ b_n}\).
+\end{bemerkung}
+
+\begin{bemerkung}
+  A ist regul\"ar genau dann wenn A sich durch elementare Zeilenoperationen in
+  \(Id_n\) \"uberf\"uhren l\"asst.\\
+  \(E_{i,j}\) sei Die Matrix, die an der Stelle ij 1 ist, ansonsten 0.\\
+  Elementare Zeilenoperationen sind:\\
+  Multiplikation der Zeile i mit \(\lb\): \(\Id_n + (\lb  -1) E_{i,j}\).\\
+  Addieren von \(\lb\) mal der iten Zeilten zur jten: \(Id_n + \lb E_{i,j}\).\\
+  Vertauschung der i-ten und j-ten Zeile: \(Id_n - E_{ii} - E_{jj} + E_{j,i} + E_{i,j}\)\\
+\end{bemerkung}
+
+\begin{bemerkung}
+Das inverse einer Matrix l\"asst sich durch nutzen dieser elementaren
+Zeilenoperationen nach z.B. dem Gau\ss{}-Jordan Verfahren errechnen:\\
+\(
+  \left(
+  \begin{array}{c|c}
+    A & Id_n
+  \end{array}
+  \right)
+  \overset{Zeilenoperationen}{\to}
+  \left(
+  \begin{array}{c|c}
+  Id_n & A^{-1}
+    \end{array}
+  \right)
+\)\\
+Die linke H\"alfte der Ergebnis Matrix enth\"alt dann \(A^{-1}\), denn:\\
+\(
+B_m \dots B_2 B_1 A = Id_n \Rightarrow B_m \dots B_1 = A^{-1}
+\)
+\end{bemerkung}
+
+% Basiswechselmatrizen?
+\begin{definition}[\"Ubergangsmatrizen]
+  Es sei \(dim(V) = n\) und \(\{v_1, \dots, v_n\}\),  \(\{v_1', \dots, v_n'\}\)
+  Basen von V. Weiterhin sei \(F: V \to V, v_i \mapsto v_i'\). Dann gilt:\\
+  \(v_i' = \sum_{ij} s_{ij} v_j\) und die darstellende Matrix S von F, 
+  \(
+  S = \begin{pmatrix}
+    s_{11} & \dots  & s_{1m}\\
+    \vdots & \ddots & \vdots\\
+    s_{n1} & \dots  & s_{nm}
+  \end{pmatrix}
+  \)
+  ist regul\"ar.
+\end{definition}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
