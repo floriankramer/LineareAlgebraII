@@ -774,6 +774,195 @@ B_m \dots B_2 B_1 A = Id_n \Rightarrow B_m \dots B_1 = A^{-1}
   ist regul\"ar.
 \end{definition}
 
+
+\begin{definition}
+  Zwei (mxn) Matrizen A, A' sind \"aquivalent, falls es reg\"lare matrizen \(T
+  \in GL_m(K), s \in GL_n(K)\) gibt, so dass \(A' = T^{-1} \cdot A \cdot S\).\\
+  \(A, A' \in M_{n \times n}(K)\)  sind \"ahnlich, fall es \(S \in GL_n(K)\)
+  gibt, so dass \(A' = s^{-1} \cdot A \cdot S\).
+\end{definition}
+
+\begin{bemerkung}
+  \"Ahnlichkeit ist eine \"Aquivalenzrelation auf \(M_{n \times n}(K)\).
+\end{bemerkung}
+
+
+\begin{definition}[Determinante]
+  \(det K^n \to K\) ist eine multilineare alternierende  Abildung der Art,
+  dass \(det(e_1, \dots, e_n) = 1\).\\
+  \(A \in M_{n \times n}(K)\)\\
+  \(A = (a_1 | a_2 | \dots | a)n) \Rightarrow det(a_1, a_2, \dots, a_n) = det(A)\).\\
+  \(A = (a_ij), det(a_ij) = \sum sign(\pi) \cdot \Pi_{i=1}^n a_{\pi(i)i}\) mit
+  \(sign(\pi) = -1^{\text{Anzahl der Fehlst\"ande von }\pi}\) bzw. Anzahl von
+  Faktoren von \(\pi\) als Produkt von Transpositionen.
+\end{definition}
+
+Eigenschaften von Determinanten:\\
+\begin{enumerate}
+  \item{\(det(A \cdot B) = \det(A) \det(B)\)\\}
+  \item{A ist genau dann invertierbar, wenn \(det(A) \neq 0\)\\}
+  \item{\(\det(A^-1) = det(A)^{-1}\)}
+  \item{\(\det(A^T) = \det(A)\)}
+\end{enumerate}
+
+\begin{bemerkung}
+  \(Id_n + (-\Id_n)\) ist nicht invertierbar, also \(\exists A, B : det(A+B) \neq \det(A) + \det(B)\)
+\end{bemerkung}
+
+\begin{satz}[Laplacescher entwicklkungssats]
+  Sei \(j_0\) ein Spaltenindex\\
+  \(det(A) = \sum_{i=1}^n (-1)^{i+j_0} a_{ij_o} det(A_{j_0i})\) wobei
+  \(A_{j_{0i}}\) die Matrix ohne Zeile \(j_0\) und Spalte i ist.
+\end{satz}
+
+
+\begin{satz}[Cramersche Regel]
+  \((a_1 | \dots | a_n) = A, A \v{\lb_1\\ \vdots \\ \lb_n} = \v{b_1 \\ \vdots \\ b_n}\)
+  Falls A regul|'ar ist, gibt es eine einzige L\'Osung zum System:
+  \(\lb_j = \frac{det(a_1, \dots, a_{j-1}, b_j, a_{j+1}, \dots, a_n}{det(A)}\)
+\end{satz}
+
+\begin{definition}[Determinante eines Homomorphismus]
+  Sei \(F : V \to V\). \(det(F) = det(A)\) woei \(A\) eine Darstellungmatrix von F bezgl. einer Baiss \(\{v_1, \dots, v_n\}\).
+\end{definition}
+
+
+\begin{definition}[Adjunte Matrix]
+Sei A eine \(n\times n\) Matrix, dann ist die Adjunte von A\\
+\(\adj(A) = (\gamma_{ij})\) mit \(\gamma_{ij} = (-1)^{i+ j} \det(A_{ij}\)
+\end{definition}
+
+\begin{bemerkung}
+  Sei \(c_i\) die j-te Zeile von \(\adj(A)\). Sei weiterhing \(a_i\) die i-te
+  Spalte von A.\\
+  \(\gamma_{j1}, \dots, \gamma_{jn} \cdot \v{a_{1i}\ \\vdots \\ a_{ni}}
+  = \sum_{k=1}^n \gamma_{jk} a_{ki} = \sum_{k=1}^n (-1)^{j+n} a_{ki} \det(A_{jk})
+  \overset{\text{Laplacescher Entw. Satz}}{=}
+  \det(a_1, \dots, a_{j-1} , a_i, a_{j+1}, \dots, a_n) =
+  \begin{cases}
+   \det(A) & j=i\\
+   0 & j \neq i
+  \end{cases}\)\\
+  Angenommen A ist regul\"ar.\\
+  \(adj(A) \cdot A = det(A) \cdot Id_n
+    \Rightarrow \frac{\adj(A)}{\det(A) \cdot A} = \Id_n = A^{-1} \cdot A
+    \Rightarrow \frac{\adj(A)}{\det(A)} = A^{-1}
+    \Rightarrow A \cdot \adj(A) = det(A) Id_n
+  \)
+\end{bemerkung}
+
+\section{Diagonalisiserbarkeit}
+Sei V ein Vektorraum, \(\{U_i\}_{i=1}^k\) Unterr\"aume von V.\\
+\(V = \oplus_{i=1}^k U_i
+\Leftrightarrow V = \sum_{i=1}^n U_i \land U_i \bigcap(\sum_{j=1}^k U_i) = 0\)\\
+\"Aquivalent dazu ist, dass jeder Vektor \(v \in V\) sich eindeutig als
+Linearkombination von Vektoren \(\cup_{j=i}^k B_j\) schreiben l\"asst, woebi
+\(B_j\) eine Basis von \(U_i\) ist.
+
+\begin{definition}[Eigenwerte und -vektoren]
+  Ein Endomorphismus \(F : V \to V\) besitzt einen Eigenvektor, falls es ein
+  \(v \in V \setminus \{0\}\), so dass \(F(V)  \lb \cdot v\) f\"ur ein
+  \(\lb \in K\). Falls \(F(v) = \lb v\) ist \(\lambda\) eindeutig bestimmt durch
+  F und v. \(\lambda\) ist dann ein Eigenwert von F.
+\end{definition}
+
+\begin{definition}[Eigenr\"aume]
+  \(\lb \in K, F V \to V\) Endomorphismus.\\
+  \(V(\lb) = \{v \in V | F(v) = \lb v\}\), der Eigeneraum zu \(\lb\) is ein UVR.
+\end{definition}
+
+\begin{bemerkung}
+  \(\lb\) ist ein Eigenwet von F gdw, \(dim(V(\lb)) \ge 1\).
+\end{bemerkung}
+
+\begin{bemerkung}
+  Falls \(\lb_1, \dots, \lb_k\) verschiedene Eigenwerte von F \(\Rightarrow
+  V(\lb_i) \cap \sum_{j=1, j \neq i}^k V(\lb_j) = \{0\}\)
+\end{bemerkung}
+
+
+\begin{definition}[Diagonalisiserbarkeit]
+  Sei V ein endlichdimensionaler Vektorraum. \(F : V \to V\) Endomorphismus.
+  Bzw. eine Matrix \(A : K^n \to K^n\). F ist diagonalisierbar, falls
+  \(V = \oplus_{i=1}^k V('lb), \lb\) verschiedene Eigenwerte von F.\\
+  \"Aquivalent dazu, wenn V eine basis von Eigenwerten von F besitzt.
+  \"Aquivalent dazu, wenn F bez\"uglich einer Basis von V die Darstellungsmatrix
+  \(
+    \begin{pmatrix}
+      \lb_1  &        & 0\\
+             & \ddots &\\
+      0      &        & \lb_n
+    \end{pmatrix}
+  \) hat.\\
+  \"Aquivalentz dazu, f\"ur Matrizen: A ist diagonalisierbar gdw.es eine regul\"are
+  Matrix S gibt, soda\ss{} \(S^{-1}AS = 
+  \begin{pmatrix}
+    \lb_1  &        & 0\\
+           & \ddots &\\
+    0      &        & \lb_n
+  \end{pmatrix}\)
+\end{definition}
+
+\begin{satz}
+  \(A \in M_{n\times n}(K), \lb \in K\)\\
+  \(\lb\) ist ein Eigenwert von A gdw. \(\lb Id_n - A\) nicht regul\"ar ist.
+  \(\Leftrightarrow det(\lb \cdot Id_n -A) = 0\)
+\end{satz}
+
+\begin{definition}[Charakteristisches Polynom]
+  Das charakteristische Polynom einer Matrix \(A \in M_{nxn}(K)\) ist 
+  \(\xi_{A(T)} = det(T \cdot Id_n - A)\)
+\end{definition}
+
+\begin{bemerkung}
+  \(\lb\) ist ein eigenwert von A \(\Leftrightarrow \xi_A(\lb) = 0\)
+\end{bemerkung}
+
+\textbf{Beispiel}
+\(
+  \begin{pmatrix}
+   0 & -1\\
+   -1 & 0
+  \end{pmatrix}\\
+  \xi_{A(T)} = T^2 + 1 = \det(
+  \begin{pmatrix}
+    T & -1\\
+    1 & T
+  \end{pmatrix}
+  )
+\)
+
+\begin{bemerkung}
+  A und \(A'\) \"ahnlich, \(A' = s^{-1}AS \Rightarrow \xi_A(T) = \xi_{A'}(T)\).
+  Insebsondere k\"onnen wir \"uber das charakteritische Polynom eines
+  Endomorphismus reden.\\
+  \(A \in M_{nxn}(K), \xi_A(T) = T^n + b_{n-1} T^{n-1} + \dots + b_o\) wobei
+  \(b_0 = (-1)^n det(A), b_n{-1} = - Tr(A) = - \sum_{i=1}^n a_{ii}\)
+\end{bemerkung}
+
+\begin{korrolar}
+  Ein Endomorphismus \(F : V \to V\) mit \(\dim(V) = n < \infty\) kann
+  h\"ochstens n viele Eigenwerte besizten.
+\end{korrolar}
+
+\begin{korrolar}
+  \(F : V \to V\) mit \(\dim(V) = n < \infty\) mit verschiedenen Eigenwerten
+  \((\lb_1, \dots, \lb_n)\) ist diagonalisierbar,  gdw. 
+  \(n = \sum_{i=1}^k d_i, d_i = \dim(V(\lb_i))\). \(d_i\) hei\ss{}t geometrische
+  Vielfachheit von \(\lb_i\).
+  
+  \begin{proof} \hfill\break
+  \(\Rightarrow\)\\
+  F ist diag. gdw. V eine Basis aus Eigenvektoren besitzt, welche aus
+  \(\cup_{i=1}^n B_i\) besteht, \(|B_I| = di = dim(V\lb_i)\),
+  \(n = |B| = \sum_{i=1}^k |B_i|\)\\
+  \(\Leftarrow\)\\
+    \(n = \sum d_i \Rightarrow \dim(\sum_{i=1}^k (V(\lb_i))) = n
+    \Rightarrow V = \sum_{i=1}^k(V(lb_i)\) da die Eigenr\"aume tranversal sind,
+     und ein Vektorraum nur eienn UVR der dimension dim(V) hat, sich selbst.
+  \end{proof}
+\end{korrolar}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
