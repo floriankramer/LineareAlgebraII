@@ -94,6 +94,7 @@
 \DeclareMathOperator{\TR}{Tr}
 \DeclareMathOperator{\Grad}{Grad}
 \DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\ord}{ord}
 
 
 % increase line height
@@ -959,9 +960,149 @@ Linearkombination von Vektoren \(\cup_{j=i}^k B_j\) schreiben l\"asst, woebi
   \(\Leftarrow\)\\
     \(n = \sum d_i \Rightarrow \dim(\sum_{i=1}^k (V(\lb_i))) = n
     \Rightarrow V = \sum_{i=1}^k(V(lb_i)\) da die Eigenr\"aume tranversal sind,
-     und ein Vektorraum nur eienn UVR der dimension dim(V) hat, sich selbst.
+     und ein Vektorraum nur einen UVR der dimension dim(V) hat, sich selbst.
   \end{proof}
 \end{korrolar}
+
+
+% potentially missing part of the beginning of lecture 4
+\begin{definition}[Algebraische Vielfachheit]
+  Es seien \(F : V \to V\) ein Endomorphismus, \(dim(V) = n < \infty\),
+  \(\lb \in K\) Eigenwert \(\Rightarrow \xi_F(\lb) = 0\).\\
+  Dann gilt  \(\xi_F(T) = (T-\lb)^K G(T)\), \(G(\lb) \neq 0\). k ist die
+  algebraische Vielfachheit von \(\lb\), bzw. \(\ord_\lb(F)\).
+\end{definition}
+
+\begin{bemerkung}
+  \(\ord_\lb(F) \ge \dim(V(\lb))\)\\
+  \begin{proof}
+    Sei \({v_1, \dots, v_k}\) eine Basis von \(V(\lb)\). Wir erweitern sie zu
+    einer Basis \(\{v_1, \dots, v_k, v_{K+1}, \dots, v_n\}\) von V. Die
+    Darstellungsmatrix M von F bzwg. B ist dann\\
+    \(\{F(v_1), \dots, F(v_k), F(v_{k+1}), F(v_n)\}\).\\
+    \(
+      \begin{pmatrix}
+        \lb &        & 0         & \\
+            & \ddots &           & \\
+        0   &        &  \lambda  & C_2 \\
+            & 0  
+      \end{pmatrix}
+    \)\\
+    Wobei \(C_2 \in Mat_{n-k \times k}(K)\).\\
+    \(
+      \xi_F(T) = det(T Id_n - M)
+      = (T - \lb)^k \cdot \det(T Id_{n-k} \cdot C_1)\\
+      \Rightarrow \ord_\lb(F) \ge K
+    \). Wobei \(\det(T Id_{n-k} \cdot C_1) = 0\) sein kann.
+  \end{proof}
+\end{bemerkung}
+
+\begin{lemma}
+  Sei V endlichdimensional, \(F : V \to V\) ein Endomorphismus,
+  U ein F-Invarianter Unterraum (\(F(U) \subset U\)).\\
+  \(F' : V/U \to V/U\) ist eine lineare Abbildung,
+  \(\bar{V} \mapsto \bar{F(V)}\). \(F'\) ist woldefiniert, linear und es gilt
+  \(\xi_F(T) = \xi_{F|_U}(T)\cdot\xi_{F'}(T)\)
+  \begin{proof}\hfill\break
+    \(F'\) ist wohldefiniert;\\
+    \(\bar{v_1} = \bar{v} \overset{zZ}{\Rightarrow} F'(v_1) = F(v)\)
+    \(
+      \bar{v_1} = \bar{v} 
+      \Rightarrow v_1 = v + (v_1 - v), v_1 - v \in U\\
+      \Rightarrow F(v_1) = F(v) + F(v_1 - v),  F(v_1 - v) \in U
+      \Rightarrow \bar{F(v_1)} = \bar{F(v)}
+    \)\\
+    Restklassen sind linear und F ist linear \(\Rightarrow F'\) ist linear.\\
+    Sei \(\{u_1, \dots, u_k\}\) eine Basis von U. erweitert zu
+    \(\{u_1, \dots, u_k, v_{k+1}, \dots, v_n\}\) sei sie eine Basis von V.
+    \begin{bemerkung}
+      \(\{\bar{v_{k+1}}, \dots, \bar{{v_n}}\}\) ist eine Basis von \(V/U\).
+      Bew. Einfach.
+    \end{bemerkung}
+    Darstellungsmatrix H von F bzgl. B:\\
+    \(
+      \begin{array}{c}
+        u_1\\ \vdots \\ u_k \\ v_{k+1} \\ \vdots \\ v_n
+      \end{array}
+      \begin{pmatrix}
+        &           \\
+        & A      &        &        &  & C_2\\
+        &           \\
+        & 0      & \dots  & 0   \\
+        & \vdots & \ddots & \vdots &  &C_1\\
+        & 0      & \dots  & 0
+      \end{pmatrix}
+    \) mit \(A, C_1, C_2\) Matrizen.\\
+    \(\xi_F(T) = det(T Id_n - H)
+    = \det(T Id_n - \begin{pmatrix}A & C_2 \\ 0 & C_1\end{pmatrix})\\
+    = \det(\begin{pmatrix}T _id_k - A & -C_2 \\ 0 & T_ Id_{n-k} -C_1\end{pmatrix})
+    = \det(T_id_k - A) \cot det (T_E{n-k} - C_1)
+    \)\\
+     A ist die Darstellungsmatrix von \(F|_U\) bez\"uglich \(\{u_1, \dots, u_k\}\)
+     \(\Rightarrow det(T Id_k - A) = \xi_{F|_U}(T)\)\\
+     \(C_1\) ist die Darstellungmatrixvon \(F'\) bzg.
+     \(\{\bar{v_{k+1}}, \dots, \bar{v_n}\}\).\\
+     \(\Rightarrow \det(T \Id_{n-k}-C_1) = \xi_{F'}(T)\)
+  \end{proof}
+\end{lemma}
+
+\begin{satz}
+  Sei \(K\) ein K\"orper, \(dim(V) < \infty, F : V \to V\) ein Endomorphismus so 
+  gilt:\\
+  F Diagonalisierbar gdw \(\xi_F(T) = (T-\lb_1)^{k_1} \dots (T- \lb_n)^{k_n}\)
+  in Linearfaktoren zerf\"allt, wobei f\"ur jeden Faktor \(\lb_1, \dots, \lb_n\)
+  \(T-\lb_i\) gilt \(\ord_{lb_i}(F) = \dim(V(\lb_i))\).
+  \begin{proof}\hfill\break
+  \(\Rightarrow\)\\
+    Sei \(b = \{v_1, \dots, v_n\}\) eine Basis von Eigenvektoren. Seien
+    \(\lb_1, \dots \lb_r\) die verschiedenen Eigenwerte. Ordne nun B um so dass\\
+    \(
+      v_1, \dots, v_{d_1} \in V(\lb_i), 
+      v_{d_1 + 1}, \dots v_{d_1 + d_2} \in V(\lb_2)
+      , \dots,
+      v_{d_1  + \dots + d_{r-1}}, \dots v_{d_1 + \dots + d_r} \in V(\lb_r)\) mit
+    \(d_i = dim(V(\lb_i))\).\\
+    Die Darstellungsmatrix von F bzgl. B:\\
+    \((F(v_1), \dots, F(v_{d_1}), \dots F(v_r)\)\\
+    \(
+      \begin{pmatrix}
+        \lb_1 & \\
+              & \ddots &  \\
+              &        & \lb_1\\
+              &        &       & \lb_r & \\
+              &        &       &       & \ddots &  \\
+              &        &       &       &        & \lb_r
+      \end{pmatrix}
+      %d_1 viele  \lb_1 auf der Diagonale
+    \)\\
+    Wobei \(d_i\) viele \(\lb_i\) auf der Diagonale sind\\
+    \(\xi_F(T) = det(T \Id_n - A) = (T - \lb_1)^{d_1} \dots T(-\lb_r)^{d_t}\)
+    \(((T - \lb_2)^{d_2} \dots T(-\lb_r)^{d_t})(\lb_1) \neq 0
+    \Rightarrow d_i = \ord_{\lb_I}(F)
+    \), da die \(\lb_i\) verschieden sind.\\
+    \(\Leftarrow\)\\
+    \(\xi_F(T) = (T - \lb_i)^{d_1} \dots (T - \lb_r)^{d_r}\)\\
+    F ist diag \(\Leftrightarrow n = dim(V) = \sum d_i\)
+  \end{proof}
+\end{satz}
+
+
+\begin{definition}
+  Eine Matrix \(A \in M_{n\times n}(K)\) ist diagonalisierbar, wenn sie
+  \"ahnlich zu einer oberen  Dreiecksmatrix ist:\\
+  \(
+    \begin{pmatrix}
+    a_{11} & \dots  & a_{1n}\\
+           & \ddots & \vdots\\
+    0      &        & a_{nn}\\
+    \end{pmatrix}
+  \)
+\end{definition}
+
+\begin{satz}
+  \(F : V \to V\) ist diagonalisierbar gdw. \(\xi_F(t)\) in Linearfaktoren
+  zerf\"allt \(\xi_F(T) = (T - \lb_1) \dots (T - \lb_n)\).
+\end{satz}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
