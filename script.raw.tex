@@ -1,0 +1,1243 @@
+\documentclass{report}
+
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{tikz}
+\usepackage{thmtools}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{relsize}
+\usepackage{imakeidx}
+\usepackage{framed}
+\usepackage{etoolbox}
+\usepackage{float}
+
+% configure tikz circles & nodes
+\tikzset{
+  node style sp/.style={draw,circle,minimum size=1cm},
+  node style ge/.style={circle,minimum size=1cm},
+  arrow style mul/.style={draw,sloped,midway,fill=white},
+  arrow style plus/.style={midway,sloped,fill=white},
+}
+% tikz dependencies:
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, decorations.markings, positioning, tikzmark}
+
+% page size & margins:
+\usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
+
+% defines index commands with hyperref
+\makeindex[columns=3, title=Stichwortverzeichnis, intoc=true,options={-s index_style.ist}]
+\newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
+\newcommand{\IN}[1]{\index{#1|BH}}
+
+\title{Lineare Algebra II\\Mitschrieb}
+
+% title formatting of sections
+\titleformat{\chapter}[block]
+{\normalfont\huge\bfseries}{\Huge \thechapter. }{0em}{\Huge}
+\titlespacing*{\chapter}{0pt}{-15pt}{20pt}
+\titlespacing*{\section}{0pt}{0pt}{10pt}
+\titlespacing*{\subsection}{0pt}{0pt}{10pt}
+
+
+% ease of use commands
+\newcommand{\lb}{\lambda}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+
+\newcommand{\mlb}{\(\lb\)}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\mR}{\(\mathbb{R}\)}
+\newcommand{\mN}{\(\mathbb{N}\)}
+\newcommand{\mZ}{\(\mathbb{Z}\)}
+\newcommand{\mQ}{\(\mathbb{Q}\)}
+\newcommand{\mC}{\(\mathbb{C}\)}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\mRn}{\(\mathbb{R}^n\)}
+\newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
+\renewcommand{\v}{\ve}
+\newcommand{\baseb}{\mathcal{B}}
+\newcommand{\basea}{\mathcal{A}}
+\newcommand{\En}{\mathrm{E}_n}
+
+\DeclareMathOperator{\abb}{Abb}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\PE}{PE}
+\DeclareMathOperator{\MM}{M}
+\DeclareMathOperator{\TR}{Tr}
+\DeclareMathOperator{\Grad}{Grad}
+\DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\ord}{ord}
+
+
+% increase line height
+\renewcommand{\baselinestretch}{1.3}
+
+% redefines description label for alternative enumeration in description environement
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\emph{#1}}
+
+% define main environment used for lemmas, definitions, corollaries, ...
+\makeatletter
+\newtheoremstyle{customdef} % name of the style to be used
+{12pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{12pt}        % measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
+{-7pt}        % measure of space to indent
+{\bfseries}   % name of head font
+{ \\[.125cm] }% punctuation between head and body
+{ }           % space after theorem head; " " = normal interword space
+{\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  \defemph{#3}}}}
+
+\newtheoremstyle{customenv} % name of the style to be used
+{12pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{12pt}        % measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
+{-7pt}        % measure of space to indent
+{\bfseries}   % name of head font
+{ \\[.125cm] }% punctuation between head and body
+{ }           % space after theorem head; " " = normal interword space
+{#3}
+\makeatother
+
+% define side environment used for remarks
+\newtheoremstyle{customrem} % name of the style to be used
+{0pt}         % measure of space to leave above the theorem. E.g.: 3pt
+{0pt}         % measure of space to leave below the theorem. E.g.: 3pt
+{}            % name of font to use in the body of the theorem
+{}            % measure of space to indent
+{\itshape}    % name of head font
+{}            % punctuation between head and body
+{.5em}        % space after theorem head; " " = normal interword space
+{}
+
+% define remarks:
+\theoremstyle{customrem}
+\newtheorem*{bemerkung}{Bemerkung\textnormal:}
+\newtheorem*{bemerkung2}{Bemerkungen\textnormal:}
+\newenvironment{bemerkungen}[1][]{\begin{bemerkung2}[#1]\leavevmode}{\end{bemerkung2}}
+
+% define definition environment names
+\theoremstyle{customdef}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem*{definitionn}{Definition} % without numbering
+\newtheorem{altdefinition}[definition]{Alternative Definition}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{korrolar}[definition]{Korollar}
+\newtheorem{satz}[definition]{Satz}
+\newtheorem*{satz*}{Satz} % without numbering
+\renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
+\theoremstyle{customenv}
+\newtheorem*{customenv}{customenv} % weird
+
+% define definition emphasis
+\newcommand{\defemph}[1]{\textsc{#1}}
+
+% disables autoindent
+\setlength{\parindent}{0em}
+
+% defines lists of theorems:
+
+\let\Chaptermark\chaptermark
+\def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
+\makeatletter
+% \AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter{0 - Lineare Gleichungssysteme und der n-dimensionale reelle Raum}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
+\patchcmd\thmtlo@chaptervspacehack
+{\addtocontents{loe}{\protect\addvspace{10\p@}}}
+{\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter\space-\space\Chaptername}}}
+{}{}
+\AtEndDocument{\addtocontents{loe}{\protect\thmlopatch@endchapter}}
+\long\def\thmlopatch@chapter#1#2\thmlopatch@endchapter{%
+  \setbox\z@=\vbox{#2}%
+  \ifdim\ht\z@>\z@
+  \addvspace{10\p@}
+  \hbox{\bfseries\chaptername\ #1}\nobreak
+  #2
+  \addvspace{10\p@}
+  \fi
+}
+\def\thmlopatch@endchapter{}
+
+\def\ll@definition{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@definitionn{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@altdefinition{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@satz{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@lemma{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@korrolar{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\def\ll@customenv{%
+  \protect\thmtopatch@numbernametext
+  \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+  {\csname the\thmt@envname\endcsname}%
+  {\thmt@thmname}%
+}
+
+\newcommand\thmtopatch@numbernametext[3][]{%
+  #3 #2%
+  \if\relax\detokenize{#1}\relax\else:\space\space #1\fi
+}
+
+\makeatother
+
+
+% replace ugly hyperref boxes with colored text
+\usepackage{xcolor}
+\hypersetup{
+  colorlinks,
+  linkcolor = {red!50!black},
+  urlcolor  = {blue!80!black}
+}
+\setcounter{chapter}{-1}
+
+% define coefficient matrix environment
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+% define new overline command
+\newcommand*\xoverline[2][.8]{%
+  \sbox{\myboxA}{$\m@th#2$}%
+  \setbox\myboxB\null% Phantom box
+  \ht\myboxB=\ht\myboxA%
+  \dp\myboxB=\dp\myboxA%
+  \wd\myboxB=#1\wd\myboxA% Scale phantom
+  \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+  \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+  \addtolength\mylenA{-\the\wd\myboxB}%
+  \ifdim\wd\myboxB<\wd\myboxA%
+  \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+  \else
+  \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+  \fi}
+\makeatother
+
+% defines bigslant for quotient (and bigbigslant for single nested quotients)
+\newcommand{\bigslant}[2]{{\raisebox{.1em}{\(#1\)}\hspace{-.2em}\left/\raisebox{-.1em}{\(#2\)}\right.}}
+\newcommand{\bigbigslant}[2]{{\raisebox{.4em}{\(#1\)}\hspace{-.2em}\left/\raisebox{-.4em}{\(#2\)}\right.}}
+
+\begin{document}
+\begin{titlepage}
+  \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+  \centering
+  \vspace{6cm}
+  \textsc{\large \thinspace}\\[0.5cm]
+  \vspace{4cm}
+  \HRule \\[0.8cm]
+  { \Huge  \textbf{Lineare Algebra \(\mathbf{II}\)}}\\[0.4cm]
+  \HRule \\[.5cm]
+  {\Large Inoffizieller Mitschrieb}\\[1.0cm]
+  Stand: \today
+  \\[11.5cm]
+  \begin{minipage}{0.65\textwidth}
+    \begin{center} \large
+      \textsl{Vorlesung gehalten von:}\\[1cm]
+      Prof. Dr. Amador Martín-Pizarro\\
+      Abteilung für Angewandte Mathematik\\
+      \textsc{\large Albert-Ludwigs-Universität Freiburg}
+    \end{center}
+  \end{minipage}\\[2.5cm]
+  \thispagestyle{empty}
+\end{titlepage}
+
+
+\chapter{Recap}
+
+\begin{definition}[Ring]
+  Ein (kommutativer) Ring (mit Einselement) ist eine Menge zusammen mit zwei
+  bin\"aren Operationen \(+, \cdot\), derart, dass:\\
+  \begin{itemize}
+    \item{\((R, +)\) ist eine abelsche Gruppe}
+    \item{\((R, \cdot)\) ist eine kommutative Halbgruppe}
+    \item{die Dsitributivgesetze:\\
+    \(a(x+y) = ax + ay\)\\
+    \((x + y) z = xz + yz\))}
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Integrit\"atsbereich]
+  Ein Integrit\"atsbereich ist ein Ring ohne Nullteiler. Also
+  \(\forall x, y \in R : x \cdot y = 0 \Rightarrow x = 0 \lor y = 0\)
+\end{definition}
+
+\begin{definition}[K\"orper]
+  Ein K\"orper ist ein Ring der Art, dass
+  \begin{enumerate}
+    \item{\(1 \neq 0\)}
+    \item{
+      \(
+        \forall x \in K : x \neq 0
+        \Rightarrow \exists x^{-1} : xx^{-1} = x^{-1}x = 1
+      \)
+    }
+  \end{enumerate}
+\end{definition}
+
+\begin{bemerkung}
+  K\"orper sind Integrit\"atsbereiche.
+\end{bemerkung}
+
+\begin{definition}[Charakteristik]
+  Sei R ein nicht trivialer Ring \((0 \neq 1)\).
+  \(
+    \varphi : \Z \rightarrow R, z \mapsto
+    \begin{cases}
+      \sum_{i=1}^n 1 & n >= 0\\
+      -\sum_{i=1}^n 1 & \text{ansonsten}
+    \end{cases}
+  \)\\
+  Dann ist \(\varphi\) ein Ringhomomorphismus.\\
+  F\"ur den Kern von \(\varphi\) (\(\Ker(\varphi)\)) gibt es zwei
+  M\"oglichkeiten.
+  \begin{enumerate}
+    \item{\(\Ker(\varphi) = \{0\}, p = 0\)}
+    \item{
+      \(\Ker(\varphi) \neq \{0\}\). Dann gibt es ein kleinstes echt positives
+      Element \(p \in \Ker(\varphi)\).
+    }
+  \end{enumerate}
+  R hat dann Charakteristik p \((\Char(R) = p)\). Falls R ein
+  Integritaetsbereich ist, dann ist p eine Primzahl.
+  \textbf{Beispiele:}\\
+  \(\Z / n\Z = \{\bar{0}, \dots, \bar{n}\}\) hat Charakteristik n.\\
+  Insbesondere enth\"alt jeder K\"orper mit Charakteristik p eine ''Kopie'' von
+  \(\Z / m\Z\):\\
+  k hat Charakteristik p \(\Rightarrow \Z /p\Z
+  \overset{injectiv}{\leftrightarrow} K\).\\
+  Hier ist \(\Z/p\Z\) ein K\"orper:\\
+  \(a \in \Z/p\Z \setminus \{0\} \Rightarrow\) es ist a mit p teilerfremd.
+  \(1 = a \cdot b + p \cdot m \Rightarrow \bar{1} = \bar{a} \cdot \bar{b}\).
+\end{definition}
+
+\begin{definition}[Polynomring]
+  Sei K ein K\"orper. Der Polynomring \(K[T]\) in einer Variable R \"uber K ist
+  die Menge formeller Summen der Form:\\
+  \(f = \sum_{i = 0}^n a_i \cdot T^i, n \in \N\)\\
+  Der Grad von \(f \in K[T]\) ist definiert als:\\
+  \(\Grad(f) := max(m | m < n \land a_m \neq 0)\)\\
+  \(\Grad(0) := -1\)\\
+  Falls \(Grad(f) = n\) und \(n = 1\) hei\ss{}t das Polynom normiert.\\
+  Die Summe und das Produkt von Polynomen sind definiert als:\\
+  \(
+    \sum_{i=0}^n a_i T^i + \sum_{j=0}^m b_j T^j 
+    := \sum_{k=0}^{max(m,n)} (a_k b_k) T^k
+  \)\\
+  \(
+    \sum_{i=0}^n a_i T^i \cdot \sum_{j=0}^m b_j T^j 
+    := \sum_{k=0}^{m+j} = c_K T^k, c_k = \sum_i+j=k a_i b_j
+  \)\\
+\end{definition}
+
+\begin{bemerkung}
+  \(K[T]\) ist ein Integrit\"atsbereich.\\
+\end{bemerkung}
+
+\begin{korrolar}
+  Es seien \(f, g\) beide \(\neq 0\)\\
+  \(
+    \Rightarrow \Grad(f \cdot g)
+    = \Grad(f) + \Grad(g) \Rightarrow f \cdot g \neq 0
+  \)\\
+  \(\Grad(f+g) \le max(\Grad(f), \Grad(g))\)\\
+\end{korrolar}
+
+\begin{satz}[Division mit Rest]
+  Gegeben \(f, g \in K[T], \Grad(g) > 0\). Dann existieren eindeutige 
+  Polynome q, r, so dass \(f = g \dot q + r\), wobei \(\Grad(r) < \Grad(g)\).
+  \begin{proof}
+    Eindeutigkeit: Angenommen
+    \(f = g \cdot q + r = g \cdot q' + r', q \neq q' \lor r \neq r'\).\\
+    \(
+      \Rightarrow g(q - q') = r' - r
+      \Rightarrow \Grad(r' - r) = max(\Grad(r'), \Grad(r)) < \Grad(g)
+                  = \Grad(g(q - q'))
+      \Rightarrow\) Widerspruch \(
+      \Rightarrow q = q' \Rightarrow r = r'
+    \)
+    Existenz: Induktion auf \(\Grad(f)\)\\
+    \(\Grad(f) = 0 \Rightarrow f = g \cdot 0 + f\)\\
+    \(\Grad(f) = n + 1\)\\
+    \(\Grad(f) < \Grad(g) = m \Rightarrow f = g \cdot 0 + f\)\\
+    OBdA. \(n + 1 = \Grad(f) \ge \Grad(g) = m > 0\)\\
+    \(f = a_{n + 1} \cdot T^{n+1} + \hat{f},
+    \Grad(\hat{f}) \le n, a_{n + 1} \neq 0\)\\
+    Sei \(
+      f' = f - b_m^{-1} a_{n+1}T^{n+1-m} \cdot g \Rightarrow \Grad(f') \le n
+    \)
+    Ia: \(f' = g \cdot q' + r', \Grad(r') < \Grad(g)\)\\
+    \(
+      f' = f - b-b^{-1}a_{n+1}T{n + 1 - m} \cdot g
+      \Rightarrow f = g(b_n^{-1}a_{n+1}T^{n+1-m} +q')+r'
+      \Rightarrow \Grad(r') < \Grad(g)
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{definition}[Polynom Teilt]
+  \(f, g, q \in K[T]\), \(\Grad(g) > 0\)\\
+  \(g \text{ teilt } f  = g|_f\Leftrightarrow f = g \cdot q\)\\
+\end{definition}
+
+\begin{definition}[Nullstellen von Polynomen]
+  \(f \in K[T]\) besizt eine Nullstelle \(\lb \in K\) gdw.
+  \((T - \lb) |_f \Leftrightarrow f(\lb) = 0\).\\
+  f l\"asst sich dann schreiben als \(f = (T - \lb)q + r\).
+\end{definition}
+
+\begin{lemma}
+  \(f \in K[t], f\neq 0, \Grad(f) = n
+  \Rightarrow \) f besitzt h\"ochstens n Nullstellen in k.
+  \begin{proof}
+    \begin{itemize}
+      \item[\(n=0\)]{
+        \(\Rightarrow f = a_0, a_0 \neq 0\)
+      }
+      \item[\(n>0\)]{
+        Falls f keine Nullstellen in K besitzt \(\Rightarrow\) ok!\\
+        Sonst, sei \(\lb \in K\) eine Nullstelle von f.
+        \(f = (T -\lb) \cdot g, \Grad(g) = n-1 < n\)\\
+        I.A besitzt g h\"ochstens n - 1 Nullstellen. Jede Nullstelle von f ist
+        entweder \(\lb\) oder eine Nullstelle von g. \(\Rightarrow\) f hat
+        h\"ochstens n Nullstellen.\\
+      }
+    \end{itemize}
+  \end{proof}
+\end{lemma}
+
+\begin{definition}[Vielfachheit einer Nullstelle]
+  \(f \in K[T], f \neq 0, \lb \in K\) Nullstelle von f
+  \(\Rightarrow f = (T-\lb)^{K_\lb}\cdot g, g(\lb \neq 0\).
+  \(K_\lb\) ist die Vielfacheit der Nullstelle \(\lb\) in f.\\
+\end{definition}
+
+\begin{definition}
+  Ein K\"orper hei\ss{}t algebraisch abgeschlossen, falls jedes Polynom \"uber 
+  K positiven Grades eine Nullstelle besitzt.
+\end{definition}
+
+\textbf{Beispiele}
+Ist \(\R\) algebraisch abgeschlossen? Nein: \(T^2 + 1\).\\
+Bem.: \(\C\) ist algebraisch abgeschlossen.
+
+\begin{bemerkung}
+  Jeder algebraisch abgeschlossene K\"orper muss unendlich sein.
+  Sei \(K = \{\lb_1, \dots \lb_n\}, f = (T - \lb), \dots, (T - \lb_n) + 1\).\\
+\end{bemerkung}
+
+\begin{lemma}
+  K ist genau dann algebraisch abgeschlossen, wenn jedes Polynom positiven
+  Grades in lineare Faktoren zerf\"allt.\\
+  \(f = T(\lb_1) \dots (T - \lb_n)\).
+  \begin{proof}
+    \begin{itemize}
+      \item[\(\Leftarrow\)]{trivial}
+      \item[\(\Rightarrow\)]{
+        \(
+          \Grad(f) = n > 0
+          \Rightarrow f = (T - \lb_1) \cdot g, \Grad(g) \le n - 1 < n
+          \overset{I.A.}{\Rightarrow} f = c(T-\lb_1) \dots (T-\lb_n)
+        \)
+      }
+    \end{itemize}
+  \end{proof}
+\end{lemma}
+
+\begin{definition}[Vektorraum]
+  Vektorraum V \"uber K ist eine abelsche Gruppe \((V, +, 0_V)\) zusammen mit
+  einer Verkn\"upfung \(K \times V \to V\) \((\lb, v) \mapsto \lb v\) die die
+  folgenden Bedingungen erf\"ullt:\\
+  \begin{enumerate}
+    \item{\(\lb (v+w) = \lb v + \lb w\)}
+    \item{\(\lb(\mu \v) = (\lb \mu) v\)} 
+    \item{\((\lb + \mu) v = \lb v + \mu v\)}
+    \item{\(1_{k} v = v\)}
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Untervektorraum]
+  Ein Untervektorraum \(U \subset V\) ist eine Untergruppe, welche unter der
+  Skalarmultiplikation abgeschlossen ist. 
+\end{definition}
+
+\begin{bemerkung}
+  \(\{U_i\}_{i \in I}\) Untervektorr\"aume von V
+  \(\Rightarrow \bigcap_{i\in I} U_{i}\) ist Untervektorraum.
+  Insb. gebenen \(M \subset V\) existiert \(\Span(M) = <M> = \) der kleinste
+  Unterraum von V, der M enth\"alt.\\
+  \(\Span(M) = \sum_{i=1}^{n} \lb_{i} m_{i}\),
+  \(m_{i} \in M, \lb_{i} \in K, n \in \N\)\\
+  M ist ein Erzeugendensystem f\"ur \(\Span(M)\)\\
+  Au\ss{}erdem gilt:\\
+  \(\sum_{i\in I}U_{i} = \Span(\bigcup_{i \in I} U_{i})\)\\
+  \(M_{1} \subset M_{2} \Rightarrow \Span(M_{1}) \subset \Span(M_{2})\)
+\end{bemerkung}
+
+\begin{definition}[Lineare Unabh\"angigkeit]
+  Sei \(V\) ein Vektorraum \"uber K. Dann gilt \(v_{1}, \dots v_{n}\) sind
+  linear unabh\"angig falls
+  \(\forall \lb_{1}, \dots, \lb_{n} \in K : \sum \lb_{i} v_{i} 
+  \Rightarrow \lb_{1} = \dots = \lb_{n} = 0\) 
+  \(M \subset V\) ist linear unabh\"angig, falls jede endliche Teilmenge von M
+  linear unabh\"angig ist. \"Aquivalent dazu ist: M ist linear unabh\"angig, 
+  falls kein Element von M sich als Linearkombination der anderen schreiben
+  l\"asst.
+\end{definition}
+
+\begin{definition}[Basis]
+  Sei \(B = \{v_1, \dots, v_n\}, v_i \in V\).
+  Die folgenden Aussagen sind \"aquivalent und definieren eine Basis:
+  \begin{enumerate}
+    \item{B ist ein lineare unabh\"angiges Erzeugendensystem von V}
+    \item{
+      Jedes Element von V l\"asst sich eindeutig als Linearkombination der
+      Elemente in B schreiben.
+    }
+    \item{B ist ein minimales Erzeugendensystem.}
+    \item{B ist maximal lineare unabh\"angig.}
+  \end{enumerate}
+\end{definition}
+
+\begin{satz}[Basiserg\"anzungssatz]
+  Sei \(M \subset V\) lineare unabh\"angig, dann gilt \( \exists B \subset V\),
+  und B ist eine Basis welche M ent\"alt. Insbesondere hat jeder Vektorraum eine
+  Basis. ''Je zwei Basen sind in Bijektion''.
+\end{satz}
+
+\begin{definition}[Dimension]  
+  V ist endlichdimensional, falls V eine endliche Basis besitzt. Sonst ist V
+  unendlichdimensional. Fall V endlichdimensional ist, ist die Dimension von V
+  definert durch:\\
+  \(dim(V) = |B|\) mit B beliebeige Basis.
+\end{definition}
+
+\begin{satz}[Basisauswahlsatz]
+  Sei \(M \subset V\) ein Erzeugendensystem von V, dann gilt
+  \(\exists B \subset M\) mit B ist eine Basis von V.
+\end{satz}
+
+\begin{lemma}
+  Sei \(U \subset V\) ein Unterraum, dann gilt
+  \(\dim(V) < \infty \Rightarrow \dim(U) < \infty\)
+\end{lemma}
+
+\begin{lemma}
+  Die Dimension ist modular:
+  \(\dim(U_1 + U_2) + \dim(U_1 \cap U_2) = \dim(U_1) + \dim(U_2)\)
+\end{lemma}
+
+\begin{definition}[Direktes Produkt von Vektorr\"aumen]
+  \(
+  V = U_1 \oplus U_2 \Leftrightarrow V = U_1 + U_2 \land U_1 \cap U_2 = \{0\}
+  \)\\
+  \(V = \oplus_{i \in I} U_i \Leftrightarrow V = \sum_{i \in I} U_i \) und die
+  Familie ist transversal:
+  \(\{U_i\}_{i \in I} \to U_i \cap (\sum_{j \in I} U_j) = \{0\}\)
+\end{definition}
+
+\begin{definition}[Komplement\"ar]
+  Sei \(U \subset V\) ein Unterverktorraum, dann gilt
+  \(\exists \hat{U} \subset V : V = U \oplus \hat{U}\).\\
+  \(\hat{U}\) hei\ss{}t dann Komplement\"ar zu U.
+\end{definition}
+
+\textbf{Beispiele}\\
+\(K^2\) ist ein K-VR. \(\v{1\\0} \v{0\\1}\) ist eine Basis.\\
+\(U = \Span(\v{1\\0})\). \(K^2 = U \oplus \Span(\v{0\\1})\).
+\(K^2 = U \oplus \Span(\v{1 \\1}\).
+
+\begin{definition}[Lineare Abbildungen]
+  \(F : V \to W\) ist linear, falls gilt:
+  \(F(\lb v + \mu u) = \lb F(v) + \mu F(u)\)
+\end{definition}
+
+\begin{definition}[Kern und Bild]
+  \(\Ker(F) = \{v \in V \ F(v) = 0\}\)\\
+  \(\Ima(F) = \{w \in W| \exists v \in V : F(V) = w\}\)\\
+  \(\Ker(F)\) ist ein Untervektorraum von V, \(\Ima(F)\) ist ein Untervektorraum
+  von W.
+\end{definition}
+
+\begin{lemma}
+  Falls B eine Basis von V ist, ist \(F(B)\) ein Erzeugendensystem
+   von \(Im(F)\).
+  F ist injektiv genau dann wenn \(\Ker(F) = \{0\}\).
+\end{lemma}
+
+\begin{lemma}
+  V endlichdimensional: \(dim(V) = dim(Ker(F)) + dim(Im(F))\).\\
+  \(V / Ker(f) \cong \Ima(F)\).
+\end{lemma}
+
+\begin{bemerkung}
+  V, W endlichdimensional, \(\{v_1, \dots, v_n\}\) Basis von V \(V \cong K^n\),
+  \(v_i \mapsto e_i\).
+\end{bemerkung}
+
+\begin{definition}[Matrix]
+  Sei \(F : V \to W, dim(V) = n, dim(W) = m, \{v_1, \dots, v_n\}\) Basis von V,
+  \(\{w_1, \dots, w_n\}\) Basis von W.\\
+  \(K^n \cong V \overset{F}{\to} W \cong K^m\). Dadurch wird durch F und die
+  beiden Basen eine Abbildung von \(K^n\) nach \(K^m\) definiert. Diese
+  Diese Abbildung kann durch eine Matrix A dargestellt werden.\\
+  \(\v{\lb_1\\ \vdots \\ \lb_n} \mapsto A \v{\lb_1, \vdots \lb_n}\)\\
+  \(F(v_j) = \sum_{i=1}^m a_{ij}w_i\)\\
+  \(
+  F(v_1), \dots, F(v_n)\\
+  \begin{pmatrix}
+    a_{11} & \dots  & a_{1m}\\
+    \vdots & \ddots & \vdots\\
+    a_{n1} & \dots  & a_{nm}
+  \end{pmatrix}
+  \)
+  ist die mxn Matrix A.
+\end{definition}
+
+\begin{definition}[Rang einer Matrix]
+  \(Rg(A) = \dim(\Span(\text{Spaltenvektoren}))
+  = \dim(\Span(\text{Zeilenvektoren}))\)\\
+  \(F : V \to W\) linear. \(Rg(F) = Rg(A) = dim(\Ima(F))\), mit A eine beliebige
+  darstellende Matrix von F.
+\end{definition}
+
+\begin{satz}[Normalform]
+  Es seien V, W endlichdimensional. Dann existieren Basen \(\{v_1, \dots v_n\}\)
+   von V, \(\{w_1, \dots, w_n\}\) von W, so dass die darstellende Matrix von F
+   der Form
+  \(
+    \begin{pmatrix}
+      1      & \dots  & 0      & 0      & \dots  & 0\\
+      \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+      0      & \dots  & 1      & 0      & \dots  & 0\\
+      0      & \dots  & 0      & 0      & \dots  & 0\\
+      \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+      0      & \dots  & 0      & 0      & \dots  & 0 & 
+    \end{pmatrix}
+  \) ist.
+  \begin{proof}
+    Sei \(U = \Ker(F)\) und \(\{v_{r+1}, \dots, v_n\}\) eine Basis von
+    U. Sei \(U'\) ein Komplement von U in V \(\Rightarrow V = U \oplus U'\).
+    Sei \(\{v_1, \dots, v_r\}\) eine Basis von \(U'\).
+    \(B = \{v_1, \dots v_n\}\) ist eine Basis von V. \(\Ima(F)\) hat
+    \(\{F(v_1), \dots, F(v_r)\}\) als Basis.\\
+    \(
+      \sum_{i=1}^n \lb_i F(v_i) = 0
+      \Rightarrow F(\sum_{i=1}^n \lb_i v_i) = 0
+      \Rightarrow \sum_{i=1}^n \lb_i v_i) \in U
+                  \land \sum_{i=1}^n \lb_i v_i) \in U'
+      \Rightarrow \sum_{i=1}^n \lb_i v_i) = 0
+      \Rightarrow \lb_1 = \dots \lb_n = 0
+    \).
+    Erg\"anze \(\{F(v_1), \dots, F(v_r)\}\) zu einer Basis
+    \(B' = \{w_1, \dots, w_m\}\) von W.
+    \(
+      F(v_1), \dots, F(v_r), F(v_{r+1}), \dots, F(v_n)\\
+      \begin{pmatrix}
+        1      & \dots  & 0      & 0      & \dots  & 0\\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0      & \dots  & 1      & 0      & \dots  & 0\\
+        0      & \dots  & 0      & 0      & \dots  & 0\\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+        0      & \dots  & 0      & 0      & \dots  & 0 & 
+      \end{pmatrix}
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{definition}[Invertierbarkeit von Matrizen]
+  \(A \in M_{n\times n}(K)\) ist invertierbar, fall es eine Matrix
+  \(B \in M_{n\times n}(K)\) gibt, so dass \(A \cdot B = B \cdot A = Id_n\).
+  B wird dann als \(A^{-1}\) bezeichnet.\\
+  \(GL(n, k) = Gl_n(K) = \{A \in M_{n\times n}(K) \text{invertierbar}\}\) ist
+  eine Gruppe.\\
+  \(A \in GL_k(n) \Leftrightarrow \rg(A) = n\) (Eine Matrix ist genau dann
+  invertierbar, wenn sie regul\"ar ist).
+\end{definition}
+
+\begin{bemerkung}
+  Sei A regul\"ar. Dann besitz ein Gleichungssystem der Form
+  \(A \v{\lb_1\\ \vdots \\ \lb_n} = \v{b_1 \\ \vdots \\ b_n}\) die Eindeutige
+  L\"osung, \(A^{-1} \v{b_1 \\ \vdots \\ b_n}\).
+\end{bemerkung}
+
+\begin{bemerkung}
+  A ist regul\"ar genau dann wenn A sich durch elementare Zeilenoperationen in
+  \(Id_n\) \"uberf\"uhren l\"asst.\\
+  \(E_{i,j}\) sei Die Matrix, die an der Stelle ij 1 ist, ansonsten 0.\\
+  Elementare Zeilenoperationen sind:\\
+  Multiplikation der Zeile i mit \(\lb\): \(\Id_n + (\lb  -1) E_{i,j}\).\\
+  Addieren von \(\lb\) mal der iten Zeilten zur jten: \(Id_n + \lb E_{i,j}\).\\
+  Vertauschung der i-ten und j-ten Zeile: \(Id_n - E_{ii} - E_{jj} + E_{j,i} + E_{i,j}\)\\
+\end{bemerkung}
+
+\begin{bemerkung}
+Das inverse einer Matrix l\"asst sich durch nutzen dieser elementaren
+Zeilenoperationen nach z.B. dem Gau\ss{}-Jordan Verfahren errechnen:\\
+\(
+  \left(
+  \begin{array}{c|c}
+    A & Id_n
+  \end{array}
+  \right)
+  \overset{Zeilenoperationen}{\to}
+  \left(
+  \begin{array}{c|c}
+  Id_n & A^{-1}
+    \end{array}
+  \right)
+\)\\
+Die linke H\"alfte der Ergebnis Matrix enth\"alt dann \(A^{-1}\), denn:\\
+\(
+B_m \dots B_2 B_1 A = Id_n \Rightarrow B_m \dots B_1 = A^{-1}
+\)
+\end{bemerkung}
+
+% Basiswechselmatrizen?
+\begin{definition}[\"Ubergangsmatrizen]
+  Es sei \(dim(V) = n\) und \(\{v_1, \dots, v_n\}\),  \(\{v_1', \dots, v_n'\}\)
+  Basen von V. Weiterhin sei \(F: V \to V, v_i \mapsto v_i'\). Dann gilt:\\
+  \(v_i' = \sum_{ij} s_{ij} v_j\) und die darstellende Matrix S von F, 
+  \(
+  S = \begin{pmatrix}
+    s_{11} & \dots  & s_{1m}\\
+    \vdots & \ddots & \vdots\\
+    s_{n1} & \dots  & s_{nm}
+  \end{pmatrix}
+  \)
+  ist regul\"ar.
+\end{definition}
+
+
+\begin{definition}
+  Zwei (mxn) Matrizen A, A' sind \"aquivalent, falls es reg\"lare matrizen \(T
+  \in GL_m(K), s \in GL_n(K)\) gibt, so dass \(A' = T^{-1} \cdot A \cdot S\).\\
+  \(A, A' \in M_{n \times n}(K)\)  sind \"ahnlich, fall es \(S \in GL_n(K)\)
+  gibt, so dass \(A' = s^{-1} \cdot A \cdot S\).
+\end{definition}
+
+\begin{bemerkung}
+  \"Ahnlichkeit ist eine \"Aquivalenzrelation auf \(M_{n \times n}(K)\).
+\end{bemerkung}
+
+
+\begin{definition}[Determinante]
+  \(det K^n \to K\) ist eine multilineare alternierende  Abildung der Art,
+  dass \(det(e_1, \dots, e_n) = 1\).\\
+  \(A \in M_{n \times n}(K)\)\\
+  \(A = (a_1 | a_2 | \dots | a)n) \Rightarrow det(a_1, a_2, \dots, a_n) = det(A)\).\\
+  \(A = (a_ij), det(a_ij) = \sum sign(\pi) \cdot \Pi_{i=1}^n a_{\pi(i)i}\) mit
+  \(sign(\pi) = -1^{\text{Anzahl der Fehlst\"ande von }\pi}\) bzw. Anzahl von
+  Faktoren von \(\pi\) als Produkt von Transpositionen.
+\end{definition}
+
+Eigenschaften von Determinanten:\\
+\begin{enumerate}
+  \item{\(det(A \cdot B) = \det(A) \det(B)\)\\}
+  \item{A ist genau dann invertierbar, wenn \(det(A) \neq 0\)\\}
+  \item{\(\det(A^-1) = det(A)^{-1}\)}
+  \item{\(\det(A^T) = \det(A)\)}
+\end{enumerate}
+
+\begin{bemerkung}
+  \(Id_n + (-\Id_n)\) ist nicht invertierbar, also \(\exists A, B : det(A+B) \neq \det(A) + \det(B)\)
+\end{bemerkung}
+
+\begin{satz}[Laplacescher entwicklkungssats]
+  Sei \(j_0\) ein Spaltenindex\\
+  \(det(A) = \sum_{i=1}^n (-1)^{i+j_0} a_{ij_o} det(A_{j_0i})\) wobei
+  \(A_{j_{0i}}\) die Matrix ohne Zeile \(j_0\) und Spalte i ist.
+\end{satz}
+
+
+\begin{satz}[Cramersche Regel]
+  \((a_1 | \dots | a_n) = A, A \v{\lb_1\\ \vdots \\ \lb_n} = \v{b_1 \\ \vdots \\ b_n}\)
+  Falls A regul|'ar ist, gibt es eine einzige L\'Osung zum System:
+  \(\lb_j = \frac{det(a_1, \dots, a_{j-1}, b_j, a_{j+1}, \dots, a_n}{det(A)}\)
+\end{satz}
+
+\begin{definition}[Determinante eines Homomorphismus]
+  Sei \(F : V \to V\). \(det(F) = det(A)\) woei \(A\) eine Darstellungmatrix von F bezgl. einer Baiss \(\{v_1, \dots, v_n\}\).
+\end{definition}
+
+
+\begin{definition}[Adjunte Matrix]
+Sei A eine \(n\times n\) Matrix, dann ist die Adjunte von A\\
+\(\adj(A) = (\gamma_{ij})\) mit \(\gamma_{ij} = (-1)^{i+ j} \det(A_{ij}\)
+\end{definition}
+
+\begin{bemerkung}
+  Sei \(c_i\) die j-te Zeile von \(\adj(A)\). Sei weiterhing \(a_i\) die i-te
+  Spalte von A.\\
+  \(\gamma_{j1}, \dots, \gamma_{jn} \cdot \v{a_{1i}\ \\vdots \\ a_{ni}}
+  = \sum_{k=1}^n \gamma_{jk} a_{ki} = \sum_{k=1}^n (-1)^{j+n} a_{ki} \det(A_{jk})
+  \overset{\text{Laplacescher Entw. Satz}}{=}
+  \det(a_1, \dots, a_{j-1} , a_i, a_{j+1}, \dots, a_n) =
+  \begin{cases}
+   \det(A) & j=i\\
+   0 & j \neq i
+  \end{cases}\)\\
+  Angenommen A ist regul\"ar.\\
+  \(adj(A) \cdot A = det(A) \cdot Id_n
+    \Rightarrow \frac{\adj(A)}{\det(A) \cdot A} = \Id_n = A^{-1} \cdot A
+    \Rightarrow \frac{\adj(A)}{\det(A)} = A^{-1}
+    \Rightarrow A \cdot \adj(A) = det(A) Id_n
+  \)
+\end{bemerkung}
+
+\section{Diagonalisiserbarkeit}
+Sei V ein Vektorraum, \(\{U_i\}_{i=1}^k\) Unterr\"aume von V.\\
+\(V = \oplus_{i=1}^k U_i
+\Leftrightarrow V = \sum_{i=1}^n U_i \land U_i \bigcap(\sum_{j=1}^k U_i) = 0\)\\
+\"Aquivalent dazu ist, dass jeder Vektor \(v \in V\) sich eindeutig als
+Linearkombination von Vektoren \(\cup_{j=i}^k B_j\) schreiben l\"asst, woebi
+\(B_j\) eine Basis von \(U_i\) ist.
+
+\begin{definition}[Eigenwerte und -vektoren]
+  Ein Endomorphismus \(F : V \to V\) besitzt einen Eigenvektor, falls es ein
+  \(v \in V \setminus \{0\}\), so dass \(F(V)  \lb \cdot v\) f\"ur ein
+  \(\lb \in K\). Falls \(F(v) = \lb v\) ist \(\lambda\) eindeutig bestimmt durch
+  F und v. \(\lambda\) ist dann ein Eigenwert von F.
+\end{definition}
+
+\begin{definition}[Eigenr\"aume]
+  \(\lb \in K, F V \to V\) Endomorphismus.\\
+  \(V(\lb) = \{v \in V | F(v) = \lb v\}\), der Eigeneraum zu \(\lb\) is ein UVR.
+\end{definition}
+
+\begin{bemerkung}
+  \(\lb\) ist ein Eigenwet von F gdw, \(dim(V(\lb)) \ge 1\).
+\end{bemerkung}
+
+\begin{bemerkung}
+  Falls \(\lb_1, \dots, \lb_k\) verschiedene Eigenwerte von F \(\Rightarrow
+  V(\lb_i) \cap \sum_{j=1, j \neq i}^k V(\lb_j) = \{0\}\)
+\end{bemerkung}
+
+
+\begin{definition}[Diagonalisiserbarkeit]
+  Sei V ein endlichdimensionaler Vektorraum. \(F : V \to V\) Endomorphismus.
+  Bzw. eine Matrix \(A : K^n \to K^n\). F ist diagonalisierbar, falls
+  \(V = \oplus_{i=1}^k V('lb), \lb\) verschiedene Eigenwerte von F.\\
+  \"Aquivalent dazu, wenn V eine basis von Eigenwerten von F besitzt.
+  \"Aquivalent dazu, wenn F bez\"uglich einer Basis von V die Darstellungsmatrix
+  \(
+    \begin{pmatrix}
+      \lb_1  &        & 0\\
+             & \ddots &\\
+      0      &        & \lb_n
+    \end{pmatrix}
+  \) hat.\\
+  \"Aquivalentz dazu, f\"ur Matrizen: A ist diagonalisierbar gdw.es eine regul\"are
+  Matrix S gibt, soda\ss{} \(S^{-1}AS = 
+  \begin{pmatrix}
+    \lb_1  &        & 0\\
+           & \ddots &\\
+    0      &        & \lb_n
+  \end{pmatrix}\)
+\end{definition}
+
+\begin{satz}
+  \(A \in M_{n\times n}(K), \lb \in K\)\\
+  \(\lb\) ist ein Eigenwert von A gdw. \(\lb Id_n - A\) nicht regul\"ar ist.
+  \(\Leftrightarrow det(\lb \cdot Id_n -A) = 0\)
+\end{satz}
+
+\begin{definition}[Charakteristisches Polynom]
+  Das charakteristische Polynom einer Matrix \(A \in M_{nxn}(K)\) ist 
+  \(\xi_{A(T)} = det(T \cdot Id_n - A)\)
+\end{definition}
+
+\begin{bemerkung}
+  \(\lb\) ist ein eigenwert von A \(\Leftrightarrow \xi_A(\lb) = 0\)
+\end{bemerkung}
+
+\textbf{Beispiel}
+\(
+  \begin{pmatrix}
+   0 & -1\\
+   -1 & 0
+  \end{pmatrix}\\
+  \xi_{A(T)} = T^2 + 1 = \det(
+  \begin{pmatrix}
+    T & -1\\
+    1 & T
+  \end{pmatrix}
+  )
+\)
+
+\begin{bemerkung}
+  A und \(A'\) \"ahnlich, \(A' = s^{-1}AS \Rightarrow \xi_A(T) = \xi_{A'}(T)\).
+  Insebsondere k\"onnen wir \"uber das charakteritische Polynom eines
+  Endomorphismus reden.\\
+  \(A \in M_{nxn}(K), \xi_A(T) = T^n + b_{n-1} T^{n-1} + \dots + b_o\) wobei
+  \(b_0 = (-1)^n det(A), b_n{-1} = - Tr(A) = - \sum_{i=1}^n a_{ii}\)
+\end{bemerkung}
+
+\begin{korrolar}
+  Ein Endomorphismus \(F : V \to V\) mit \(\dim(V) = n < \infty\) kann
+  h\"ochstens n viele Eigenwerte besizten.
+\end{korrolar}
+
+\begin{korrolar}
+  \(F : V \to V\) mit \(\dim(V) = n < \infty\) mit verschiedenen Eigenwerten
+  \((\lb_1, \dots, \lb_n)\) ist diagonalisierbar,  gdw. 
+  \(n = \sum_{i=1}^k d_i, d_i = \dim(V(\lb_i))\). \(d_i\) hei\ss{}t geometrische
+  Vielfachheit von \(\lb_i\).
+  
+  \begin{proof} \hfill\break
+  \(\Rightarrow\)\\
+  F ist diag. gdw. V eine Basis aus Eigenvektoren besitzt, welche aus
+  \(\cup_{i=1}^n B_i\) besteht, \(|B_I| = di = dim(V\lb_i)\),
+  \(n = |B| = \sum_{i=1}^k |B_i|\)\\
+  \(\Leftarrow\)\\
+    \(n = \sum d_i \Rightarrow \dim(\sum_{i=1}^k (V(\lb_i))) = n
+    \Rightarrow V = \sum_{i=1}^k(V(lb_i)\) da die Eigenr\"aume tranversal sind,
+     und ein Vektorraum nur einen UVR der dimension dim(V) hat, sich selbst.
+  \end{proof}
+\end{korrolar}
+
+
+% potentially missing part of the beginning of lecture 4
+\begin{definition}[Algebraische Vielfachheit]
+  Es seien \(F : V \to V\) ein Endomorphismus, \(dim(V) = n < \infty\),
+  \(\lb \in K\) Eigenwert \(\Rightarrow \xi_F(\lb) = 0\).\\
+  Dann gilt  \(\xi_F(T) = (T-\lb)^K G(T)\), \(G(\lb) \neq 0\). k ist die
+  algebraische Vielfachheit von \(\lb\), bzw. \(\ord_\lb(F)\).
+\end{definition}
+
+\begin{bemerkung}
+  \(\ord_\lb(F) \ge \dim(V(\lb))\)\\
+  \begin{proof}
+    Sei \({v_1, \dots, v_k}\) eine Basis von \(V(\lb)\). Wir erweitern sie zu
+    einer Basis \(\{v_1, \dots, v_k, v_{K+1}, \dots, v_n\}\) von V. Die
+    Darstellungsmatrix M von F bzwg. B ist dann\\
+    \(\{F(v_1), \dots, F(v_k), F(v_{k+1}), F(v_n)\}\).\\
+    \(
+      \begin{pmatrix}
+        \lb &        & 0         & \\
+            & \ddots &           & \\
+        0   &        &  \lambda  & C_2 \\
+            & 0  
+      \end{pmatrix}
+    \)\\
+    Wobei \(C_2 \in Mat_{n-k \times k}(K)\).\\
+    \(
+      \xi_F(T) = det(T Id_n - M)
+      = (T - \lb)^k \cdot \det(T Id_{n-k} \cdot C_1)\\
+      \Rightarrow \ord_\lb(F) \ge K
+    \). Wobei \(\det(T Id_{n-k} \cdot C_1) = 0\) sein kann.
+  \end{proof}
+\end{bemerkung}
+
+\begin{lemma}
+  Sei V endlichdimensional, \(F : V \to V\) ein Endomorphismus,
+  U ein F-Invarianter Unterraum (\(F(U) \subset U\)).\\
+  \(F' : V/U \to V/U\) ist eine lineare Abbildung,
+  \(\bar{V} \mapsto \bar{F(V)}\). \(F'\) ist woldefiniert, linear und es gilt
+  \(\xi_F(T) = \xi_{F|_U}(T)\cdot\xi_{F'}(T)\)
+  \begin{proof}\hfill\break
+    \(F'\) ist wohldefiniert;\\
+    \(\bar{v_1} = \bar{v} \overset{zZ}{\Rightarrow} F'(v_1) = F(v)\)
+    \(
+      \bar{v_1} = \bar{v} 
+      \Rightarrow v_1 = v + (v_1 - v), v_1 - v \in U\\
+      \Rightarrow F(v_1) = F(v) + F(v_1 - v),  F(v_1 - v) \in U
+      \Rightarrow \bar{F(v_1)} = \bar{F(v)}
+    \)\\
+    Restklassen sind linear und F ist linear \(\Rightarrow F'\) ist linear.\\
+    Sei \(\{u_1, \dots, u_k\}\) eine Basis von U. erweitert zu
+    \(\{u_1, \dots, u_k, v_{k+1}, \dots, v_n\}\) sei sie eine Basis von V.
+    \begin{bemerkung}
+      \(\{\bar{v_{k+1}}, \dots, \bar{{v_n}}\}\) ist eine Basis von \(V/U\).
+      Bew. Einfach.
+    \end{bemerkung}
+    Darstellungsmatrix H von F bzgl. B:\\
+    \(
+      \begin{array}{c}
+        u_1\\ \vdots \\ u_k \\ v_{k+1} \\ \vdots \\ v_n
+      \end{array}
+      \begin{pmatrix}
+        &           \\
+        & A      &        &        &  & C_2\\
+        &           \\
+        & 0      & \dots  & 0   \\
+        & \vdots & \ddots & \vdots &  &C_1\\
+        & 0      & \dots  & 0
+      \end{pmatrix}
+    \) mit \(A, C_1, C_2\) Matrizen.\\
+    \(\xi_F(T) = det(T Id_n - H)
+    = \det(T Id_n - \begin{pmatrix}A & C_2 \\ 0 & C_1\end{pmatrix})\\
+    = \det(\begin{pmatrix}T _id_k - A & -C_2 \\ 0 & T_ Id_{n-k} -C_1\end{pmatrix})
+    = \det(T_id_k - A) \cot det (T_E{n-k} - C_1)
+    \)\\
+     A ist die Darstellungsmatrix von \(F|_U\) bez\"uglich \(\{u_1, \dots, u_k\}\)
+     \(\Rightarrow det(T Id_k - A) = \xi_{F|_U}(T)\)\\
+     \(C_1\) ist die Darstellungmatrixvon \(F'\) bzg.
+     \(\{\bar{v_{k+1}}, \dots, \bar{v_n}\}\).\\
+     \(\Rightarrow \det(T \Id_{n-k}-C_1) = \xi_{F'}(T)\)
+  \end{proof}
+\end{lemma}
+
+\begin{satz}
+  Sei \(K\) ein K\"orper, \(dim(V) < \infty, F : V \to V\) ein Endomorphismus so 
+  gilt:\\
+  F Diagonalisierbar gdw \(\xi_F(T) = (T-\lb_1)^{k_1} \dots (T- \lb_n)^{k_n}\)
+  in Linearfaktoren zerf\"allt, wobei f\"ur jeden Faktor \(\lb_1, \dots, \lb_n\)
+  \(T-\lb_i\) gilt \(\ord_{lb_i}(F) = \dim(V(\lb_i))\).
+  \begin{proof}\hfill\break
+  \(\Rightarrow\)\\
+    Sei \(b = \{v_1, \dots, v_n\}\) eine Basis von Eigenvektoren. Seien
+    \(\lb_1, \dots \lb_r\) die verschiedenen Eigenwerte. Ordne nun B um so dass\\
+    \(
+      v_1, \dots, v_{d_1} \in V(\lb_i), 
+      v_{d_1 + 1}, \dots v_{d_1 + d_2} \in V(\lb_2)
+      , \dots,
+      v_{d_1  + \dots + d_{r-1}}, \dots v_{d_1 + \dots + d_r} \in V(\lb_r)\) mit
+    \(d_i = dim(V(\lb_i))\).\\
+    Die Darstellungsmatrix von F bzgl. B:\\
+    \((F(v_1), \dots, F(v_{d_1}), \dots F(v_r)\)\\
+    \(
+      \begin{pmatrix}
+        \lb_1 & \\
+              & \ddots &  \\
+              &        & \lb_1\\
+              &        &       & \lb_r & \\
+              &        &       &       & \ddots &  \\
+              &        &       &       &        & \lb_r
+      \end{pmatrix}
+      %d_1 viele  \lb_1 auf der Diagonale
+    \)\\
+    Wobei \(d_i\) viele \(\lb_i\) auf der Diagonale sind\\
+    \(\xi_F(T) = det(T \Id_n - A) = (T - \lb_1)^{d_1} \dots T(-\lb_r)^{d_t}\)
+    \(((T - \lb_2)^{d_2} \dots T(-\lb_r)^{d_t})(\lb_1) \neq 0
+    \Rightarrow d_i = \ord_{\lb_I}(F)
+    \), da die \(\lb_i\) verschieden sind.\\
+    \(\Leftarrow\)\\
+    \(\xi_F(T) = (T - \lb_i)^{d_1} \dots (T - \lb_r)^{d_r}\)\\
+    F ist diag \(\Leftrightarrow n = dim(V) = \sum d_i\)
+  \end{proof}
+\end{satz}
+
+
+\begin{definition}
+  Eine Matrix \(A \in M_{n\times n}(K)\) ist 
+  trigonalisierbar, wenn sie \"ahnlich zu einer oberen  Dreiecksmatrix ist:\\
+  \(
+    \begin{pmatrix}
+    a_{11} & \dots  & a_{1n}\\
+           & \ddots & \vdots\\
+    0      &        & a_{nn}\\
+    \end{pmatrix}
+  \)
+\end{definition}
+
+\begin{satz}
+  \(F : V \to V\) ist trigonalisierbar? gdw. \(\xi_F(t)\) in
+  Linearfaktoren zerf\"allt \(\xi_F(T) = (T - \lb_1) \dots (T - \lb_n)\).
+  
+  \begin{proof}
+    \(\Rightarrow\)
+    F hat Darstellungsmatrix:\\
+    \(
+    \begin{pmatrix}
+      a_11\\
+           & a){21} & X\\
+                    & \ddots\\
+         0                     & a_{nn}\\
+         
+    \end{pmatrix}\\
+    \xi_F(T) = det(T \cdot Id_n - A) = \Pi_{i=1}^n (T - a_{ii})
+    \)
+    \(\Leftarrow\)
+    Induktion \"uber \(n = dim(V)\\
+    \(n=1 \Rightarrow \) Jede \(1 \times 1\) Matrix ist in oberer Dreiecksform.\\
+    \(n \ge 2\)  \(\xi_F(t) = (T - \lb_1) \dots (T_\lb_n)\). \(\lb_1\) ist ein
+    Eigenwert \( \Rightarrow \exists v_1 \in V\{0\} : F(v_10 + \lb_1 v_1\).
+    \(U = \Span(v_1) \subset V\)  ist F-invariant. Nach Lemma ... gilt
+    \(\(T - \lb_1) \Pi_{i=2}^n(T - \lb_n) = xi_F(T) = \xi_{F\_U} \cdot \xi_{F'}\), \(\xi_{F|_U} = (T - \lb_1)\)
+    \(K[T]\) ist ein Integrit\"atsbereich \(\Rightarrow
+    \Xi_{F'}(T) = \pi_{i=2}^n (T-\lb_i), \dim(V/U) < \dim(V)\).\\
+    Nach Ia gibt ese eine Basis\(\exists (\bar{v}_2, \dots, \bar{v}_n)\) von
+    \(V/U\) derart, dass \(F'\) bzgl. dieser Basis Darstellungsmatrix\\
+    \(
+    \begin{omatrix}
+      \lb_2 &        & X\\
+            & \ddots &\\
+      0     &        & \lb_n\\
+    \end{pmatrix} = (\mu_{ij})
+    \)
+    Behauptung: Seien \(v_i \in V, \bar{v_i} = \var{v}_i, 2 \le i \le n, \{v_1, v_2, \dots, v_n\}\) ist eine
+    Basis von V. Bew. \"Ubungsaufgabe.\\
+    Frage: Wie sieht die Darstellungmatrix von F bzgl \(\{v_1, \dots v_n\}\)
+    aus?\\
+    \(\sum_{2\le i \le j \mu_{ij} \bar{v_i} = F'(v_j) = \bar{F(v_j)}\)\\
+    \(\sum_{2\le i \le j \mu_{ij} \bar{v_i} = \bar{\sum_{2\le i \le j \mu_{ij} v_i}
+    \Rightarrow \exists  \mU_{ij} \in K / F(v_j) = \mu_{ij}v_1 + \sum){2 \le i \le j} \mu_{ij}v_j = \sum){1 \le i \le j} \mu_{ij}v_j\)
+    F(v_1) F(v_2), \dots, F(v_n)
+    \begin{pmatrix}
+    \lb_1 & \mu_{12}
+          & \lb_2 &       & X
+          &       & \ddots
+    0     &       &       & \lb_n
+    \end{pmatrix}
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  Jeder Endomorphismus eines endlichdimensionalen Vektorraumes \"uber einen
+  algebraisch abgeschlossenen K\"orper (z.B. \(\C\)) ist trigonalisierbar.
+\end{korrolar}
+
+\begin{lemma}
+  Sei V endlichdimensional \'uber ienen K\"orper K.\\
+  \(v \in V \setminus \{0\} \exists r \in \N : F^r(v) = sum_{i=0}^{r-1}a_i F^i(v)\) \(a_i\) ist eindeutig bestimmt.
+  Insb. ist \(U = Span(v, F(v)m \dots, F^{r-1}(v))\) ist F inviariant, hat Basis \(v, F(V), \dots, F^{r-1}(v))\)\\
+  \(f \up U\ hat Darste;;ingsmatrix
+  \begin{pmatrix}
+  0     ... a_0
+  1 0   ... \vdots
+    1 0     a_n
+  \end{pmatrix}
+  \)
+  \(\xI_F \up U}(T) = T^r - a_{r-1} T^{r-1} - \dots - a_0\).
+  
+  \begin{proof}
+    \(n = \dim(V)\).
+    \(\{v, F(v), \dots, F^n(v)\}\) sind lin.abh. Sei r die kleinste nat\'Urlich Zahl,
+    so dass \(\{v, F(v), \dots, F^r(v)\}\) lin. abh sind. Dann sind
+    \(\{v, F(v), \dots, F^{r-1}(v)\}\) linear unabh\"angig.
+    \(\pverset{\text{Ausstauschprinzip von r}{\Rightarrow} F^r(v) = \sum_{i=0}^{r-1} a_i F^i(v)\)
+    wobei \(a_i\) eindeutig bestimmt sind.\\
+    \(U = \Span(v_1, \dots, F^{r-1}(v))\) ist F-invariant. Sei \(u \in U, u = \sum_{0}^{r-1} \mu_iF^i(v)\\
+    F(u) = \sum_{i=0}^{r-1} \mu_i F^{i+1}(v)\\
+    = \sum_{i=0}^{r-2} \mu_iF({i+1}(v) + \mu_{i-1}F^r(v)\)
+    Wobei \(F^r(v) = \sum_{i=0}^{r-1} a_iF^i(v)\).\\
+    Beide teile der Summe \(\sum_{i=0}^{r-2} \mu_iF({i+1}(v) + \mu_{i-1}F^r(v)\) liegen eindeutig in U, also liegt auch die Summe in U.\\
+    \(\{v_1, \dpts, F^{r-1}(v)\}\) ist eine Basis von U.\\
+    \(F(v_1), \dots F(F^{3-1}(v))\\
+    \begin{pmatrix}
+      0 & 0 & \dots & a_0
+      1 & 0 &       & \vdorts
+      0 & 1 &       & a_{r-1}
+    \end{pmatrix}\)\\
+    \(\xi_{F|U}(T) = det(T Id_r - A)
+    = det(    \begin{pmatrix}
+      T & 0 & \dots & -a_0
+      -1 & T &       & -\vdorts
+      0 & -1 &       & -a_{r-1}
+    \end{pmatrix}\)\\
+    Laplacsche Entwicklung nach der letzten Spalte:
+    \(= (-1)^{r+1)(-a_0) det(\ve{-1 & T\\0 -1 & \ddots} + (-1)^{r+2)(-a_1)\det(\ve{& T\\0 -1 & \ddots}) + \dots + (-1)^{2r} (T - a_r) \det(\ve{T\\-1 & T\\  & -1 T})\)
+    \(= (-1)^r a_0 (-1)^r + (-1)^{r+1} a_1T (-1)^{r+1} + \dots + (-1)^{2r}(T - a_1)T^{r-1}
+    = - a_0 - a_1 T - \dots - a_{r-1}T^{r-1} + T^r\)
+  \end{proof}
+\end{lemma}
+
+Notation:\\
+\(P(T) \in K[T}, P(T) + \sum_{i=0}^m a_iT^i\), \(F : V \to V\) Endomorphismus.\\
+\(P(f) : V \to V, v \mapsto \um_{i=0}^m a_iF^i(v)\)\\
+Mit dieser Notation haben wir, dass im vorigen Lemma
+\(\xi_{F|_u}(F) = F^r(v) - \sum_{i=0}^{r-1} a_i F^i(v) = 0\)
+
+\begin{satz}[Caloy - Hamilton]
+  \(F : v \to V\) Homomorphismus\\
+  \(\xi_F(F)\) ist der 0 Endomorphismus auf V.
+  \begin{proof}
+    z.Z. ist dass \(\forall v \in V : \xi_F(F)(v) = 0\)\\
+    \(v = 0 \Rightarrow \xi_F(F)(v) = 0\)\\
+    Ansosnten \(v \neq 0\):\\
+    \(\exists r : U =  = \Span(v, F(v), \dots, F^{r-1}(v))\) ist F-invariant.\\
+    U - F-invariant \(\Rightarrow \xi_f = \xi_{F|_U} \cdot \xi_{F'} = \xi_{F'} \cdot \xi_{F|_U}\), \(F' : v/U \to V/U, \bar{w} \mapsto \bar{F(w)}\).\\
+    Aufgabe:\\
+    \(R(T) = P \cdot Q\\ % als Polynome
+    R(F) = P \circ (Q(F))\) % als Abbildungen\\
+    \(\xi_F(F)(v) = \xi_{F'} \circ (\xi_{F|_U)(v))\), wobei \(\xi_{F|_U)(v) = 0\), also \(\xi_F{F}(v) = 0\).
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  \(A \in M_n \times n}(K)\\
+  \(\xi_A(T) = T^n + \sum_{i=0}^{n-1}b_i T^i \Rightarrow A^n + \sum_{i=0}^{n-1} b_i \cdot A^i = 0\)
+\end{korrolar}
+
+\begin{satz}
+  V endlichdimensionaler Vr, \(F V \to V\) Endormophismus, Dann existiert genau ein normiertes
+  Plynom kleinsten Grades,  \(m_f\), derart, dass \(\forall P \in K[T] : m_F |_P \Leftrightarrow P(\tau) = 0\)
+  Insbesondere gilt \(m_F(F) = 0\). Das  Polynom \(m_F\) hei\ss{}t das Minimalpolynom von F. 
+\end{satz}
+
+\newpage
+\renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
+% \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
+\addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
+\newpage
+\printindex
+\end{document}
