@@ -12,3 +12,10 @@ Contents
 **[PDF Browser](https://rawgit.com/floriankramer/LineareAlgebraII/master/script.pdf)**
 
 **[PDF Download](https://raw.githubusercontent.com/floriankramer/LineareAlgebraII/master/script.pdf)**
+
+The raw files have not been read through yet and may contain errors, ugly
+formatting or may miss parts at the beginning or the end of a lecture.
+
+**[raw PDF Browser](https://rawgit.com/floriankramer/LineareAlgebraII/master/script.pdf)**
+
+**[raw PDF Download](https://raw.githubusercontent.com/floriankramer/LineareAlgebraII/master/script.pdf)**
