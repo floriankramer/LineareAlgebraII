@@ -1117,37 +1117,38 @@ Linearkombination von Vektoren \(\cup_{j=i}^k B_j\) schreiben l\"asst, woebi
     \xi_F(T) = det(T \cdot Id_n - A) = \Pi_{i=1}^n (T - a_{ii})
     \)
     \(\Leftarrow\)
-    Induktion \"uber \(n = dim(V)\\
+    Induktion \"uber \(n = dim(V)\)\\
     \(n=1 \Rightarrow \) Jede \(1 \times 1\) Matrix ist in oberer Dreiecksform.\\
-    \(n \ge 2\)  \(\xi_F(t) = (T - \lb_1) \dots (T_\lb_n)\). \(\lb_1\) ist ein
+    \(n \ge 2\)  \(\xi_F(t) = (T - \lb_1) \dots (T_{\lb_n})\). \(\lb_1\) ist ein
     Eigenwert \( \Rightarrow \exists v_1 \in V\{0\} : F(v_10 + \lb_1 v_1\).
     \(U = \Span(v_1) \subset V\)  ist F-invariant. Nach Lemma ... gilt
-    \(\(T - \lb_1) \Pi_{i=2}^n(T - \lb_n) = xi_F(T) = \xi_{F\_U} \cdot \xi_{F'}\), \(\xi_{F|_U} = (T - \lb_1)\)
+    \(T - \lb_1) \Pi_{i=2}^n(T - \lb_n) = xi_F(T) = \xi_{F\_U} \cdot \xi_{F'}\), \(\xi_{F|_U} = (T - \lb_1)\)
     \(K[T]\) ist ein Integrit\"atsbereich \(\Rightarrow
     \Xi_{F'}(T) = \pi_{i=2}^n (T-\lb_i), \dim(V/U) < \dim(V)\).\\
     Nach Ia gibt ese eine Basis\(\exists (\bar{v}_2, \dots, \bar{v}_n)\) von
     \(V/U\) derart, dass \(F'\) bzgl. dieser Basis Darstellungsmatrix\\
     \(
-    \begin{omatrix}
+    \begin{pmatrix}
       \lb_2 &        & X\\
             & \ddots &\\
       0     &        & \lb_n\\
     \end{pmatrix} = (\mu_{ij})
     \)
-    Behauptung: Seien \(v_i \in V, \bar{v_i} = \var{v}_i, 2 \le i \le n, \{v_1, v_2, \dots, v_n\}\) ist eine
+    Behauptung: Seien \(v_i \in V, \bar{v_i} = \bar{v}_i, 2 \le i \le n, \{v_1, v_2, \dots, v_n\}\) ist eine
     Basis von V. Bew. \"Ubungsaufgabe.\\
     Frage: Wie sieht die Darstellungmatrix von F bzgl \(\{v_1, \dots v_n\}\)
     aus?\\
-    \(\sum_{2\le i \le j \mu_{ij} \bar{v_i} = F'(v_j) = \bar{F(v_j)}\)\\
-    \(\sum_{2\le i \le j \mu_{ij} \bar{v_i} = \bar{\sum_{2\le i \le j \mu_{ij} v_i}
-    \Rightarrow \exists  \mU_{ij} \in K / F(v_j) = \mu_{ij}v_1 + \sum){2 \le i \le j} \mu_{ij}v_j = \sum){1 \le i \le j} \mu_{ij}v_j\)
-    F(v_1) F(v_2), \dots, F(v_n)
+    \(\sum_{2\le i \le j} \mu_{ij} \bar{v_i} = F'(v_j) = \bar{F(v_j)}\)\\
+    \(\sum_{2\le i \le j} \mu_{ij} \bar{v_i} = \bar{\sum_{2\le i \le j} \mu_{ij} v_i}
+    \Rightarrow \exists  \mu_{ij} \in K / F(v_j) = \mu_{ij}v_1 + \sum_{2 \le i \le j} \mu_{ij}v_j = \sum_{1 \le i \le j} \mu_{ij}v_j\)\\
+    \(F(v_1) F(v_2), \dots, F(v_n)\\
     \begin{pmatrix}
     \lb_1 & \mu_{12}
           & \lb_2 &       & X
           &       & \ddots
     0     &       &       & \lb_n
     \end{pmatrix}
+    \)
   \end{proof}
 \end{satz}
 
@@ -1160,50 +1161,51 @@ Linearkombination von Vektoren \(\cup_{j=i}^k B_j\) schreiben l\"asst, woebi
   Sei V endlichdimensional \'uber ienen K\"orper K.\\
   \(v \in V \setminus \{0\} \exists r \in \N : F^r(v) = sum_{i=0}^{r-1}a_i F^i(v)\) \(a_i\) ist eindeutig bestimmt.
   Insb. ist \(U = Span(v, F(v)m \dots, F^{r-1}(v))\) ist F inviariant, hat Basis \(v, F(V), \dots, F^{r-1}(v))\)\\
-  \(f \up U\ hat Darste;;ingsmatrix
+  \(F \uparrow U\) hat Darstellungsmatrix
+  \(
   \begin{pmatrix}
   0     ... a_0
   1 0   ... \vdots
     1 0     a_n
   \end{pmatrix}
   \)
-  \(\xI_F \up U}(T) = T^r - a_{r-1} T^{r-1} - \dots - a_0\).
+  \(\xi_{F \uparrow U}(T) = T^r - a_{r-1} T^{r-1} - \dots - a_0\).
   
   \begin{proof}
     \(n = \dim(V)\).
     \(\{v, F(v), \dots, F^n(v)\}\) sind lin.abh. Sei r die kleinste nat\'Urlich Zahl,
     so dass \(\{v, F(v), \dots, F^r(v)\}\) lin. abh sind. Dann sind
     \(\{v, F(v), \dots, F^{r-1}(v)\}\) linear unabh\"angig.
-    \(\pverset{\text{Ausstauschprinzip von r}{\Rightarrow} F^r(v) = \sum_{i=0}^{r-1} a_i F^i(v)\)
+    \(\overset{\text{Ausstauschprinzip von r}}{\Rightarrow} F^r(v) = \sum_{i=0}^{r-1} a_i F^i(v)\)
     wobei \(a_i\) eindeutig bestimmt sind.\\
     \(U = \Span(v_1, \dots, F^{r-1}(v))\) ist F-invariant. Sei \(u \in U, u = \sum_{0}^{r-1} \mu_iF^i(v)\\
     F(u) = \sum_{i=0}^{r-1} \mu_i F^{i+1}(v)\\
     = \sum_{i=0}^{r-2} \mu_iF({i+1}(v) + \mu_{i-1}F^r(v)\)
     Wobei \(F^r(v) = \sum_{i=0}^{r-1} a_iF^i(v)\).\\
     Beide teile der Summe \(\sum_{i=0}^{r-2} \mu_iF({i+1}(v) + \mu_{i-1}F^r(v)\) liegen eindeutig in U, also liegt auch die Summe in U.\\
-    \(\{v_1, \dpts, F^{r-1}(v)\}\) ist eine Basis von U.\\
+    \(\{v_1, \dots, F^{r-1}(v)\}\) ist eine Basis von U.\\
     \(F(v_1), \dots F(F^{3-1}(v))\\
     \begin{pmatrix}
       0 & 0 & \dots & a_0
-      1 & 0 &       & \vdorts
+      1 & 0 &       & \vdots
       0 & 1 &       & a_{r-1}
     \end{pmatrix}\)\\
     \(\xi_{F|U}(T) = det(T Id_r - A)
     = det(    \begin{pmatrix}
       T & 0 & \dots & -a_0
-      -1 & T &       & -\vdorts
+      -1 & T &       & -\vdots
       0 & -1 &       & -a_{r-1}
     \end{pmatrix}\)\\
     Laplacsche Entwicklung nach der letzten Spalte:
-    \(= (-1)^{r+1)(-a_0) det(\ve{-1 & T\\0 -1 & \ddots} + (-1)^{r+2)(-a_1)\det(\ve{& T\\0 -1 & \ddots}) + \dots + (-1)^{2r} (T - a_r) \det(\ve{T\\-1 & T\\  & -1 T})\)
+    \(= (-1)^{r+1}(-a_0) det(\ve{-1 & T\\0 -1 & \ddots} + (-1)^{r+2}(-a_1)\det(\ve{& T\\0 -1 & \ddots}) + \dots + (-1)^{2r} (T - a_r) \det(\ve{T\\-1 & T\\  & -1 T})\)
     \(= (-1)^r a_0 (-1)^r + (-1)^{r+1} a_1T (-1)^{r+1} + \dots + (-1)^{2r}(T - a_1)T^{r-1}
     = - a_0 - a_1 T - \dots - a_{r-1}T^{r-1} + T^r\)
   \end{proof}
 \end{lemma}
 
 Notation:\\
-\(P(T) \in K[T}, P(T) + \sum_{i=0}^m a_iT^i\), \(F : V \to V\) Endomorphismus.\\
-\(P(f) : V \to V, v \mapsto \um_{i=0}^m a_iF^i(v)\)\\
+\(P(T) \in K[T], P(T) + \sum_{i=0}^m a_iT^i\), \(F : V \to V\) Endomorphismus.\\
+\(P(f) : V \to V, v \mapsto \sum_{i=0}^m a_iF^i(v)\)\\
 Mit dieser Notation haben wir, dass im vorigen Lemma
 \(\xi_{F|_u}(F) = F^r(v) - \sum_{i=0}^{r-1} a_i F^i(v) = 0\)
 
@@ -1219,13 +1221,13 @@ Mit dieser Notation haben wir, dass im vorigen Lemma
     Aufgabe:\\
     \(R(T) = P \cdot Q\\ % als Polynome
     R(F) = P \circ (Q(F))\) % als Abbildungen\\
-    \(\xi_F(F)(v) = \xi_{F'} \circ (\xi_{F|_U)(v))\), wobei \(\xi_{F|_U)(v) = 0\), also \(\xi_F{F}(v) = 0\).
+    \(\xi_F(F)(v) = \xi_{F'} \circ (\xi_{F|_U}(v))\), wobei \(\xi_{F|_U}(v) = 0\), also \(\xi_F{F}(v) = 0\).
   \end{proof}
 \end{satz}
 
 \begin{korrolar}
-  \(A \in M_n \times n}(K)\\
-  \(\xi_A(T) = T^n + \sum_{i=0}^{n-1}b_i T^i \Rightarrow A^n + \sum_{i=0}^{n-1} b_i \cdot A^i = 0\)
+  \(A \in M_{n \times n}(K)\\
+  \xi_A(T) = T^n + \sum_{i=0}^{n-1}b_i T^i \Rightarrow A^n + \sum_{i=0}^{n-1} b_i \cdot A^i = 0\)
 \end{korrolar}
 
 \begin{satz}
@@ -1233,6 +1235,156 @@ Mit dieser Notation haben wir, dass im vorigen Lemma
   Plynom kleinsten Grades,  \(m_f\), derart, dass \(\forall P \in K[T] : m_F |_P \Leftrightarrow P(\tau) = 0\)
   Insbesondere gilt \(m_F(F) = 0\). Das  Polynom \(m_F\) hei\ss{}t das Minimalpolynom von F. 
 \end{satz}
+
+% missing stuff
+
+\begin{satz}
+  \(F : V \to V\) Endormorphismus, Dann existiert genau ein normiertes Polynom
+  derart, dass \(\forall P \in K[T]\)  \(m_F|_P \Leftrightarrow P(F) = 0\).
+  Das Polynom \(m_F(T)\) hei\ss{}t das Minimalpolynom von F.
+  \begin{proof}
+    Sei \(\mathcal{F} = \{P[T] \ text{normmiert} | P(F) = 0 \text{als Endomorphis.}\).\\
+    Caley - Hamilton:
+    \(Xi_F(T) \in \mathcal{F} \neq \emptyset\) Sei \(m-F(T) \in \mathcal{F}\)
+    Polynom kleinsten Grades.\\
+    Zu zeigen: \(\forall P \in K[T] | m_F|_P |leftrightarrow P(F) = 0\)\\
+    \(\Rightarrow\)\\
+    \(m_F |_P \Rightarrow \exists Q \in K[T] : P = Q \cdot m_F\)\\
+    \(P(F) = Q(F) \circ m_F(F), m_F(F) = 0\\
+     P(F) = 0\)\\
+    \(\Leftarrow\)\\
+    Sei \(P \in K[T], P(F) = 0\). Division mit Rest
+    \(\Rightarrow \exists q, r \in K[T] : P = Q m_F + r, \Grad(r) < \Grad(m_F)\)
+    \(0 = P(F) = Q(F) \circ m_F(F) + r(F) = r(F) = 0\)\\
+    \(\Rightarrow r(F) = 0\) als Endomorphismus, \(\Rightarrow r = 0\).
+    (sonst \(\frac{1}{a_{\Grad(T)}} \cdot r(T) \in \mathcal{F}\)\\
+    Eindeutigkeit:\\
+    Angenommen \((m_F'\) w\"urde auch die Bedingungen erf\"ullen\\
+    \(m_F'|_P \Leftrightarrow P(F) = 0 \forall P \in K[T]\)\\
+    \(\Leftrightarrow M_F|_{m_F'} \land m_F'|_{m_F}\)\\
+    \(m_F = Q m_F' \land m_F' = H m_F\)\\
+    zu Zeigen \(Q = H = 1\). Sowohl \(m_F, m_F'\) beide normiert, \(\Rightarrow
+    Q, H\) sind normiert.\\
+    \(m_F = Q \cdot m_F' = Q H m_F \land K[T] \) Integrit\"atsbereich\\
+    \(\Rightarrow 1 = Q H\)\\
+    \(\Grad(G H) = \Grad(G) \Grad(H) = \Grad(1) = 0 \land G, H \text{ normiert}\\
+    \Rightarrow G = H = 1 \Rightarrow m_F = m_F'\).
+  \end{proof}
+\end{satz}
+
+Frage\\
+\(A \in \ve{0 & 1 \\ 0 & 0}
+m|_A = \\
+\xi_A(T) = T^2
+m_A|_{T^2} \Rightarrow m_A = \begin{cases} T \\ T^2 \end{cases}
+m_A(A) = 0 \Rightarrow m_A \neq T \Rightarrow m_A = T^2
+\)
+
+\begin{lemma}
+  gegeben \(F : V \to V\), V endlich dimensional, F Endormorphismus, dann haben
+  \(\xi_F\) und \(m_F\) dieselben Nullstellen in K.
+  \begin{proof}
+    \(m_F|_{\xi_F} \Rightarrow \xi_F = Q m_F \Rightarrow \forall \lb \in K\),
+    falls \(m_F(\lb) = 0 \Rightarrow \xi_F(\lb) = 0\)\\
+    Sei \(\lb \in K " \xi_F(\lb) = 0 \Rightarrow \lb \) ist ein Eigenwert von F
+    \(\Rightarrow \exists v \in V \setminus \{0\} : F(v) = \lb v\). Sei \(m_F(T)
+    = T^d + \sum_{i=0}^{d-1} c_i T^i\). \(0 = m_F(F)(v) = (F^d + \sum c_iF^I)(v)
+    = F^d(v) + \sum c_i F^i(v)
+    = \lb^d v + \sum c_i \lb^i v
+    = (\lb^d + \sum c_i \lb^i) v
+    = m_F(\lb) v
+    \Rightarrow m_F(\lb) = 0\), da \(v \neq 0\).
+  \end{proof}
+\end{lemma}
+
+\begin{satz}
+  \(F : V \to V\), \(V\) endlichdimensional, F endomorphismus ist
+  diagonalisierbar gw. \(m|_F\) in lauter paarweise veschiedene Linearfaktoren
+  zerf\"allt.
+  \begin{proof}
+    Kommt in einer sp\"ateren Vorlesung.
+  \end{proof}
+\end{satz}
+
+\begin{bemerkung}
+  \(A \in Mat_{n \times n}(K) : A^2 = Id_n \Rightarrow A\) ist diagonalisierbar.\\
+  \(A^2 = Id_n \Rightarrow (T^ - 1)(A) = 0 \Rightarrow m_F|_{T^2 - 1}
+  m_A = \begin{cases}T^2 - 1 = (T - 1)(T + 1) \\ T - 1 \\ T + 1\end{cases}
+  \)
+\end{bemerkung}
+
+\section*{Jordansche Normalform}
+
+\begin{lemma}
+  \(F : V \to V\) Endomorphismus, \(U \subset V\), dann ist U F-invariant gdw.
+  \(U (F - \lb Id\)-invariant ist \(\forall \lb \in K\).
+  \begin{proof}
+    \"Ubungsblatt 4
+  \end{proof}
+\end{lemma}
+
+\textbf{Beispiel}\\
+\(F : V \to V, F \neq 0\) Endomorphismus, derart, dass \(F^m = 0\) als
+Endomorphismus und \(m > 0\) minimal (F ist nilpotent). \(F^{m-1} \neq 0
+\Rightarrow v \in V : F^{m-1}(v) \neq 0\). \(\{v, F(v), \dots, F^{m-1}(v)\}\)
+ist linear unabh\"angig. Erg\"anze sie zu einer Basis B von V.
+\(B = \{v, F(v), \dots, F^{m-1}(v), \dotsm v_n\).\\
+\(F^{m-1}(v), \dots F(v), v, \dots v_n\)\\
+\(
+  \begin{pmatrix}
+    0      & 1      & 0      & \\
+    \vdots & 0      & \ddots & *\\
+    0      & \vdots & 0      & \\
+    0      & \dots  &        & *
+  \end{pmatrix}
+\)
+
+\begin{definition}[Hauptraum]
+  Sei \(\lb \in K\) ein Eigenwert von \(F : V \to V\), V endlichdimens..\\
+  \(V(\lb) = \Ker(F - \lb)\) Eigenraum von F bzgl \(\lb\).\\
+  \(\Ker(F - \lb) \subset \ker(F - \lb)^2 \subset \dots\)\\
+  \(\cup_{n \in \N} \ker(F - \lb)^n\) ist der Hauptraum von F bzgl. \(\lb\).
+  \begin{bemerkung}
+    \(V_\lb\) ist ein Unterraum und \(V_\lb\) ist F-invariant,
+    da \(V_\lb\) \((F - \lb)\)-invariant ist.
+  \end{bemerkung}
+  \begin{bemerkung}
+    Falls \(\Ker(F - \lb) = V(\lb) = 0\) ist
+    \(\cup_{n \in \N}\Ker(F - \lb)^n = 0\).
+  \end{bemerkung}
+\end{definition}
+
+\begin{lemma}
+  Seien \(\lb_1 \dots \lb_k\) verschiedene Elemente aus K.
+  \(V_{\lb_i} \cap \sum_{j=1 j\neq i}^k V_{\lb_j} = \{0\}\).
+  \begin{proof}
+    \(V_{\lb_j} = (F - \lb_j)\) invariant \(\Rightarrow V_{\lb_j}\) ist
+    F-invariant \(\Rightarrow (F-\lb_i\) invariant.\\
+    Wir wollen zuerst zeigen, dass  \(F - \lb_i \uparrow V_{\lb_j}\) ein
+    Automorphismus ist falls \(i \neq j\).\\
+    \(\Rightarrow\) es gen\"ugt zu zeigen, dass \(F - \lb_i\) injektiv auf
+    \(V_{\lb_j}\) ist.\\
+    Sei \(w \in V_{\lb_j} \setminus \{0\} \Rightarrow m \in \N\) kleinstm\"oglich,
+    \(F - \lb_J)^m(w) = 0 \Rightarrow (F - \lb_j)^{m - 1}(w) \neq 0
+    \Rightarrow ((F - \lb_j)^{m-1}((\lb_i - \lb_j)(w)) \neq 0\)\\
+    Sei \(0 \neq (F - \lb)j)^{m-1}(F(w) - \lb_j w - (F(w) - \lb_i w))
+    \Rightarrow (F - \lb_i)^m(w) + (F - \lb_j)^{m-1} \circ (F - \lb_i)(w)
+    \Rightarrow (F- \lb_i)(w) \neq 0\).\\
+    Insebsondere is jede Potez \(F - \lb_i^k\) ein Automorphismus von
+    \(V_{\lb_j}\). \(\B_{\lb_i} \cap \sum_{j=1, j\neq i}^k V_{\lb_j} = \{0\}\)
+    \(v \in V_{\lb_i} \cap \sum_{j \neq i} V_{\lb_j}\\
+    v = \sum_{j \neq i} v_j \in V_{\lb_j}
+    \Rihgtarrow exist sm_j\) kleinstes \(F( - \lb_J)^{m_j}(v_j) = 0\)\\
+    \((F - \lb_i)^{m_i) \circ \dots \circ (F - \lb_{i - 1)^{m){i-1} \circ
+    (F - \lb_{i-1}^{m_{i+1}} \dots (F - \lb_{k))^{m_k}\) ist eine Autmoprhphismus
+    von \(\V_{\lb_i}\). Sie dieser automorph. H. \(H(v) = \sum_{j \neq i}(H(v_j)
+    = \sum_{j \neq i} (F - \lb1)^{m_1) \circ \dots \circ (F - \lb_j)^{m_j)(v_j), F - \lb_j)^{m_j)(v_j) = 0
+    \Rihgtarrow H(v) = 0 \ Rightarrow v = 0\).
+    \end{proof}
+\end{lemma}
+
+
+
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
