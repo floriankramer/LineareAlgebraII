@@ -1383,8 +1383,229 @@ ist linear unabh\"angig. Erg\"anze sie zu einer Basis B von V.
     \end{proof}
 \end{lemma}
 
+\begin{lemma}
+  Sei \(\lb \in K\). \(\dim(V_\lb) = ord_\lb(\chi_F)\). Ferner hat \(F \uparrow V_\lb\)
+  hat Matrixdarstellung der der Form \(
+  \begin{pmatrix}
+    \lb &        & X\\
+        & \ddots & \\
+    0   &        & \lb
+  \end{pmatrix}
+  \)\\
+  \begin{proof}
+    Sei \(k = \ord_\lb(\chi_F(T))\).
+    \(\chi_F(T) = (T-\lb)^k \cdot G(T)\) wobei \(G(\lb) \neq 0\).\\
+    Behauptung: es gibt einen F-invarianten Unterraum U von V der Dimension k
+    so dass \(F \uparrow U\) hat Matrixdarstellung 
+    \(
+      \begin{pmatrix}
+        \lb &        & X\\
+            & \ddots & \\
+        0   &        & \lb
+      \end{pmatrix}
+  \)\\
+  Falls \(n=0 \Rightarrow\) klar. OBdA. ist \(k \ge 1\). Wir beweisen die
+  Begauptung mit Induktion auf \(n = \dim(V)\).\\
+  \(n = 1\)\\
+  \(
+    \Rightarrow \exists v \in V \setminus \{0\} : F(v) = \lb v\\
+    \Rightarrow V = \Span(v) = U
+  \)\\
+  \(n \ge 2\)\\
+  \(
+    \Rightarrow \text{lambda is ein Eigenwert}\\
+    \Rightarrow \exists v \in V \setminus \{0\} F(v) = \lb v, U_0 = \Span(v) \Rightarrow \dim(U) = 1 \land \text{F-invariant}
+    \Rightarrow \hat{F} : V/U_0 \to V/U_0, \bar{W} \mapsto \bar{F(w)},
+                (T-\lb)(T-\lb)^{k-1} \cdot Q(T) = \chi_F(T) = \underset{=(T-\lb)}{\chi_{F\uparrow U}(T)} \cdot \chi_{\hat{F}}(T)\\
+    \Rightarrow \chi_{\hat{F}}(T) = (T - \lb)^{k-1} \cdot Q(T), Q(\lb) \neq 0\\
+  \)
+  Nach Ia. existiert ein \(\hat{F}\)-invarianter Unterraum \(\hat{U} \subset V/U_0\) der Dimension
+  n-1, so dass die Matrixdartstellung von \(\hat{F}\) der Form 
+  \(
+      \begin{pmatrix}
+        \lb &        & X\\
+            & \ddots & \\
+        0   &        & \lb
+      \end{pmatrix}
+  \)
+  ist. Sei \(\bar{v_2}, \dots, \bar{v_k}\) eine Basis von \(\hat{U}\) so dass 
+  die Darstellungsmatrix von \(\hat{F}\) bzgl. \(\{v_2, \dots, \bar{v}_k\}\)\\
+  \(
+      \begin{pmatrix}
+        \lb &        & X\\
+            & \ddots & \\
+        0   &        & \lb
+      \end{pmatrix}
+  \)\\
+  Die Vektoren \(\{v_1, v_2, \dots, v_k\}\) sind linear unabh\"angig.
+  \(U = \Span(v_1, v_2, \dots, v_k)\) hat Dimension k. U ist F-invariant,
+  \(
+    F(\sum_{i=1}^k \mu_I v_i)
+    = \sum \mu_i F(v_i)
+    = \mu_i \lb v_i + \sum_{i=2}^k \mu_i \underset{=\sum_{j\le i} a_{ji}v_i}{F(v_i)}
+    \in U
+  \)\\
+  Zu zeigen ist nun dass \(U = V_\lb\).
+  \(
+    U \subset V_\lb:
+    \chi_{F \uparrow U} = (T - \lb)^k
+    \overset{\text{Caley-Hamilton}}{\Rightarrow} (F - \lb)^k = 0 \text{ auf U}\\
+    \Rightarrow U \subseteq \Ker(F - \lb)^k\\
+    \)
+    Falls \(U \subsetneq V_\lb\)\\
+    \(\Rightarrow \dim(V_\lb) \ge 1\).\\
+    \(
+      (T-\lb)^K \cdot G(T) = \chi_F(T) = \chi_{F\uparrow U}(T) \cdot \chi_{\hat{F}}(T)
+      \Rightarrow \chi_{hat{F}}(T) = G(T)
+    \) aber \(G(\lb) \neq 0\).\\
+    \(\lb \) ist kein Eigenwert von \(\hat{F}\).
+    \(\Rightarrow\) der Hauptraum von \(\hat{F}: V/u \to V/u\) ist trivial.\\
+    Sei \(w \in V_\lb\)\\
+    \(\Rightarrow \exists s \in N : (F - \lb)^s(w) = 0 \Rightarrow (F - \lb)^s(\bar(w)) = 0\\
+    \Rightarrow \bar{w} = 0 \Rightarrow w \in U\).
+  \end{proof}
+\end{lemma}
 
+\begin{definition}
+  Ein Endormorphismus \(F : V \to V\) hei\ss{}t bilpotent, falls es eine nat.
+  Zahl m gibt, so dass \(F \circ \dots \circ F = F^m = 0\) auf V ist.
+\end{definition}
 
+\begin{lemma}
+  Sei \(F ; V \to V\). Folgende Ausagen sind \"aquivalent:
+  \begin{enumerate}
+    \item{F ist nilpotent}
+    \item{\(\forall c \in V \ Exists m_v \in \N F^{m_v}(v) = 0\)}
+    \item{Es existiert eine Basis von V, so dass F Darstellungsmatrix
+    \(
+      \begin{pmatrix}
+        0 & & x\\
+          & \ddots &\\
+          0 & & 0
+      \end{pmatrix}
+    \)
+    }
+    \item{\(\chi_F(T) = T^n\)}
+  \end{enumerate}
+  \begin{proof}
+  \begin{itemize}
+    \item[\(1\Rightarrow 2\)]{
+      trivial.
+    }
+    \item[\(2 \Rightarrow 3\)] {
+      Induktion auf \(n = \dim(V)\). Sei \(v \in V \setminus\{0\}\\
+      \Rightarrow\exists m_V \in \N\) kleinztest \(F^{m_v}(v) = 0\\
+      \Rightarrow m_v \neq 0\\
+      \Rightarrow f_{m_v-1}(v) =neq 0\\
+      \Rightarrow V = \Span(F^{m-1}(v))\\
+      \)
+      Ferner\\
+      \(F(F^{m_v-1}(v)) = 0\)\\
+      \(\Rightarrow\) Darstellungsmatrix bzg. \(\{F^{m_v-1}(v)\}\) ist \((0)\).\\
+      \(n \ge 2\)\\
+      Sei \(v_1 \in V \setminus \{0\}\) so dass \(F(v_1) = 0\)\\
+      \(\Rightarrow U = \Span(v_1)\) ist F-invariant.\\
+      \(\Rightarrow \hat{f} = \underset{\dim = n-1}{V/U} \to V/U\)\\
+      ach I.A. existiert eine Basis \(\{\bar{v}_2, \dots, \bar{v}_n\}\), so dass
+      die Darstellungsmatrix von \(\hat{F}\) die Form\\
+      \(
+            \begin{pmatrix}
+        0 & & x\\
+          & \ddots &\\
+          0 & & 0
+      \end{pmatrix}
+      \) hat.\\
+      Die Familie \(\{v_1, v_2, \dots, v_n\}\) ist eine Familie von V und F hat
+      Darstellungsmatrix:
+      \(
+      \begin{pmatrix}
+        0 & & x\\
+        & \ddots &\\
+        0 & & 0
+      \end{pmatrix}
+      \)
+    }
+    \item[\(3 \Rightarrow 4\)] {
+      \(\chi_F(T) = det(T \cdot Id_B - (\ve{0&&X \\ & \ddots\\ 0&& 0})
+      = \det(\ve{T&&X \\ & \ddots\\ 0&& T} = T^n\)
+    }
+    \item[\(4 \Rightarrow 1\)] {
+      Caley-Hamilton: \(F^n = \chi_F(F)= 0\)
+    }
+  \end{itemize}
+  \end{proof}
+\end{lemma}
+
+\begin{satz}[Jordan-Charvallery]
+  Sei \(F : V \to V\) Endomorphismus, V endl. dim. Fakks \(\chi_F(T)\) in
+  Linearfaktoren zerf\"allt dann ist \(V = \oplus_{i}^k V_{\lb_i}\) mit \(\lb_i\)
+  verschiedene Eigenwerte. F hat dann eine Blockmatrix als Darstellungsmatrix:\\
+  \(
+  \begin{pmatrix}
+  A_1\\
+      & A_2\\
+      &       &\ddots\\
+      &&&A_k\\
+  \end{pmatrix}
+  \)
+  \(A_i = \begin{pmatrix}
+    \lb_i&&X\\
+    &\ddots&\\
+    0&&\lb_i\\
+  \end{pmatrix}\)
+  
+  Insbseondere ist \(F = G + H\) mit G ist diagonalisierbar und H ist nilpotent,
+  und \(G \cdot H = H \cdot G\).
+  \begin{proof}
+    \(\chi_F(T) = \pi_{i=1}^k (T-\lb_i)^{d_i}\), \(\lb_i\) verschieden.\\
+    \(\dim(V) = \Grad(\chi_F(T)) = n = \sum){i=1}^k _underset{=\dim(V_{\lb_i}}{d_i}\).\\
+    \(\dim(\sum_{i=1}^kV_{\lb_I}) = \sum d_i = b = \dim(V)\) da die Hauptr\"aume transversal sind.\\
+    \(\Rightarrow V = \oplus_{i=1}^k V_{\lb_i}\)\\
+    V besitzt eine Bais B, welche aus der Vereinigung der Basen der \(v_{\lb_i}\)
+    besteht. F wird durch \(F \uparrow V_{\lb_1}, \dots, F\uparrow V_{\lb_K}\)
+    bestimmt. Die einzelnen \(F \uparrow V_{\lb_I}\) habe Matrixdarstellungen
+    \(A_I = \begin{pmatrix}
+      \lb_i&&X\\
+      &\ddots\\
+      0&&\lb_I\\
+    \end{pmatrix}\)
+    Die Darstellungsmatrix von F ist dann \\
+    \(
+      \begin{pmatrix}
+      A_1\\
+          & A_2\\
+          &       &\ddots\\
+          &&&A_k\\
+      \end{pmatrix}
+    \).\\
+    Sei \(G : V \to V\) \(G \uparrow V_{\lb_I} = \) Multiplkation mit \(\lb_i\).
+    G hat diagonale Matrixdarstellung zgl. der Basis B :
+    \(
+    \begin{pmatrix}
+      \lb_1\\
+      &\ddots\\
+      &&\lb_1\\
+      &&&\ddots\\
+      &&&&\lb_k\\
+      &&&&&\ddots\\
+      &&&&&&\lb_k
+    \end{pmatrix}\\
+    \)
+    Setze \(H = F - G\). Die Darstellungsmatrix von H bzgl. B ist\\
+    \(
+    \begin{pmatrix}
+      0&&X\\
+      &\ddots\\
+      0&&0\\
+    \end{pmatrix} \Rightarrow
+    \) H ist nilpotent.\\
+    z. Zeigen \(G H = H G\)\\
+    Beachte, dass jedes \(V_{\lb_i}\) G-invariant ist. Damit ist \(V_{\lb_i}\)
+    H-invariant.\\
+    Es gen\"ugt zu zeigen, dass \(G H = H G\) auf \(V_{\lb_i}\). Sei
+    \(w \in V_{\lb_i}\): \(H(G(W)) = H(\lb_i w) = \lb_i H(w) = G(H(w))\).
+  \end{proof}
+\end{satz}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
