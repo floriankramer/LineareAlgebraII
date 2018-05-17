@@ -1301,8 +1301,109 @@ m_A(A) = 0 \Rightarrow m_A \neq T \Rightarrow m_A = T^2
   \(F : V \to V\), \(V\) endlichdimensional, F endomorphismus ist
   diagonalisierbar gw. \(m|_F\) in lauter paarweise veschiedene Linearfaktoren
   zerf\"allt.
-  \begin{proof}
-    Kommt in einer sp\"ateren Vorlesung.
+  \begin{proof}\hfill\break
+    \(\Rightarrow\) sei F diagonalisierbar. Dann gilt
+    \(\chi_F(T) = \pi_{i=1}^k (T\lb_i)^{d_i}\), mit \(\lb_i\) Eigenwerte von F.
+    Ausserdem ist \(V = \oplus_i V(\lb_i)\). Sei \(v \in V\) bel. Dann gilt 
+    \(V = \sum_{i=1}^k V_i\) wobei \(v_i \in V(\lb_I)\).\\
+    Setze \(P(T) = \pi_{i=1}^k (T -\lb_i)\). z.Z. ist \(P(T) = m_F(T)\).
+    \(\\
+    P(F)(v) = \pi_{i=1}^k(F-\lb_i)(v)\\
+    = \pi_{i=1}^k(F-\lb_i)(\sum_{j=1}^k v_j)\\
+    = \sum_{j=1}^k (\pi_{i=0}^k(F-\lb_i)(v_j))\\
+    = \sum_{j=1}^k (F-\lb_1 Id) \circ \dots \circ (F-\lb_{j-1} Id) \circ (F-\lb_{j+1} Id) \circ \dots \circ (F -\lb_k Id) \circ (F -\lb_j Id)\\
+    = 0
+    \), da \(v_j \in V(\lb_j)\).\\
+    v war beliebei \(\Rightarrow P(F) = 0 \in \End(V)\).\\
+    Also \(m_F |_P \Rightarrow P(T) = Q(T) \cdot m_F(T)\)\\
+    Aber \(m_F(T) = \pi_{i=1}^k(T-\lb_i)^{S_i}\), \(S_i \ge 1\) und 
+    \(P(T) = \pi_{i=1}^k (T-\lb_i) = Q(T) \pi_{i=1}^k(T-\lb_i)^{S_i}\)\\
+    \(\Rightarrow S_i=1\) f\"ur \(i=1, \dots, k\), sonst w\"are der Grad der
+    rechten Seite gr\"o\ss{} als der Grad der linken.\\
+    \(\Rightarrow m_F(T) = \pi_{i=1}^k(T-\lb_i)\).\\
+    \(\Leftarrow\)\\
+    Sei \(m_F(T) = (T-\lb_1) \circ \dots \circ (T-\lb_k)\), \(i \neq j \Rightarrow \lb_i \neq \lb_j\)\\
+    z.Z. \(F\) ist diagonalisierbar. Es gen\"ugt zu Zeigen, dass
+    \(V = \oplus_i V(\lb_i)\). Beweis durch Induktion:\\
+    Sonderf\"alle:
+    \begin{enumerate}
+      \item{
+        Sei \(\dim(V) = 1 \Rightarrow m_F(T) = (T-\lb_1) \Rightarrow \lb_1\)
+        ist Eigenwert von F. Sei v der Eigenvektor zu \(\lb_1\) dann folgt
+        \(V = \Span(v) = V(\lb_1)\)
+      }
+      \item {
+        Sei \(\dim(V) = n \ge 2\) aber \(k=1\).
+        \(\Rightarrow m_F(T) = (T - \lb_1)\). Nach Def von \(m_F\) gilt
+        \(m_F(F) = 0 \Rightarrow F - \lb_1 = 0 \in \End(V)\). F\"ur alle
+        \(v \in V\) gilt \((F - \lb_1)(v) = 0 \Rightarrow F(v) = \lb_1v
+        \Rightarrow V = V(\lb_1)
+        \)
+      }
+    \end{enumerate}
+    Induktionsanahme: Der Satz gilt f\"ur den Fall \(\dim(V) < n, n \in \N\).
+    Also sei \(\dim(V) = n \ge 2, k \ge 2\).\\
+    Zun\"achst zeigen wir:
+    Behauptung \((1)\): \(V = \Ker(F-\lb_1 Id) \oplus \Ima(F - \lb_1 Id)\).
+    Idee: Zeige dass \(\Ker(F-\lb_1 Id) = V(\lb_1), \Ima(F -\lb_1Id) = V(\lb_1)\oplus \dots \oplus V(\lb_K)\)\\
+    Bew.:\\
+    Sei \(R(T) = \Pi_{i=2}^k(T-\lb_i) \Rightarrow m_F(T) = R(T)(T- \lb_1)\).\\
+    Division mit Rest: \(\exists Q(T), r \in K\), so dass:\\
+    \(R(T) = Q(T)(T - \lb_1)+r\)\\
+    \(0 \neq R(\lb_1) = 0 + r \Rightarrow r \neq 0 \in K\)\\
+    Sei \(v \in V\) bel, \(R(F)(v) = Q(F)(F-\lb_1)(v)  r \cdot v\)\\
+    \(\Rightarrow v = \underset{\in \Ker(F-\lb_1)}{\frac{1}{r}R(F)} + \underset{\in \Ima(F-\lb_1)}{(F - \lb_1) \cdot (-\frac{1}{r}Q(F)(V))}\)\\
+    \((F-\lb_1)(R(F)(v) = m_F(F) v = 0 \Rightarrow \frac{1}{r}R(F) \in \Ker(F-\lb_1)\)\\
+    \(\Rightarrow V = \Ker(F-\lb_1) + \Ima(F-\lb_1)\).\\
+    Zu zeigen ist nun noch, dass die Summe direkt ist. \(\Leftrightarrow \Ker(F-\lb_1)\cap\Ima(F-\lb_1) = \{0\}\).\\
+    Sei \(v \in \Ker(F-\lb_1) \cap \Ima(F-\lb_1)
+    \Rightarrow v = (F-\lb_1)(w), w \in V\\
+    R(f)(v) = Q(F) (F-\lb Id)(v) + r \cdot v\\
+    m_F(F) = (R(F) \cdot (F-\lb_1))(w) = \underset{=0}{Q(f)(f\lb_1Id)v} + rv
+    \Rightarrow rv = 0, r \neq 0 \Rightarrow v = 0
+    \Rightarrow V = \Ker(F-\lb_1 Id) \oplus (\Ima(F - \lb_1 Id)
+    \)\\
+    Setze \(W = \Ima(F - \lb_1)\) (W ist UVR  von V mit \(\dim(W) < \dim(V)\).\\
+    Behauptung (2):  W ist F-invariant:\\
+    Set \(v \in W\) beliebeig \(\Rightarrow v = (F - \lb_1)(w), w \in V
+    \Rightarrow F(v) = F \circ (F - \lb_1)(w) = (F -\lb_1) \circ \underset{\in V}{(F(w))}
+    \in W\)\\
+    Setze \(F' = F|_W \in End(W)\).\\
+    Beh. (3): \(m_{F'}(T) = \Pi_{i=2}^k(T - \lb_i)\) (= \(R(T)\)).\\
+    Sei \(v \in W\) bel. \(\Rightarrow v = (F - \lb_1)(w), w\in V\\
+    \Rightarrow R(F')(v) = \underset{m_F(F) = 0}{(R(F)\circ (F - \lb_1))}(w)\\
+    \Rightarrow R(F') = 0 \in \End(W) \\
+    \Rightarrow m_{F'}|_R\\
+    \Rightarrow R(T) = H(T) \cdot m_{F'}(T)
+    \)\\
+    Es gilt auch \(0 = \underset{=0}{m_{F'}(F')} \circ (F-\lb_1)(v)\\
+    \Rightarrow m_{F'}\circ (F-\lb_1) = 0 \in \End(V)\\
+    \Rightarrow m_{F}(T)|_{m_{F'}(T) \cdot (T-\lb_1)}
+    \Rightarrow m_{F'(T)}(T-\lb_1 = Q(T) \cdot (m_F(T))\\
+     = Q(T) R(T)(T-\lb_1)\\
+     \Rightarrow m_{F'}(T) = Q(T) \cdot R(T) = Q(T) H(T) m_{F'}(T)\\
+     \Rightarrow Q(T) = H(T) = 1
+    \), ansonsten w\"are der Grad links und rechts verschieden\\
+    \(
+      R(T) = m_{F'}(T)
+    \)\\
+    
+    \(\overset{\text{IA}}{\Rightarrow} W = \oplus_{i=2}^kW(\lb_i)\),
+    mit \(W(\lb_i)\) Eigenraum von \(F'\) zu \(\lb_i\).\\
+    \(\Rightarrow V = V(\lb_1) \oplus_{i=2}^k W(\lb_i)\)\\
+    z.Z. \(W(\lb_i) = V(\lb_i)\). Dann gilt \(V = \oplus_{i=1}^k(V(\lb_i))\).\\
+    Es gilt \(
+    W(\lb_i) = \{w \in W : F'(W) = \lb_I w\}\\
+    \subseteq \{v \in V : F(v) \ \lb_i v\} = V(\lb_i)\)\\
+    Sei \(i > 1\), \(v \in V(\lb_i)\). \(\Rightarrow F(v) = \lb_i v\).
+    Setze \(w = \frac{1}{\lb_i - \l _1} v \in V(\lb_i)\).
+    \(\Rightarrow F(w) - \lb_1w = v \Rightarrow v \in Im(F-\lb_1) = W\).\\
+    \(\Rightarrow v \in \oplus_{j=2}^k(W(\lb_j) \Rightarrow v \in W(\lb_i)\)
+    , da \(v  = \sum \al_j w_j\) f\"ur \(w_j \in W(\lb_j), \al_j \in K\)
+    Aber die Summe der \(V(\lb_J)\) ist direkt und \(v \in V(\lb_i)\), damit
+    kann nur \(\al_i\) nicht 0 sein, damit ist \(v = \al_i w_i \Rightarrow
+    w \in W(\lb_i)\)
+    
   \end{proof}
 \end{satz}
 
@@ -1606,6 +1707,7 @@ ist linear unabh\"angig. Erg\"anze sie zu einer Basis B von V.
     \(w \in V_{\lb_i}\): \(H(G(W)) = H(\lb_i w) = \lb_i H(w) = G(H(w))\).
   \end{proof}
 \end{satz}
+
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
