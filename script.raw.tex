@@ -1708,6 +1708,208 @@ ist linear unabh\"angig. Erg\"anze sie zu einer Basis B von V.
   \end{proof}
 \end{satz}
 
+% Missing beginning of lecture on the 29.05.2018
+% Jordanblock
+
+\begin{definition}
+  \(F : V \to V\), V endlichdimensional. Eine Basis \(\{v_1, \dots, v_n\}\) ist 
+  F-adaptiert falls \(F(v_1) = 0, F(v_j) = \begin{cases}
+  0\\
+  v_{j-1}
+  \end{cases}\)
+  \textbf{Bemerkung:}\\
+  Falls V eine F-adaptierte Basis hat ist \(F : V \to V\) nilpotent.
+  \begin{proof}
+    Sei \(\{v_1, \dots, v_n\}\) F-adapteoert. Es gen\"ugt zu zeigen dass
+    \(F^n = 0\).\\
+    \(\sum_j^n \mu_jv_j = F^n(v) = \sum_{j=1}^n \lb_j F^n(v_j)\)
+  \end{proof}
+\end{definition}
+
+Notation \(N_m = \begin{pmatrix}
+0&&X\\
+&\ddots\\
+0&&0\\
+\end{pmatrix}
+\in Mat_{n \times n}\\
+N_1 = (0)\\
+N_m^m = 0
+\)
+
+\begin{definition}
+  \(F : V \to V\) nilpotent. Es existiert \(m \in \N\)
+  \(\Ker(F) \subset \dots \subset \Ker(F^m) = \Ker(F^{m+1}) = \dots \subset V\).
+  m hei\ss{}t der Index von F. \(V = \Ker(F^m) \oplus F^m(V)\)
+\end{definition}
+
+\begin{satz}
+  Sei \(F ; V \to V\) undd B eine F-adaptierte Basis von V. Dann hat F
+  Matrixdarstellung der Form:\\
+  \(
+  \begin{pmatrix}
+    N_{k_1}\\
+    &\ddots\\
+    &&N_{k_n}\\
+  \end{pmatrix}\\
+  \sum_{j=1}^r k_j = n\\
+  Index(F) = max\{k_j\}_{1 \le j \le n}
+  \)
+  \begin{proof}
+    Sei \(i_1 < \dots < i_r\) eine Aufz\"ahlung der Menge von Indices so dass 
+    \(\{j | F(v_j) = 0\}\)\\
+    \(v_1, v_2, \dots, v_{i_1}, v_{i_1 + 1}, \dots\)\\
+    \(
+    \begin{pmatrix}
+    0&1\\
+     &0&1\\
+     & &\ddots&1\\
+     &&&0&0\\
+     &&&&0&1\\
+     &&&&&0 & 1\\
+     &&&&&&\ddots\\
+    \end{pmatrix}
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{satz}
+  Sei \(F : V \to V\) nilpotent mit Index K, \(\dim(V) = n < \infty\).
+  Gegeben ein Unterraum U von V derart, dass \(U \cap \Ker(F^{k-1}) = \{0\}\).
+  Dann l\"asst sich jede Basis von U zu einer F-adaptierten Basis von V
+  erg\"anzen.\\
+  \begin{bemerkung}
+    \(\Ker(F) \subsetneq Ker(F^2) \subsetneq \Ker(F^{k-1}) \subsetneq \Ker(F^k) =
+    \dots = V\).\\
+    \(\Ker(F^{k-1}\) hat ein Komplement U in \(\Ker(F^k)\)
+  \end{bemerkung}
+  
+  \begin{proof}
+    Induktion auf k:\\
+    \(k = 1\)\\
+    \(F = 0\) als Endomorphismus. \(\Rightarrow\) Jede Basis ist F-adaptiert.\\
+    \(k \ge 2\):\\
+    Sei \(V' = \Ker(F^{k-1}) \subsetneq V\). Sei weiterhin \(\{u_1, \dots, u_s\}\)
+    eine Basis von U. \(U \cap V' = \{0\}\). \(U + V' = U \oplus U \oplus V'\)
+    hat eine Basis: \(\{u_1, \dots, u_s, \hat v_1, \dots, \hat v_m\}\).
+    Erg\"anze diese Basis zu einer Basis von V:\\
+    \(\{u_1, \dots, u_s, \dots u_r, v_1, \dots, v_m\}\).\\
+    Sei \(W = \Span(u, \dots, u_r), U \subset W, W \cap V' = \{0\}\).\\
+    \(F(W) \subset \Ker(F^{k-1}) = V'\), da \(F^k = 0\). \(V'\) ist F-invariant
+    und \(F \uparrow V'\) hat Index \(k-1\).\\
+    \textbf{Beh.}:  \(\{0\} = F(W) \cap \Ker(F^{k-2})\)\\
+    Sei \(u \in F(w) \cap \Ker(F^{k-2}) \Rightarrow F^{k-2}(u) = 0\). es existiert
+    \(w \in W : u = F(W)\)\\
+    \(0 = F^{k-2}(u) = F^{k-1}(w)\\
+    \Rightarrow w \in \Ker(F^{k-1} = V'\\
+    \Rightarrow w = 0\\
+    \Rightarrow u = F(w) = 0\)\\
+    \textbf{Beh.}: \(\{F(u_1), \dots, F(u_r)\}\) sind linear unabh\"angig. also
+    eine Basis von \(F(W)\).\\
+    \(\sum_{i=1}^r \lb_i F(u_i) = 0
+    = F(\sum_{i=1}^k \lb_i F(u_i))\\
+    \sum_{i=1}^k \lb_i u_i \in \Ker(F) \subset V'\\
+    \overset{W \cap V' = \{0\}}{\Rightarrow} \sum_{i=1}^k \lb_i u_i = 0\\
+    \Rightarrow \lb_1 = \dots = \lb_r = 0
+    \)\\
+    Aus unserer Induktionsanahme: \(F(W)\) und \(F |_{V'}\) \(\Rightarrow\)
+    Es existiert eine adaptierte Basis \(\{v_1', \dots, v_m'\}\) welche
+    \(\{F(u_1), \dots, F(u_r)\}\) erg\"anzt.\\
+    \(F(u_j) = v_{i_j}'\) wobei \(i_1 < \dots < i_r\) (ansonsten sortiere
+    \(u_j\) um.\\
+    \(v_1 = v_1'\)\\
+    \(v_2 = v_2'\)\\
+    \(\vdots\\
+    v_{i_1} = v_{i_1}'\\
+    v_{i_1+1} = u_1\\
+    v_{i_1+2} = v_{i_1 + 1}\\
+    v_{i_1+} = v_{i_1 + 1}\\
+    \)\\
+    (F\"uge an den stellen \(i_j\) den vektor \(u_j\) ein).\\
+    \(\rightarrow\) Basis von V.\\
+    Es gen\"ugt nun zu zeigen, dass diese Basis F-adaptiert ist.\\
+    z.B. \(F(v_{i_1+1}) = v_{i_1}' = F(u_1)\\
+    \Rightarrow u_1 - v_i \in \Ker(F) \land u_1 - v_i \in V' \Rightarrow \) Widerspruch. 
+  \end{proof}
+\end{satz}
+
+\textbf{Beispiel}\\
+\(A =
+\begin{pmatrix}
+1  & 1 & 0 & 1\\
+0  & 2 & 0 & 0\\
+-1 & 1 & 2 & 1\\
+-1 & 1 & 0 & 3
+\end{pmatrix}\\
+\chi_A(T) = det(\begin{pmatrix}
+T - 1  & 1 & 0 & 1\\
+0  & T - 2 & 0 & 0\\
+-1 & 1 & T - 2 & 1\\
+-1 & 1 & 0 & T - 3
+\end{pmatrix}) = (T-2) det(\ve{T-1&0&-1\\1&T-2&-1\\1&0&T-3})
+= (T-2)^4 \Rightarrow\) 2 ist der einzige Eigenwert\\
+\(A - 2Id\) ist nilpotent.\\
+\(A - 2Id = \begin{pmatrix}
+-1  & 1 & 0 & 1\\
+0  & 0 & 0 & 0\\
+-1 & 1 & 0 & 1\\
+-1 & 1 & 0 & 1
+\end{pmatrix}\)\\
+\(\Ker(A - 2Id) = \{(x_1, x_2, x_3, x_4) | -x_1 + x_2 + x_4 = 0\}\)\\
+\(
+\Ker(A - 2Id) \subsetneq \Ker((A - 2Id)^2), \dim(\Ker(A - 2Id)) = 4\)\\
+Die Jordansche Normalform ist dann:
+\(
+\begin{pmatrix}
+2 & 1\\
+  & 2\\
+  &   & 2\\
+  &   &   & 2\\
+  &   &   &   & 2
+\end{pmatrix}
+\)
+Da es nur einen Vektor in \(\Ker((A - 2Id)^2)\) gibt der nicht in \(\Ker((A - 2Id))\) ist.
+
+\begin{korrolar}
+  Jeder Nilpontente Endormorphsimus besitzt eine F-adaptierte Basis.
+\end{korrolar}
+
+\begin{korrolar}
+  Jede niplotente Endormorphismus l\"a\ss{}t sich bez\"uglich einer geeigneten
+  Basis durch eine Blockmatrix darstellen.
+  \(
+  \begin{pmatrix}
+    0&1\\
+    &0&1\\
+    & &\ddots&1\\
+    &&&0&0\\
+    &&&&0&1\\
+    &&&&&0 & 1\\
+    &&&&&&\ddots\\
+  \end{pmatrix}\)
+\end{korrolar}
+
+\begin{korrolar}[Jordansche Normalform]
+  Jeder Endomorphismus eines endlichdimensionalen Vektorraumes dessen
+  charakteristisches Polynom in Linearfaktoren zerf\"allt l\"asst sich
+  bez\"uglich einer geeigneten Basis durch eine Blockmatrix folgender Form
+  darstellen.\\
+  \(
+  \left (
+  \begin{array}{cccccccccccc}
+    \lb_1&1\\
+    &\lb_1&1\\
+    & &\ddots&1\\
+    &&&\lb_1&0\\
+    &&&&\lb_2&1\\
+    &&&&&\lb_2& 1\\
+    &&&&&&\ddots\\
+    &&&&&&&\lb_k & 1\\
+    &&&&&&&&\ddots & 1\\
+    &&&&&&&&&\lb_k & 1
+  \end{array}
+  \right )
+  \)
+\end{korrolar}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
