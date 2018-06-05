@@ -1911,6 +1911,161 @@ Da es nur einen Vektor in \(\Ker((A - 2Id)^2)\) gibt der nicht in \(\Ker((A - 2I
   \)
 \end{korrolar}
 
+\chapter{Dualit\"at}
+
+\begin{definition}
+Sei V ein K-Vektorraum. Der Dualraum \(V*\) ist die Kollektion aller linearen
+Abbildungen von \(V \to K\)
+\begin{bemerkung}
+\(V*\) ist ein K-Vektorraum.
+\(F + G : V \to K, v \mapsto  F(V) + G(V)\) ist linear,\\
+\(\lb \in K L \lb F : V \to K, V \mapsto \lb F(v)\) ist auch linear
+\end{bemerkung}
+\end{definition}
+
+\begin{definition}
+Sei V endlichdimensional und w\"ahle iene Basis \(B \ \{b_1, \dots, b_n\}\) von
+V. Die duale Basis \(B* = \{b_1*, \dots, b_n*\) ist eine lineare Abbildung
+derart, dass \(b*(b_j) = 1_{ij} = \begin{cases}
+1 & i = j\\
+0 & \text{ansosnten}
+\end{cases}\)\\
+Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
+\begin{bemerkung}
+  Falls V endlichdimensional ist, dann ist \(B*\) eine Basis von \(V*\) und somit
+  \(V \simeq V*\).
+  \begin{proof}
+    \(b_1*, \dots, b_n*\) sind linear unabh\"angig.\\
+    1.)\\
+    \(
+      \sum \lb_i b_i* = 0\\
+      \sum \lb_i b_i*(b_j) = 0, 1 \le i \le n
+      \Rightarrow \lb_i = 0
+    \)
+    2.)\\
+    \(
+      \Span(b_1*, \dots, b_n*) = V*
+    \)
+    Sei \(F : V \to K\) beliebig. \(F(b_i) = \lb_i \in K\)\\
+    \(
+    F - \sum \lb_i b_i \overset{!}{=} 0\\
+    (F - \sum \lb_i b_i*)(b_j) = 0 = F(b_j) - \sum \lb_i b_i*(b_j)\)
+    Insbesondere ist \(V \to V*, b_i \mapsto b_i*\) ein Isomorphismus.\\
+    Allerdings: Der Isomorphismus \(V \simeq V*\) h\"angt von der Wahl der Basis
+    B ab, ist also nicht kanonisch.
+  \end{proof}
+\end{bemerkung}
+\end{definition}
+
+\begin{lemma}[kanonischer Monomorhismus]
+ \(V \to (V^*)^*, v \mapsto \varphi_V : V^* \to K, F \mapsto F(V)\)\\
+ \begin{proof}
+    \(\varphi_V\) ist wohldefiniert.\\
+    \(\varphi_V(F + G) = (F + G)(v) = (F(V) + G(V)\)\\
+    zu zeigen: \(\varphi_V\) ist injektiv. (\"Ubungsaufgabe).
+ \end{proof}
+\end{lemma}
+
+\begin{korrolar}
+  Falls V endlichdimensional ist sind \(V \simeq (V^*)^*\) kanonisch isomorph.\\
+  \begin{proof}
+    \(\dim(V) = \dim(V^*) = \dim(V^*)^*
+    \Rightarrow \varphi : V \to (V^*)^*\) ist surjektiv also auch ein
+    Isomorphismus.
+  \end{proof}
+\end{korrolar}
+
+\begin{lemma}
+  Sei V endlichdimensional. W\"ahle Basen \(B = \{b_1, \dots, b_n\}\) und
+  \(B' = \{b_1', \dots, b_n'\}\) von V. Seien \(B^*\) und \(B'^*\) die
+  entsprechenden dualen Basen in \(V^*\). Wenn A die Transformationsmatrix
+  von B nach B' ist, dann ist die Transformationsmatrixvon \(B^*\) nach
+  \((B')^*\) \(A^*){^-1}\)\\
+  \begin{proof}
+    \(\ve{b_1' \\ \vdots \\ b_n'} = A\ve{b_1 \\ \vdots \\ b_n}\)\\
+    Sei X die Transformationsmatrix von \(B^*\) nach \((B')^*\).\\
+    \(ve{b_1 \\ \vdots \\ b_n} \ve{b_1^*& \dots& b_n^*} = Id_n\)\\
+    \(\ve{b_1' \\ \vdots \\ b_n'} \ve{(b_1^*)' & \dots & (b_n^*)'} = Id_n\)\\
+    \(Id_n = \ve{(b_1^*)' \\ \vdots \\ (b_n^*)'} \ve{b_1' & \dots & b_n'}
+    = X \ve{(b_1^*)' \\ \vdots \\ (b_n^*)'} (A \cdot \ve{b_1 \\ \vdots \\ b_n})^T
+    = X \ve{(b_1^*)' \\ \vdots \\ (b_n^*)'} \ve{b_1 & \dots & b_n} A^T
+    = X  \Id_n A^T
+    \Rightarrow X = (A^*)^{-1}
+    \)
+  \end{proof}
+\end{lemma}
+
+\begin{definition}
+  Sei \(F : V \to W\) eine lineare Abbildung. Definiere die duale Abbildung
+  \(F^* : W^* \to V^* : \psi \mapsto \psi \circ F\).
+  \begin{bemerkung}
+    \(F*\) ist linear.\\
+    \(
+      F*(\psi_1 + \psi_2) = (\psi_1) + \psi_2) \circ F
+      = \psi_1 \circ F + \psi_2 \circ F
+    \)\\
+    \(U \overset{G}{\to} V \overset{F}{\to} W\\
+    W^* \overset{F^*}{\to} V^* \overset{G^*}{\to}{U^*}\\
+    (F \circ G)^* = G^* \circ F^*\)
+    \begin{proof}
+      \(\psi \in W^*\\
+      (F\circ G)^*(\psi) = \psi \circ F \circ G = F^*(\psi) \circ G = G^*(F^*(\psi))\)
+    \end{proof}
+  \end{bemerkung}
+  Eigenschaften:
+  \begin{enumerate}
+    \item{\(Id_V^* = Id_{V^*}\)}
+    \item{\((F + G)^* = F^* + G^*\)}
+    \item{\((F \circ G)^* = f^* \circ F^*)\)}
+    \item{\(\mu F)^* = \mu F^*\)}
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  Falls \(F^* = 0\) dann ist \(F = 0\). Falls V und W endlich sind,
+  \(G : W^* \to V^*\) lineare Abbildung, dann gibt es \(F : V \to W\) so dass
+  \(F^* = G\).
+  \begin{proof}
+    \(F^ = 0\) Sei \(v \in V\) beliebig. Zu zeigen: \(F(v) = 0\)\\
+    Definiere:\\
+    \(W^* \to K : \psi \to \psi(F(v))\)\\
+    Erinnerung: \(W \leftrightarrow (W^*)^* : w \mapsto \psi_w : W^* \to K : \psi \mapsto \psi(w)\)\\
+    \(\varphi_{F(v)}(\psi) = \psi(F(v)) = F^*(\psi)(v) = 0\)\\
+    Abre \(\varphi\) ist ein Monomorphismus\\
+    \(\Rightarrow F(v) = 0 \Rightarrow F = 0\).
+  \end{proof}
+\end{lemma}
+
+\begin{definition}
+  Die Operation \(* : Hom(V ,W) \to Hom(W^*, V^*)\)\\
+  Falls V, W endlichdim. sind.\\
+  \(\dim(Hom(V, W)) = \dim(V) \cdot \dim(W)\)\\
+  \(\dim(Hom(W^*, V^*)) = \dim(V^*) \cdot \dim(W^*)\)
+  Also ist die Operation \(*\) injektiv \(\Rightarrow\) surjektiv.
+\end{definition}
+
+\begin{bemerkung}
+  \(F : V \to W\), \(\dim(V) = n, \dim(w) = m\) hat die Darstellungsmatrix A
+  bzgl. der Basis \(B = \{b_1, \dots, b_n\}\) von V und
+  \(B' = \{b_1', \dots, b_n'\}\) von W. Seien \(B^*\) und \((B')^*\) die
+  entsprechenden dualen Basen von \(V^*\) und \(W^*\).\\
+  Dann hat \(F^*\) die Darstellungsmatrix \(A^T\) bezgl \((B')^*\) und \(B^*\).
+  \begin{proof}\hfill\break
+  \(F \ve{x_1 \\ \vdots \\ x_n} = A \ve{x_1 \\ \vdots \\ x_n} = A x\\
+  F^* \ve{\psi_1 \\ \vdots \\ \psi_m} \ve x_1 \\ \dots \\ x_n\} = 
+  \ve{\psi_1 & \dots & \psi_n} \cdot F \ve{x_1 \\ \vdots \\ x_n} = A x
+  \)
+  Die Darstellungsmatrix von \(F^*\) ist
+  \(F^* \ve{\psi_1 \\ vdots \\ \psi_m} = \ve{\psi_1 & \dots & \psi_m} \cdot A\\
+  F^* \ve{\psi_1 \\ \vdots \\ \psi_m} = (A^T \cdot \ve{\psi_1 \\ \vdots \\ \psi_m})^T
+  \)
+  \(\Rightarrow\) die Darsstellungsmatrix von \(F^*\) ist \(A^T\).
+  \end{proof}
+\end{bemerkung}
+
+\begin{korrolar}
+  \(\det(F^*) = \det(F)\).
+\end{korrolar}
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
