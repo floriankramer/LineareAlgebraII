@@ -2052,20 +2052,158 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   Dann hat \(F^*\) die Darstellungsmatrix \(A^T\) bezgl \((B')^*\) und \(B^*\).
   \begin{proof}\hfill\break
   \(F \ve{x_1 \\ \vdots \\ x_n} = A \ve{x_1 \\ \vdots \\ x_n} = A x\\
-  F^* \ve{\psi_1 \\ \vdots \\ \psi_m} \ve x_1 \\ \dots \\ x_n\} = 
+  F^* \ve{\psi_1 \\ \vdots \\ \psi_m} \ve {x_1 & \dots & x_n} = 
   \ve{\psi_1 & \dots & \psi_n} \cdot F \ve{x_1 \\ \vdots \\ x_n} = A x
-  \)
+  \)\\
   Die Darstellungsmatrix von \(F^*\) ist
-  \(F^* \ve{\psi_1 \\ vdots \\ \psi_m} = \ve{\psi_1 & \dots & \psi_m} \cdot A\\
+  \(F^* \ve{\psi_1 \\ \vdots \\ \psi_m} = \ve{\psi_1 & \dots & \psi_m} \cdot A\\
   F^* \ve{\psi_1 \\ \vdots \\ \psi_m} = (A^T \cdot \ve{\psi_1 \\ \vdots \\ \psi_m})^T
   \)
   \(\Rightarrow\) die Darsstellungsmatrix von \(F^*\) ist \(A^T\).
+  \end{proof}\\
+  Alternativer Beweis:\\
+  \begin{proof}\hfill\break
+    \(F^*(c_k^*) = \sum_l \lb_{l_k} b_l^*\\
+    F(b_i) = \sum_{j=1}^n a_{ji} c_j\\
+    F^*(C_k^*)(b_i) = (\sum\lb_{l_k}b_l^*)(b_i) = \lb_{i_k}\\
+    = c_k^*(F(b_i)) = c_k^*(\sum a_{ji} c_j) = a_{ki}\\
+    \Rightarrow A^T
+    \) ist die Darstellungsmatrix on \(F^*\).
   \end{proof}
 \end{bemerkung}
 
 \begin{korrolar}
   \(\det(F^*) = \det(F)\).
 \end{korrolar}
+
+\begin{lemma}
+  \(V = \oplus_{i=1}^n V_i \Rightarrow V^* \simeq \oplus_{i=1}^n V_i^*\)\\
+  Der Beweis ist trivial: \(V \to K\) ist eindeutig bestimmt durch \(F |_{V_1},
+  \dots, F|_{V_n}\).
+\end{lemma}
+
+\begin{lemma}
+  \(F : V \to W\) linear.
+  \begin{enumerate}
+    \item{F injektiv \(\Leftrightarrow\) \(F^*\) surjektiv}
+    \item{F surjektiv \(\Leftrightarrow F^*\) inj }
+    \item{F Isom \(\Leftrightarrow F^*\) Isom.}
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item {
+        \(F : V \to W\) injektiv. z.Zeigen \(F^* : w^* \to v^*\) surjektiv:
+        Es existiert ein \(\Theta : W \to k :
+        F^*(\Theta) = \psi \in V^*, \forall v \in V \Theta(F(V)) = \psi(v)\)\\
+        \(V \simeq Im(F) \subset W\). Sei Z ein Komplement von \(\Ima(F)\) in W.
+        \(W = \Ima(F) \oplus Z\). \(\forall w \in W : w = w' + \hat w, w_1 = F(v),
+        \hat w \in Z\).\\
+        Definiere \(\Theta : W \to K : w = F(v) + \hat w \mapsto \psi(v)\).
+        \(\Theta\) ist wohldefiniert. Zu zeigen ist nun noch, dass \(\Theta\)
+        linear ist:\\
+        \(\Theta(w_1 + w_2) = \Theta(F(v_1) + F(v_2) + \hat w_1 + \hat w_2)
+        = \psi(v_1 + v_2) = \psi(v_1) + \psi(v_2) = \Theta(w_1) + \Theta(w_2)\)\\
+        \(\Leftarrow\)\\
+        \(F^* : W^* \to V^*\) surjektiv. Zu zeigen \(F : V \to W\) ist unjektiv.
+        \(v \in V : F(v) = 0 \Rightarrow v = 0\).\\
+        Falls \(v \neq 0 \Rightarrow \exists \psi : V \to K : \psi(v) \neq 0\)\\
+        \(\Rightarrow \exists \Theta : W \to K : F^*(\Theta) = \psi \Rightarrow
+        \underset{=0}{\Theta(F(v))} = \underset{\neq 0}{\psi(v)}\)
+      }
+      \item {
+        \(\Rightarrow\)\\
+        \(F : V \to W\) surjektiv. Zu zeigen: \(F^* : W^* \leftrightarrow V^*\)
+        injektiv.\\
+        Sei \(\Theta \in W^* : F^*(\Theta) = 0\) als lineare abbildung.
+        \(F^*(\Theta) = \Theta \circ F : V \ to K\). Zu zeigen:
+        \(\forall w\in W : \Theta(w) = 0\).\\
+        \(w \in W : \exists v \in V : F(v) = w\). F surjektiv
+        \(\Theta(w) = \Theta(F(V)) = F(\Theta)(v)\).\\
+        \(\Leftarrow\)
+        \(F^* : V^* \to W^*\) ist injektiv. z.Z. \(F\) ist surjektiv.\\
+        Sei Z ein Komplement von \(\Ima(F)\) in W : \(W = \Ima(F) \oplus Z\).
+        Zu zeigen ist nun, dass \(Z = \{0\}\). Sonst sei B eine Basis von Z.
+        \(G : W \to K\) linear derart, dass \(G |_{\Ima(F)} = 0\) und
+        \(\forall b \in B : G(b) = 1\). \(\Rightarrow G \in W^* \Rightarrow
+        F^*(G) = G \circ F : V \to K\). Sei
+        \(v \in V : G \circ F(v) = G(F(v)) = 0\). \(F^*(G)\) ist die
+        triviale Abbildung \(\Rightarrow G = 0 \Rightarrow B = \emptyset
+        \Rightarrow Z = \{0\}\)
+      }
+      
+    \end{enumerate}
+  \end{proof}
+\end{lemma}
+
+\chapter{Duale Paarungen}
+\begin{definition}[Bilinearit\"at]
+  Seien V, W K-Vektorraeume. Eine Abbildung \(\varphi : V \times W \to K\) ist
+  bilineare wenn \(\varphi\) linear in jeder Koordinate ist.
+  \begin{enumerate}
+    \item{
+      \(\varphi(v, \lb_1 w_1 + \lb_2 w_2)
+      = \lb_1 \varphi(v, w_1) + \lb_2 \varphi(v, w_2)\)
+    }
+    \item{
+      \(\varphi(\lb_1 w_1 + \lb_2 w_2, v)
+      = \lb_1 \varphi(w_1, v) + \lb_2 \varphi(w_2, v)\)
+    }
+  \end{enumerate}
+\end{definition}
+
+\begin{bemerkung}
+  Falls V, W endlichdimensional mit Basis \(B = \{b_1, \dots, b_n\}\) von V,
+  \(C = \{c_1, \dots, c_m\}\) von W, dann ist \(\varphi\) eindeutig bestimmt
+  durch die \((n \times m\) Matrix A = \(\varphi(b_i, c_j)\).\\
+  \(\varphi(v, w) = \varphi(\sum_{i\le n}\lb_i b_i, \sum_{j \le m}\mu_j c_j)
+  = \sum_{i \le n} \lb_i \varphi(b_i, \sum_{j \le m}\mu_j c_j)
+  = \sum_{i \le n} \lb_i \sum_{j \le n} \mu_i \varphi(b_i, c_j)
+  = (\lb_1, \dots, \lb_n) A \ve{\mu_1 \\ \vdots \\ \mu_m}
+  \)
+\end{bemerkung}
+
+\begin{bemerkung}
+  Falls wir Basen \(B'\) von V und \(C'\) von W gew\"ahlt h\"atten, dann ist 
+  die Darstellungsmatrix von \(\varphi\) : \(M(B, B')^T \cdot A \cdot M(C, C')\)
+  \(\ve{\lb_1 \\ \vdots \\ \lb_n} = M(B, B') \ve{\lb_1' \\ \vdots \\ \lb_n'}\)\\
+  \(\ve{\mu_1 \\ \vdots \\ \mu_n} = M(C, C') \ve{\mu_1' \\ \vdots \\ \mu_n'}\)\\
+  \((\lb_1, \dots, \lb_n) = (\lb_1', \dots, \lb_n') M(B, B')^T\)
+\end{bemerkung}
+
+\begin{korrolar}
+  Der Rang h\"angt nicht von der Auswahl der Basen ab. Somit ist der Rang von
+  \(\varphi\) (\(\rg(\varphi)\)) wohldefiniert.
+\end{korrolar}
+
+\begin{definition}[Duales Paar]
+  Ein Trupel \((V, W, \varphi)\) ist ein duales Paar, falls:
+  \begin{enumerate}
+    \item{\(\dim(V) < \infty, \dim(W) < \infty\)}
+    \item{\(\dim(V) = \dim(W)\)}
+    \item{\(\varphi\) ist bilinear.}
+    \item{\(\rg(\varphi) = \dim(v)\)}
+  \end{enumerate}
+\end{definition}
+
+\begin{bemerkung}
+  Falls \(\varphi : V \times W \to K\) bilinear ist, dann ist \(\varphi' : W \times V
+  \to K : (w, v) \mapsto \varphi(v, w)\) auch bilinear. Wenn \((V, W, \varphi)\)
+  ein duales Paar ist, dann ist auch \((W, V, \varphi')\) auch ein duales Paar.
+\end{bemerkung}
+
+\begin{lemma}
+  F\"ur gegebene V und W gilt:\\
+  \(\{\varphi : V \times W \to K\} \overset{\Phi}{\leftrightarrow} \{F : V \to W^*\}\)\\
+  \(\varphi : V \times W \to K \overset{\Phi}{\mapsto} F_{\varphi} : V \to W^* : v \mapsto F_{\varphi}:
+  W \to K : w \mapsto \varphi(v, w)\)\\
+  \(\varphi_F : V \times W \to K \overset{\Phi^{-1}}\leftarrow F : V \to W^* :
+  (v, w) \mapsto F(v)(w)\)\\
+  Ferner gilt: \((v, w, \varphi)\) ist ein duales Paar \(\Leftrightarrow F_{\varphi}
+  : V \to W^*\) Isomorph.\\
+  Beobachtung:\\
+  \(\Phi^{-1} \cdot \Phi(\varphi)(v, w)
+  = \Phi^{-1}(F_{\varphi}(v) : w \mapsto \varphi(v, w)) = \varphi(v, w)\)
+\end{lemma}
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
