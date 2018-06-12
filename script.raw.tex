@@ -2176,7 +2176,7 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
 \end{korrolar}
 
 \begin{definition}[Duales Paar]
-  Ein Trupel \((V, W, \varphi)\) ist ein duales Paar, falls:
+  Ein Tupel \((V, W, \varphi)\) ist ein duales Paar, falls:
   \begin{enumerate}
     \item{\(\dim(V) < \infty, \dim(W) < \infty\)}
     \item{\(\dim(V) = \dim(W)\)}
@@ -2203,7 +2203,131 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   Beobachtung:\\
   \(\Phi^{-1} \cdot \Phi(\varphi)(v, w)
   = \Phi^{-1}(F_{\varphi}(v) : w \mapsto \varphi(v, w)) = \varphi(v, w)\)
+  \begin{proof}
+    \(\Phi\) ist wohldefiniert:\\
+    \begin{enumerate}
+      \item{
+       \(F_{\varphi}(v) \in W^*\), weil \(\varphi(v, -)\) lineare in der zweiten
+        Koordinate ist.
+      }
+      \item{
+        \(F_{\varphi}\) ist linear, weil \(\varphi\) in der ersten Koordinate 
+       linear ist.
+      }
+    \end{enumerate}
+    \(\Phi^{-1} \cdot \Phi = Id_X, \Phi \cdot \Phi^{-1} = Id_Y\) mit X linke,
+    Y rechte Menge von \(\Phi\) (in der Definition oben).\\
+    Falls \(V, W\) endlichdimensional sind, mit Basen \(\{b_1, \dots, b_n\},
+    \{c_1, \dots, c_m\}\). \(A_{\varphi}\) sei die Darstellungmatrix
+    bez\"ulgich dieser Basen \(A_{\varphi} = (a_{ij}) = (\varphi(b_i, c_j))\)\\
+    Sei \(\{c_1^*, \dots, c_m^*\}\) die duale Basis zu C in \(W^*\).
+    \(c_i^*(c_j) = \begin{cases}1 & i = j\\ 0\end{cases}\).\\
+    Die Darstellungsmatrix von \(F_{\varphi}\) bez\"uglich \(B, C^*\)
+    \((\lb_{ij}) \in M_{m \times n}(K), F_{\varphi}(b_k) = \sum \lb){lk}c_l^* \)
+    \((\sum \lb_{lk}c_l^*)(c_r) = \sum \lb_{lk}c_l^*(c_r) = \lb_{rk}
+    = F_{\varphi}(b_k)(c_r) = \varphi(b_k, c_r)\\
+    \begin{pmatrix}
+      \lb_{11} & \lb_{12} & \dots\\
+      \lb_{21} & \ddots\\
+      \vdots
+    \end{pmatrix} = A_{\varphi}^T\\
+    \rg(A_{\varphi}^T) = \rg(A)
+    \)\\
+    \((V, W, \varphi)\) ist eine duales Paar
+    \(\Leftrightarrow \dim(V) = \dim(W) = \dim(W^*) = \rg(A_{\varphi})
+    = \rg(A_{\varphi}^T\\
+    \Leftrightarrow F_{\varphi}\) ist ein Isomorphismus.
+  \end{proof}
 \end{lemma}
+
+\begin{korrolar}
+  Seien V, W endlichdimensional, \(\varphi : V \times W \to K\) eine
+  Bilinearform. Dann ist \((V, W, \varphi)\) ein duales Paar genau dann, wenn
+  \(\varphi\) nicht ausgeartet ist.\\
+  d.h.
+  \(\forall v, \in V \varphi(v, w) = 0 \forall w, \in W \Rightarrow v = 0 \land
+  \forall w, \in W \varphi(v, w) = 0 \forall v, \in V \Rightarrow w = 0\)
+  \begin{proof}
+    \(\Rightarrow\)\\
+    \begin{enumerate}
+      \item{
+          Sei \(V \in V\) fest \(: \varphi(v, w) = 0 \forall w \in W
+        \Rightarrow F_\varphi(V)(w) = 0 \Rightarrow (V, W, \varphi)\) ist ein
+        duales Paar \(\Rightarrow v = 0\)
+      }
+    \item{
+      \((V, W, \varphi)\) duales Paar \(\Rightarrow (W, V, \varphi ')\) auch
+        dual \(\Rightarrow F_{\varphi'} : W \to V^*\) Isomorphismus
+        \(\Rightarrow w \in W " \varphi(v, w) = 0 \forall v \in V \Rightarrow
+        F_{\varphi}(w) = 0 \Rightarrow w = 0\)
+      }
+    \end{enumerate}
+    \(\Leftarrow\)\\
+    Es gen\"ugt zu zeigen, dass \(F_{\varphi} : V \to W^*\) ein Isomorphismus
+    ist.\\
+    a.) \(\Rightarrow F_{\varphi}\)  ist ein Monomorphismus (injektiv).\\
+    Insbesondere ist \(\dim(V) \le \dim(W^*) = \dim(W)\). Es gen\"ugt zu zeigen,
+    dass \(\dim(V) = \dim(W^*)\), da \(F_{\varphi}\) injektiv ist.\\
+    \((W, V, \varphi'\)  ist eine Bilinearform.\\
+    Aus b.)  folgt \(\Rightarrow F_{\varphi'}\) injektiv
+  \end{proof}
+\end{korrolar}
+
+\begin{beispiel}
+  \((R^n, <, >)\)
+  \(<x_1, \dots, x_n, y_1, \dots, y_n> = \sum x_i y_i\)
+\end{beispiel}
+
+\begin{korrolar}
+  Sei \(V, W, \varphi)\) ein duales Paar. F\"ur jede Basis
+  \(\{c_1, \dots, c_n\}\) aus W gibt es eine Basis \(\{b_1, \dots, b_n\}\) aus
+  V, welche dual  zu \(\{c_1, \dots, c_n\}\) ist:
+  \(\varphi(b_i, c_j) = S_{ij} = \begin{cases} 1 & i=j\\0 \end{cases}\)
+  \begin{proof}
+    F\"ur \(\{c_1, \dots, c_n\}\) aus W eine Basis. Sei
+    \(\{c_1^*, \dots, c_n^*\}\) die duale Basis aus \(W^*\).\\
+    \(F_{\varphi}: V \to W^*\) Iso. Sei \(b_i = F^{-1}_{\varphi}(c_i^*)\).
+    \(\{b_1, \dots, b_n\}\) ist dann eine Basis von V.\\
+    \(\varphi(b_i, c_j) = \underset{=c)i^*}{F_{\varphi}(b_i)}(c_j)\)
+  \end{proof}
+\end{korrolar}
+
+\begin{definition}
+  Sei \((V, W, \varphi)\) ein duales Paar. Gegeben \(U \subset V\) UVR
+  % U ^ umgedrehtes T
+  von V. Definiere \(
+  U^{\top} = \{w \in W : \forall u \in U : \varphi(u, w) = 0 \}
+  \). \(U^\top\) ist ein UVR von W.
+\end{definition}
+
+\begin{beispiel}
+  \((0)^\top = V, V^\top = \{0\}\)
+\end{beispiel}
+
+\begin{bemerkung}
+  \(U \subset V,
+  (U^\top)^\top = \{v \in V : \forall w \in U^\top \varphi(v, w) = 0\} = U
+  \begin{proof}
+    \(U \subset (U^\top)^\top\) trivial.\\
+    Sei \(v \not\in U\). z.Z. \(v \not\in (U^\top)^\top\).
+    es existiert \(G : V \to K : G|_U = 0, G(v) = 1\). \(G \in V^* \simeq W\)
+    (da \(F_{\varphi}\) ein isomorphismus ist. \(\Rightarrow \exists w \in W
+    : F_{\varphi}(w) = G\). D.h. \(\forall z \in V : G(z) = \varphi'(z, w)\)
+    \(u \in U : 0 = G(u) = \varphi(u, w) \Rightarrow w \in U^\top\}\) aber
+    \(G(v) = 1 = \varphi(v, w) \Rightarrow v \not\in (U^\top)^\top\)
+  \end{proof}
+\end{bemerkung}
+
+\begin{lemma}
+  Sei \((V, W, \varphi)\) ein duales Paar und \(U \subset V\) UVR. Dann ist
+  \((V /U, U^\top, \bar\varphi)\) ein duales Paar, wobei
+  \(\bar\varphi (v+U, w) = \varphi(v, w)\). Insbesondere gilt
+  \(\dim(V) + \sim(U) + \dim(U^\top)\)
+  \begin{proof}
+    \"Ubungsaufgabe.
+  \end{proof}
+\end{lemma}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
