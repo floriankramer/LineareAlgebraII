@@ -45,7 +45,6 @@
 \titlespacing*{\section}{0pt}{0pt}{10pt}
 \titlespacing*{\subsection}{0pt}{0pt}{10pt}
 
-
 % ease of use commands
 \newcommand{\lb}{\lambda}
 \newcommand{\al}{\alpha}
@@ -104,6 +103,10 @@
 \renewcommand*\descriptionlabel[1]{\hspace\labelsep\emph{#1}}
 
 % define main environment used for lemmas, definitions, corollaries, ...
+\newenvironment{beispiel} {
+\textbf{Beispiel:}\hfill\break
+}{}
+
 \makeatletter
 \newtheoremstyle{customdef} % name of the style to be used
 {12pt}        % measure of space to leave above the theorem. E.g.: 3pt
@@ -852,7 +855,7 @@ Sei A eine \(n\times n\) Matrix, dann ist die Adjunte von A\\
   \)
 \end{bemerkung}
 
-\section{Diagonalisiserbarkeit}
+\chapter{Diagonalisiserbarkeit}
 Sei V ein Vektorraum, \(\{U_i\}_{i=1}^k\) Unterr\"aume von V.\\
 \(V = \oplus_{i=1}^k U_i
 \Leftrightarrow V = \sum_{i=1}^n U_i \land U_i \bigcap(\sum_{j=1}^k U_i) = 0\)\\
@@ -2296,37 +2299,270 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   Sei \((V, W, \varphi)\) ein duales Paar. Gegeben \(U \subset V\) UVR
   % U ^ umgedrehtes T
   von V. Definiere \(
-  U^{\top} = \{w \in W : \forall u \in U : \varphi(u, w) = 0 \}
-  \). \(U^\top\) ist ein UVR von W.
+  U^{\bot} = \{w \in W : \forall u \in U : \varphi(u, w) = 0 \}
+  \). \(U^\bot\) ist ein UVR von W.
 \end{definition}
 
 \begin{beispiel}
-  \((0)^\top = V, V^\top = \{0\}\)
+  \((0)^\bot = V, V^\bot = \{0\}\)
 \end{beispiel}
 
 \begin{bemerkung}
   \(U \subset V,
-  (U^\top)^\top = \{v \in V : \forall w \in U^\top \varphi(v, w) = 0\} = U
+  (U^\bot)^\bot = \{v \in V : \forall w \in U^\bot \varphi(v, w) = 0\} = U\)
   \begin{proof}
-    \(U \subset (U^\top)^\top\) trivial.\\
-    Sei \(v \not\in U\). z.Z. \(v \not\in (U^\top)^\top\).
+    \(U \subset (U^\bot)^\bot\) trivial.\\
+    Sei \(v \not\in U\). z.Z. \(v \not\in (U^\bot)^\bot\).
     es existiert \(G : V \to K : G|_U = 0, G(v) = 1\). \(G \in V^* \simeq W\)
     (da \(F_{\varphi}\) ein isomorphismus ist. \(\Rightarrow \exists w \in W
     : F_{\varphi}(w) = G\). D.h. \(\forall z \in V : G(z) = \varphi'(z, w)\)
-    \(u \in U : 0 = G(u) = \varphi(u, w) \Rightarrow w \in U^\top\}\) aber
-    \(G(v) = 1 = \varphi(v, w) \Rightarrow v \not\in (U^\top)^\top\)
+    \(u \in U : 0 = G(u) = \varphi(u, w) \Rightarrow w \in U^\bot\}\) aber
+    \(G(v) = 1 = \varphi(v, w) \Rightarrow v \not\in (U^\bot)^\bot\)
   \end{proof}
 \end{bemerkung}
 
 \begin{lemma}
   Sei \((V, W, \varphi)\) ein duales Paar und \(U \subset V\) UVR. Dann ist
-  \((V /U, U^\top, \bar\varphi)\) ein duales Paar, wobei
+  \((V /U, U^\bot, \bar\varphi)\) ein duales Paar, wobei
   \(\bar\varphi (v+U, w) = \varphi(v, w)\). Insbesondere gilt
-  \(\dim(V) + \sim(U) + \dim(U^\top)\)
+  \(\dim(V) + \sim(U) + \dim(U^\bot)\)
   \begin{proof}
     \"Ubungsaufgabe.
   \end{proof}
 \end{lemma}
+
+% missing part of lecture 14.06.2018
+\begin{definition}[adjungierter Endomorphismus]
+  Sei \(V, W, \varphi)\) ein duales paar und \(G : W \to W\) ein Endomorphismus.
+  Der adjungierte Endormorphismus \(G^T : V \to V\) und definiert als
+  \(G^T = F^{-1}_{\varphi} \cdot G^* \cdot F_\varphi\)
+\end{definition}
+% end missing part
+
+\chapter{Euklidische R\"aume}
+
+\begin{definition}[symmetrische Bilinearform]
+  Eine Bilinearform \(\varphi : V \times V \to K\) ist symmetrisch, falls
+  \(\varphi = \varphi'
+  \Leftrightarrow \forall u, v, \in V : \varphi(u, v) = \varphi(u, v)\)
+\end{definition}
+
+\begin{bemerkung}
+  Seien B, C Basen von V und A die Darstellungsmatrix von \(\varphi\) bzgl.
+  B und C. Dann gilt:\\
+  \(\varphi\) ist symmetrisch \(\Leftrightarrow A = A^T\)
+  \begin{proof}\hfill\break
+    \(\Rightarrow\)\\
+    Siehe \"Ubungsblattt\\
+    \(\Leftarrow\)\\
+    \(
+    \varphi(u, v)
+    = u^T \cdot A \cdot v
+    = (A^T \cdot u)^T \cdot v
+    = v^T \cdot ((A^T \cdot u)^T)^T
+    = v^T \cdot A^T \cdot u
+    = v^T \cdot A \cdot u
+    = \varphi(v, u)
+    \)
+  \end{proof}
+\end{bemerkung}
+
+\begin{bemerkung}
+  Wenn \(\varphi\) symmetrisch ist ist der Begriff der orthogonalit\"at
+  wohldefiniert und vor allem symmetrisch.\\
+  \(
+  u \bot v \Leftrightarrow \varphi(u, v) = 0\\
+  v \bot u \Leftrightarrow \varphi(v, u) = 0
+  \)
+\end{bemerkung}
+
+\begin{beispiel}
+  \(\varphi(x, y) = \sum_{i=1}^n x_i y_i\) ist symmetrisch.\\
+  \(\varphi(x, x) = \sum_{i=1}^n x_i^2 \ge 0\)
+\end{beispiel}
+
+\begin{definition}[quadratische Form]
+  Sei \(\varphi : V \times V \to K\) eine symmetrische Bilinearform.
+  Die zugeh\"orige quadratische Form ist:
+  \(q : V \to K, v \mapsto \varphi(v, v)\)
+\end{definition}
+
+\begin{bemerkung}
+  \(\dim(V) = n\) Sei \(B = \{b_1, \dots, b_n\}\) eine Basis.\\
+  \(\varphi\) hat die Darstellungsmatrix A bzgl. B.\\
+  \(Q(v) = \varphi(v, v) = \varphi(\sum \lb_i b_i, \sum \lb_i b_i)
+  = \ve{\lb_1, \dots, \lb_n} A \ve{\lb_1 \\ \vdots \\ \lb_n}
+  = \sum a_{ij} \lb_i \lb_j
+  \)
+\end{bemerkung}
+
+\begin{korrolar}
+  Fallse \(char(K) \neq 2\):\\
+  Jede symmetrische Lienarform is durch ihre quadratische Form eindeutig
+  bestimmt.\\
+  \(
+  q(u + v) = \varphi(u+v, u+v) = \varphi(u, u) + \varphi(u, v) + \varphi(v, u)
+  + \varphi(v, v) = \varphi(u, u) + \varphi(v, v)  + 2 \varphi(u, v)
+  = q(u) + q(v) + 2 \varphi(u, v)\\
+  q(u - v) = \dots = q(u) + q(v) - 2 \varphi(u, v)
+  \)\\
+  Insbesondere: \(\varphi(u, v) = \frac{q(u+v) - q(u - v)}{4}\)
+\end{korrolar}
+
+\begin{definition}[Bilinearform difinit]
+  Sei \(V\) ein endlichdimensionaler \(\R\)-Vektorraum und
+  \(\varphi : V \times V \to \R\) eine symmetrische  Bilinearform.\\
+  \begin{enumerate}
+    \item {
+      Wir sagen, dass \(\varphi\) positiv semidifinit ist, falls
+      \(\varphi(u, u) \ge 0 \forall u \in V\).\\
+    }
+    \item {
+      Falls \(\varphi(u, u) \le 0 \forall u \in V\) ist \(\varphi\) negativ
+      semidefinit\\
+    }
+    \item {
+      \(\varphi\) ist positiv definit, falls \(\varphi\) pos. semidifinit ist und
+      \(\varphi(u, u) > 0 \forall v \in V \setminus \{0\}\)\\
+    }
+    \item {
+      \(\varphi\) ist negativ definit, falls \(\varphi\) neg. semidefinit ist und
+      \(\varphi(u, u) < 0 \forall v \in V \setminus \{0\}\)\\
+    }
+    \item {
+      Ansonsten ist \(\varphi\) indefinit.
+    }
+  \end{enumerate}
+\end{definition}
+
+\begin{beispiel}
+  \begin{enumerate}
+    \item {
+      Standard Skalarprodukt auf \(\R^n\) ist positiv definit
+    }
+    \item {
+      \(\varphi : \R^2 \times \R^2 \to \R,
+      ((x_1, y_1), (x_2, y_2)) \mapsto x_1 y_2\)
+      Ist positiv semidefinit aber nicht pos. definit (\(\varphi((0, 1), (0, 1))
+       = 0\)).
+    }
+    \item {
+      \(\R^2 \times \R^2 \to \R,
+      ((x_1, y_1), (x_2, y_2)) \to x_1 y_1 - x_2 y_2\) ist indefinit.
+    }
+  \end{enumerate}
+\end{beispiel}
+
+\begin{bemerkung}
+  \(\varphi\) ist pos. (semi) definit \(\Leftrightarrow\) \(-\varphi\)
+  ist neg. (semi) definit.
+\end{bemerkung}
+
+\begin{definition}[Skalarprodukt]
+  Ein Skalarprodukt auf einem endliche nVektorraum V ist eine positiv definite
+  symmetrische Bilinearform.
+  \(\varphi(u, v) \to <u, v>\)
+\end{definition}
+
+\begin{definition}[Euklidischer Raum]
+  \(V, <, >)\) ist ein euklidischer Raum, wenn V ein endlicher \(\R\)-Vr ist
+  und \(<, >\) ein Skalarprodukt.
+\end{definition}
+
+\begin{definition}[Norm, normierter Vektorraum]
+  Eine Norm auf einem \mR-Vektorraum V ist eine Abbildung
+  \(||\cdot|| : V \to \R\), so dass:
+  \begin{enumerate}
+    \item {
+        \(||v|| >\ge 0\\
+        ||v|| = 0 \Leftrightarrow v = 0\)
+    }
+    \item {
+      \(||\lb v|| = |\lb| \cdot ||v||\)
+    }
+    \item {
+      Dreiecksungleichung:\\
+      \(|| u + v|| \le ||u|| + ||v||\)
+    }
+  \end{enumerate}
+  \((V, ||\cdot||)\) ist ein normierter Vektorraum.
+\end{definition}
+
+\begin{beispiel}
+  \begin{enumerate}
+    \item {
+      \(||x|| = \sqrt{x_1^2 + \dots + x_n^2}\), die euklidische Norm. 
+    }
+    \item {
+      \(||x||_{\infty_1} = \sum |x_i|\)
+    }
+    \item {
+      \(||x||_{\infty_2} = max(|x_i)\)
+    }
+  \end{enumerate}
+\end{beispiel}
+
+\begin{definition}
+  Sei \((V, <, >)\) ein euklidischer Raum und definiere
+  \(||\cdot|| : V 'to \R, v\ mapsto \sqrt(<v, v>)\). Die Abbildung ist
+  wohldefiniert und induziert sie eine Norm auf V.
+\end{definition}
+
+\begin{lemma}[Cauchy-Schwarz Ungleichung]
+  \(\forall v, w \in V: |<v, w>| \le ||v|| \cdot ||w||\)
+  \begin{proof}
+    Falls \(w = 0\) ist die Aussage trivial. ObdA. ist \(w \neq 0\), also
+    \(||w|| > 0\).\\
+    Sei \(\lb \in R\) beliebig.\\
+    \(
+    0 \le <v - \lb w, v - \lb w> = ||v||^2 + \lb^2 ||w||^2 - 2 \lb <v, w>
+    \)\\
+    Insbesondere \(2\lb <v, w> \le \lb^2 ||w||^2 + ||v||^2\).\\
+    Falls \(\lb = \frac{<v, w>}{||w||^2} \in \R\):\\
+    \(2 \frac{<v, w>^2}{||w||^2} \le ||v||^2 + \frac{<v, w>^2}{||w||^2}\\
+    \Rightarrow \frac{<v, w>^2}{||w||^2} \ge ||v||^2
+    \Rightarrow <v, w>^2 < ||v||^2 \cdot ||w||^2\\
+    \Rightarrow |<v, w> \le ||v|| \cdot ||w||^2
+    \)
+  \end{proof}
+\end{lemma}
+
+\begin{korrolar}
+  \((V, <, >)\) ist ein Euklidischer Raum:\\
+  \(||\cdot|| : V \to \R, v \to \sqrt{<v, v>}\) ist eine Norm.
+  \begin{proof}
+  \begin{enumerate}
+    \item {
+      Klar.
+    }
+    \item {
+      \(||\lb v|| = \sqrt{<\lb v, \lb v} = \sqrt{\lb^2 <v, v>}
+      = |\lb| \cdot ||v|\)
+    }
+    \item {
+      Es gen\"ugt zu zeigen, dass \(||u+v||^2 \le (||u|| + ||v||)^2\)\\
+      \(
+      ||u+v||^2 = <u+v, u + v>
+      = <u,u> + <v,v>+ 2 <u,v>
+      \le ||u||^2 + ||v||^2 + 2 ||u|| ||v||
+      = (||u|| + ||v||)^2
+      \)
+    }
+  \end{enumerate}
+  \end{proof}
+\end{korrolar}
+
+\begin{definition}
+  Sei \((V, <, >)\) ein euklidischer Raum.\\
+  \(-1 \le \underset{=\cos(\Theta)}{\frac{<v, u>}{||v|| ||u||}} < 1\)\\
+  Mit \(\Theta \in (0, \pi]\) ist eindeutig bestimmt. \(\Theta\) ist der Winkel
+  zwischen u und v.\\
+  \begin{bemerkung}
+    \(u \bot v
+    \Leftrightarrow <u v> = 0
+    \Leftrightarrow\) der Winkel \(\frac{\pi}{2}\) ist.
+  \end{bemerkung}
+\end{definition}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
