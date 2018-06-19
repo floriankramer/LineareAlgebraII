@@ -2564,6 +2564,196 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   \end{bemerkung}
 \end{definition}
 
+\begin{satz}[Satz von Pythagoras]
+  Sei \((V, <, >)\) ein euklidischer Raum. Dann gilt:\\
+  \(v \bot w \Leftrightarrow ||v+w||^2 = ||v||^2 + ||w||^2\)\\
+  \begin{proof}
+    \(||v + w||^2 = <v + w, v + w>
+    = <v, v> + <w, w> + 2 <v, w>
+    = ||v||^2 + ||W||^2 + 2<v, w> = ||v||^2 + ||w||^2
+    \Leftrightarrow <v, w> = 0 \Leftrightarrow v \bot w\)
+  \end{proof}
+\end{satz}
+
+\begin{definition}[Orthogonales System]
+  Sei \(\varphi : V \times V \to K\) eine symmetrische Bilinearform.
+  Ein orthogonales System bez\"uglich \(\varphi\) ist eine Kollektion von
+  Verktoren M, so dass:\\
+  \(
+  0 \not\in M, u, v \in M \land u \neq v : \varphi(u, v) = 0
+  \).\\
+  Ein Orthonormales System M ist eine Kollektion von Vektoren, so dass:\\
+  \(
+    \varphi(u, v) = \begin{cases}0 & u \neq v \\ 1 & u = v\end{cases}
+  \)
+\end{definition}
+
+\begin{bemerkung}
+  Dementsprechend definieren wir Orthogonalbasis und Orthonomalbasis (ONB).
+\end{bemerkung}
+
+\begin{beispiel}
+  Standardbasis \(\{e_1, \dots, e_n\}\) in \((R^n, <, >)\) mit dem
+  Standarskalarprodukt.
+\end{beispiel}
+
+\begin{satz}
+  Sei \(char(K) \neq 2\). Jede symmetrische Bilinearform \(\varphi\) auf einem
+  endlichdimensionalen K-VR V l\"asst sich bei einer geeigneten Basisauswahl
+  durch eine Diagonalmatrix darstellen.\\
+  Ferner ist \(\varphi\) nicht ausgartet \(\Leftrightarrow\) kein Eigenwert der
+  Matrix ist null.
+  \begin{proof}
+    Es gen\"ugt zu zeigen, dass \((V, \varphi)\) eine Basis
+    \(\{b_1, \dots, b_n\}\) besitzt, welche aus paarweise orthogonalen Vektoren
+    besteht.\\
+    Dann ist die Darstellungsmatrix von \(\varphi\) bzgl.
+    \(\{b_1, \dots, b_n\}\):\\
+    \(
+    \begin{pmatrix}
+      \varphi(b_1, b_1) & \dots & 0
+      \vdots & \ddots & \vdots
+      0 & \dots & \varphi(b_n, b_n)
+    \end{pmatrix}
+    \)
+    Sei \(q : V \to k : v \mapsto \varphi(v, v)\) die zugehoerige quadratische
+    Form.\\
+    Falls \(q(v) = 0 \forall v \in V
+    \Rightarrow \varphi(u, v) = 0 \forall u, v \in V\).
+    Dann besteht jede Basis von V aus paarweise orthogonalesn Bektoren.\\
+    Sonst existiert \(b_1 \in V : q(b_1) \neq 0\).\\
+    \(F : V \to K, v \mapsto \varphi(v, b_1), F \neq 0, \Ima(F) = K\) als K-Vr.
+    \(\Rightarrow \dim(\Ker(F)) = n-1\).\\
+    \(\Ker(F) = \{v \in V ; \varphi(v, b_1) = 0\} = \{v, \in V ; v \bot b_1\}
+    = Span(b_1)^\bot\).\\
+    Nach Induktion auf der Dimension von V existiert eine Basis von
+    \(b_2, \dots, b_n\) von \(\Ker(F)\) welche aus paarweise orthogonalen
+    Vektoren besteht.\\
+    Die Basis \(\{b_1, \dots, b_n\}\) ist eine Orthogonalbasis von V.\\
+    \begin{bemerkung}
+      Die Eigenwerte der Matrix h\"angen nicht von der Basis ab.\\
+      \(\Rightarrow\)
+      Eigenwerte sind \(\varphi(b_1, b_1), \dots, \varphi(b_n, b_n)\)\\
+      \(\Rightarrow\)\\
+      Angenommen, dass \(\mu_j = \varphi(b_j, b_j) = 0\) w\"are.\\
+      \(\varphi(b_j, b_i) = \begin{cases} 0 & i = j \\ 0 & i \neq j\end{cases}
+      \) \(\varphi(b_j, -) = V \to K\) ist die triviale Abbildung und 
+      \(b_j \neq 0\).\\
+      \(\Leftarrow\)\\
+      Sei \(v \in V \setminus \{0\}\) beliebig. Zu zeigen:
+      \(\varphi(v, -) : V \to K\) ist nicht trivial.\\
+      \(v = \sum_{i=1}^n b_i \Rightarrow \exists i : \lb_i \neq 0\)\\
+      \(\varphi(v, b_i) = \sum_{j=1}^n \lb_j \varphi(b_j, b_i)
+      = \lb \varphi(b_i, b_j) \neq 0\)
+    \end{bemerkung}
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  Sei \(char(K) \neq 2\). Falls in K jedes Element ein Quadrat ist, dann
+  l\"asst sich jede symmetrische Bilinearform  durch eine Matrix der Form
+  \(\begin{pmatrix}
+    1\\
+    &\ddots\\
+    &&1\\
+    &&&0\\
+    &&&&\ddots\\
+    &&&&&0
+  \end{pmatrix}\) darstellen.
+  \begin{proof}
+    Es existiert eine Orthogonalbasis \(\{b_1, \dots, b_n\}\) f\"ur
+    \(\varphi : V \times V \to K\)\\
+    \(c_i = \begin{cases}
+    \frac{b_i}{\sqrt{\varphi(b_i, b_i)}} & \varphi(b_i, b_i) \neq 0\\
+    b_i & \text{ansonsten}
+    \end{cases}
+    \)\\
+    OBdA. k\"onnen wir annehmen, dass \(\{c_1, \dots, c_n\}\) ist so geordnet,
+    dass:\\
+    \(\varphi(c_i, c_i) = 1, i \le k\\
+    \varphi(c_j, c_j) = 0,  j > k\)\\
+    Die Darstellungsmatrix von \(\varphi\) bzgl \(\{c_1, \dots, c_n\}\) ist
+    dann:\\
+    \(
+    \begin{pmatrix}
+    1\\
+    &\ddots\\
+    &&1\\
+    &&&0\\
+    &&&&\ddots\\
+    &&&&&0
+    \end{pmatrix}
+    \)
+  \end{proof}
+\end{korrolar}
+
+\begin{satz}[Satz von Sylvester]
+  Jede symmetrische Bilinearform \(\varphi\) auf einem endlichdimensionalem
+  \(\R\)-Vektorraum l\"asst sich bei geeigneter Basisauswahl durch eine Matrix
+  der Form:\\
+  \(\begin{pmatrix}
+  1\\
+  &\ddots\\
+  &&1\\
+  &&&-1\\
+  &&&&\ddots\\
+  &&&&&-1\\
+  &&&&&&0\\
+  &&&&&&&\ddots\\
+  &&&&&&&&0
+  \end{pmatrix}
+  \) datstellen, wobei die matrix \(p\) 1er, \(q\) -1 er und r 0er hat.\\
+  Ferner h\"angen die Zahen p, q und r nur von \(\varphi\) ab.
+  \begin{proof}
+    Sei \(\{b_1, \dots, b_n\}\) eine Orthogonalbasis f\'ur \(\varphi\).\\
+    \(
+    c_i = \begin{cases}
+      \frac{b_i}{\sqrt{\varphi(b_i, b_i)}} & \varphi(b_i, b_i) > 0\\
+      \frac{b_i}{\sqrt{-\varphi(b_i, b_i)}} & \varphi(b_i, b_i) < 0\\
+      0 & \varphi(b_i, b_i) = 0
+    \end{cases}
+    \)\\
+    Nach Umordnung der \(c_i\)'s ist die Darstellungsmatrix, dann  
+    \(\begin{pmatrix}
+      1\\
+      &\ddots\\
+      &&1\\
+      &&&-1\\
+      &&&&\ddots\\
+      &&&&&-1\\
+      &&&&&&0\\
+      &&&&&&&\ddots\\
+      &&&&&&&&0
+    \end{pmatrix}
+    \)\\
+    \begin{bemerkung}
+      \(\varphi |_{\Span(c_1, \dots, c_p) \times \Span(c_1, \dots, c_p)}\) ist
+      positiv definit.
+      \begin{proof}
+        \(\varphi(\sum_{i=1}^p \lb_i c_i, \sum_{i=1}^p \lb_j c_j)
+        = \sum_{i, j} \lb_i, \lb_j \varphi(c_i, c_j) = \sum_{i = j} \lb_i^2\)
+      \end{proof}
+    \end{bemerkung}
+    Sei \(U \subset V\) der gr\"osste Unterraum von V derart, dass
+    \(\varphi|_{U \times U}\) positiv definit ist.\\
+    \(\Span(c_1, \dots, c_p) \subset U\).\\
+    z.Zeigen: \(p = \dim(U)\)\\
+    Ansonsten \(U \cap \Span(c_{p+1}, \dots, c_n) \neq 0\).\\
+    Sei \(0 \neq v \in U \cap \Span(c_{p+1}, \dots, c_n)\).\\
+    \(c = \sum_{i=p+1}^n \lb_i, c_i\)\\
+    \(0 \le \varphi(v, v) = \sum_{i=p+1}^n \lb^2 \varphi(c_i, c_i) \le 0
+    \Rightarrow v = 0\)
+    \(\Rightarrow p = \dim(U)\)\\
+    \(q, r\) bestimmen:\\
+    \(\rg(\varphi) = p + q\), also ist q eindeutig bestimmt. r ist dann
+    \(n - \rg(\varphi)\)
+    \end{proof}
+\end{satz}
+
+\begin{definition}[Signatur]
+  \(Signatur(\varphi) = p - q\)
+\end{definition}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
