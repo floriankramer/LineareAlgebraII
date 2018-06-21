@@ -2754,6 +2754,189 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   \(Signatur(\varphi) = p - q\)
 \end{definition}
 
+% etwas anderers...
+\begin{beispiel}
+  \(
+  \varphi = \R^2 \times \R^2 \to \R : ((x, y), (x_2, y_2)) \mapsto 2 x_1x_2 - y_1y_2\\
+  \)
+  \(\varphi\) ist positiv definit auf \(\Span((1, 0))\):\\
+  \(\varphi((\lb, 0), (\lb, 0)) = 2 \lb^2 \ge 0\)\\
+  \(\varphi\) ist positiv definit auf \(\Span((1, 1))\):\\
+  \(\varphi((\lb, \lb), (\lb, \lb)) = \lb^2 \ge 0\)\\
+  \(\varphi\) ist nicht positiv definit auf \(\Span(1, 0) + \Span((1, 1)) = \R^2\):\\
+  \(\varphi((0, 1), (0, 1)) = -1\)\\
+  Damit gibt es keinen gr\"o\ss{}ten Unterraum, so wie im Beweis zum Satz von
+  Sylvester angenommen.
+\end{beispiel}
+
+\begin{proof} Korrektur zum Satz on Sylvester\\
+ Wir wollen p Eindeutig bestimmen. \(\varphi\) ist positiv definit auf
+ \(\Span(c_1, \dots, c_p)\).\\
+ Sei \(h = \max\{\dim(U) | U \subset V : \varphi|_{U \times U} \text{ ist positiv definit}\}\)
+ Sei \(U \subset V\) ein UVR der Dimension h, so dass \(\varphi|_{U \times U}\)
+ positiv definit ist. Wir zeigen, dass \(U \cap \Span(c_{p+1}, \dots, c_n) = \{0\}\)
+ \(\Rightarrow h+n-p = \dim(U) + n - p = \dim(\Span(c_{p+1}, \dots, c_n)) \le n\)\\
+ \(\Rightarrow h \le p\)
+\end{proof}
+
+\chapter{Unit\"are R\"aume}
+
+\begin{definition}[Unit\"arer Raum]
+  Ein unit\"arer Raum V ist ein \(\C\)-Vektorraum zusammen mit einem komplexen
+  Skalarprodukt \(<, > : V \times V \to \C\) mit folgenden Eigenschaften:\\
+  \begin{enumerate}
+    \item {
+      \(<v, w> = \bar{<w, v>}\) wobei \(\overline{a+bi} = a - bi\)
+    }
+    \item {
+      \(<v + v', w> = <v, w> + <v', w>\)
+    }
+    \item {
+      \(<\lb v, w> = \lb <v, w>\)
+    }
+    \item {
+      \(<v, v> \in \R\) und ferner \(<v, v> > 0\) f\"ur \(v \neq 0\)
+    }
+  \end{enumerate}
+\end{definition}
+
+\begin{beispiel}
+\(<x, y> = \sum_{i=1}^n x_i \bar{y_i}\)
+\end{beispiel}
+
+\begin{bemerkung}
+  Die Abbildung \(<, >\) ist nicht bilinear sondern hermitsch sesquilinear.\\
+  \(<v, \lb w + \mu w'> = \bar\lb <v, w> + \bar\mu<v, w'>\)
+  \begin{proof}
+    \(<v, \lb w + \mu w'>
+    = \overline{<\lb w + \mu w', v>}
+    = \bar\lb \overline{<w, v>} + \bar\mu \overline{<w', v>}
+    = \bar\lb<v, w> + \bar\mu<v, w'>
+    \)
+  \end{proof}
+\end{bemerkung}
+
+\begin{bemerkung}
+  F\"ur einen unit\"aren Raum V ist \(||\cdot|| : V \to \R, v \mapsto \sqrt{<v, v>}\)\\
+  \(
+    ||v|| > 0\\
+    ||\lb \cdot v|| = |lb| ||v||\\
+    ||v + w|| \le ||v|| + ||w||
+  \)
+\end{bemerkung}
+
+\begin{bemerkung}
+  Sei \((V, <, >)\) unit\"arer Raum:\\
+  \(v \bot w \Leftrightarrow <v, w> = 0\)\\
+  Orthogonalit\"at, orthogonales System und orthonomales System sowie 
+  orthogonal- und orthonomalbasen werden in Unit\"are R\"aumenn analog
+  zu Euklidischen R\"aumen definiert.
+\end{bemerkung}
+
+\begin{definition}[Orthonormalbasis]
+  Sei \(V, <, >\) ein euklidischer oder unit\"arer Raum. Eine Orthonomalbasis
+  \(V\) ist eine Basis \(B = \{b_i\}\), so dass
+  \(i \neq j \Rightarrow b_i \bot b_j, ||b_i|| = 1\).\\
+\end{definition}
+
+\begin{bemerkung}
+  Jedes orthogonale System ist linear unabh\"angig.
+  \begin{proof}
+    \(\sum \lb_i b_i = 0\\
+    0
+    = <\sum\lb_i b_i, b_j>
+    = sum \lb_i <b_i, b_j>
+    = \lb_j <b_j, b_j>
+    \Rightarrow \lb_j = 0
+    \)
+  \end{proof}
+\end{bemerkung}
+
+\begin{lemma}
+  Sei \((V, <, >)\) ein euklidischer oder unit\"arer Raum und
+  \(\{b_1, \dots, b_n\}\) eine ONB (orthonormalbasis). Dann gilt:\\
+  \begin{enumerate}
+    \item {
+      \(\forall v \in V v = \sum_{i=1}^n <v, b_i> b_i\)
+    }
+    \item {
+      \(v = \sum_{i=0}^n \lb_i b_i, w = \sum_{i=0}^n \mu_i b_i\\
+      \Rightarrow <v, w> = \sum \lb_i \bar{\mu_i}\)
+    }
+    \item {
+      Sei \(F : V \to V\) ein Endomorphismus. Dann ist die Darstellungsmatrix
+      A von F bez\"uglich \(\{b_1, \dots, b_n\}\) gegeben durch
+      \(a_{ij} = <F(b_j), b_i>\)
+    }
+  \end{enumerate}
+  
+  \begin{proof}
+    \begin{enumerate}
+      \item {
+        \(v = \sum_{i=1}^n \lb_i b_i\)\\
+        \(<v, b_j> = \sum_{i=1}^n \lb_i <b_i, b_j> = \lb_j\)
+      }
+      \item {
+        \(<\sum \lb_i b_i, \sum \mu_j b_j>
+        = \sum_{i, j} \lb_i \bar{\mu_j} <b_i, b_j>
+        = \sum \lb_i \bar{\mu_i}
+        \)
+      }
+      \item {
+        \(
+          A = (a_{ij})\\
+          F(b_1), \dots, F(b_n)\\
+        \)
+        \(a_{ij}\) ist die Koordinate von \(Fb_j)\) bzgl \(b_i\). Aus 1. folgt:
+        \(a_{ij} = <F(B_j), b_i>\)
+      }
+    \end{enumerate}
+  \end{proof}
+\end{lemma} 
+
+\begin{satz}[Gram-Schmidtsches Orthonormaliserungsverfahren]
+  Sei V ein euklidischer oder uni\"arer Vektorraum. Gegeben
+  \(\{v_1, \dots, v_n\}\) lin. unabh. Dann gibt es ein orthonormalsystem
+  \(\{e_1, \dots, e_n\}\), dass
+  \(\Span(v_1, \dots, v_n) = \Span(e_1, \dots, e_n)\).\\
+  Insbesondere falls \(V\) endlichdimensional ist besitzt V eine ONB.
+  \begin{proof}
+    Zwei Schritte: zuerst aus \(v_1, \dots, v_n\)
+    eine orthogonalbasis konstruieren, dann diese Vektoren normalisieren.\\
+    \(e_1, \dots, e_n\) werden rekursiv definiert.\\
+    \(e_1' = v_1\), \(e_1 = \frac{e_1'}{||e_1'||}\)\\
+    Angenommen \(e_1, \dots, e_k\) wurden konstruiert, so dass
+    \(i \neq j \Rightarrow e_i \bot e_j, ||e_i|| = 1\) und
+    \(\Span(e_1, \dots, e_k) = \Span(v_1, \dots, v_k)\)\\
+    \(e_{k+1}' = v_{k+1} - \sum_{i=1}^k <v_{k+1}, e_i> e_i\)\\
+    \(e_{k+1}' \neq 0\) Sonst ist \(v_{k+1} \in \Span(e_1, \dots, e_k) = \Span(v_1, \dots, v_k)\)\\
+    \(e_{k+1} = \frac{e_{k+1'}}{||e_{k+1}'||}\)
+    z.Zeigen:\\
+    \(e_{k+1} \bot e_j : <e_{k+1}. e_j> = \frac{1}{||e_{k+1}'}' <v_{k+1} - \sum_{i=1}^k <v_{k+1}, e_i> e_i, e_j>
+    = \frac{1}{||e_{k+1}'}' <v_{k+1}, e_i> - \sum_{i=1}^k <v_{k+1}, e_i><e_i, e_j>)
+    = \frac{1}{||e_{k+1}'}' <v_{k+1}, e_i> - <v_{k+1}, e_j>
+    = 0
+    \)
+    \(\Span(e_1, \dots, e_{k+1}) = \Span(v_1, \dots, v_{k+1}\\
+    e_{k-1} \in \Span(v_{k-1}, e_1, \dots, e_k) = \Span(v_{k+1}, v_1, \dots, v_k)\\
+    v_{k+1} = ||e_{k+1}'|| e_{k+1} + \sum_{j=1}^k<v_{k-1}, e_j>e_j \in \Span(e_1, \dots, e_{k+1})
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  \((V, <, >)\) euklidisch oder unit\"ar endlich dimensional und \(D \subset V\)
+  ein Orthonormales system dann \(\exists\) ONB \(B\), so dass \(D \subset B\).
+  \begin{proof}
+    Sei \(D= \{v_1, \dots, v_k\}\) und erg\"anze zu einer Basis von
+    \(\{v_1, \dots, v_n\}\) von V. Konstriuiere eine ONB.\\
+    z.Zeigen: \(i \le k \Rightarrow e_i = v_i\).\\
+    \(e_1 = \frac{v_1}{||v_1||} = v_1\)\\
+    Annahme \(i \le j \Rightarrow e_i = v_j\)\\
+    \(e_{i+1} = \frac{e_{i+1}'}{||e_{i+1}'}, e_{i+1}' = v_{i+1} - \sum_{j=1}^i <v_{i+1}, e_j> v_j = v_{i+1}\)
+  \end{proof}
+\end{korrolar}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
