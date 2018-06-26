@@ -2925,8 +2925,9 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
 \end{satz}
 
 \begin{korrolar}
-  \((V, <, >)\) euklidisch oder unit\"ar endlich dimensional und \(D \subset V\)
-  ein Orthonormales system dann \(\exists\) ONB \(B\), so dass \(D \subset B\).
+  Sei \((V, <, >)\) euklidisch oder unit\"ar endlich dimensional und
+  \(D \subset V\) ein Orthonormales system dann \(\exists\) ONB \(B\), so dass
+  \(D \subset B\).
   \begin{proof}
     Sei \(D= \{v_1, \dots, v_k\}\) und erg\"anze zu einer Basis von
     \(\{v_1, \dots, v_n\}\) von V. Konstriuiere eine ONB.\\
@@ -2936,6 +2937,170 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
     \(e_{i+1} = \frac{e_{i+1}'}{||e_{i+1}'}, e_{i+1}' = v_{i+1} - \sum_{j=1}^i <v_{i+1}, e_j> v_j = v_{i+1}\)
   \end{proof}
 \end{korrolar}
+
+\begin{definition}[Orthogonalit\"at von Teilmengen]
+  Sei \((V, <, >)\) euklidisch oder unit\"ar. Zwei Teilmengen A, B von V sind
+  orthogonal \(A \bot B\), falls \(v \bot w \forall v \in A, \forall w \in B\).
+  \begin{bemerkung}
+    \(A \bot B \Leftrightarrow \Span(A) \bot \Span(B)\)
+    (Blatt 7 Aufgabe 3).
+  \end{bemerkung}
+\end{definition}
+
+\begin{definition}
+  Wenn \(A \subset V\) eine Teilmenge ist:\\
+  \(A^\bot = \{v \in V | \{v\} \bot A\} = \{v \in V | \forall w \in A : v \bot w\}\)
+  \begin{bemerkung}
+    \(A^\bot\) ist ein Unterraum von V.
+  \end{bemerkung}
+\end{definition}
+
+\begin{bemerkung}
+  \(A^\bot = \Span(A)^\bot\).
+  \begin{proof}\hfill\break
+    \(A^\bot \subset \Span(A)^\bot\):\\
+    \(A^\bot \bot A
+    \Rightarrow A^\bot \bot \Span(A)
+    \Rightarrow A^\bot \subset \Span(A)^\bot\)\\
+    \(A^\bot \supset \Span(A)^\bot\):\\
+    \(v \in \Span(A)^\bot
+    \Rightarrow \forall  w \in \Span(A) : v \bot w
+    \Rightarrow \forall w \in A : v \bot w
+    \Rightarrow v \in A^\bot
+    \)
+  \end{proof}
+\end{bemerkung}
+
+\begin{satz}
+  Sei \((V, <, >)\) euklidisch oder unit\"ar und \(U \subset V\) ein
+  endlichdimensionaler Unterraum.
+  \(\Rightarrow V = U \oplus U^\bot\)
+  \begin{proof}
+    \(U \cap U^\top = \{0\}\) (da das Skalarprodukt nicht ausgeartet ist).
+    Es gen\"ugt zu zeigen, dass \(V = U + U^\bot\).\\
+    Falls \(U = \{0\} \Rightarrow U^\bot = V\)\\
+    Falls \(U \neq \{0\}\). Wegen Gram-Schmidt da U endlichdimensional ist
+    existiert \(\{b_1, \dots, b_k\}\), eine orhtonormale Basis von U.\\
+    \(v = \sum_{i=1}^k <v, b_i> b_i
+          + \underset{=w}{(v - \sum_{i=1}^k <v, b_i> b_i)}\)
+    Wir m\"ussen zeigen, dass \(w \in U^\bot\).
+    \(\Rightarrow\) Es gen\"ugt, wenn wir zeigen, dass w orthogonal zu allen
+    \(b_i\) ist.\\
+    \(<w, b_j> = <v - \sum_{i=1}^k <v, b_i>b_i, b_j>
+    = <v, b_j> - \sum_{i=1}^k <v, b_i> <b_i, b_j>
+    = <v, b_j> - <v, b_j>
+    = 0
+    \)
+  \end{proof}
+\end{satz}
+
+\begin{lemma}
+  Sei \((V, <, >)\) eukldisch oder unit\"ar und \(U \subset V\)
+  endlichdimensionaler UVR. Dann gilt \((U^\bot)^\bot) = U\)
+  \begin{proof}
+    \(\supset\)\\
+    \(U \bot U^\bot \Rightarrow U \subset(U^\bot)^\bot)\)\\
+    \(\subset\)\\
+    Sei \(v \in (U^\bot)^\bot
+    \subset{V = U \oplus U^\bot}{\Rightarrow} v
+    = \subset{\in U}{u} + \subset{\in W}{w}\\
+    \)
+    Es gen\"ugt zu zeigen, dass \(w = 0 \Rightarrow v = u \in U\).\\
+    \(w = v - u, u \in U \subset (U^\bot)^\bot, v \in U
+    \Rightarrow w \in (U^\bot)^\bot \cap U^\bot = \{0\}\)
+  \end{proof}
+\end{lemma}
+
+\begin{definition}[orhtogonale Projektion]
+  Sei \(U \subset V\) UVR. Wir definieren die orthogonale Projektion von
+  v auf U als der Vektor \(u \in U\) derart,
+  dass \(v = u + \subset{\in U^\bot}{w}\)
+  \begin{bemerkung}
+    Falls u existiert ist er eindeutig bestimmt.\\
+    \(u_2 + w_2 = v = u_1 + w_1
+    \Rightarrow u_1 - u_2 = w_2 - w_1 \in U \cap U^\top\)
+  \end{bemerkung}
+  \begin{bemerkung}
+    Falls \(U \subset V\) endlichdimensional ist, ist die orthogonale
+    Projektion auf U wohldefiniert.\\
+    \(\forall v \in V\) existiert ein \(pr_U(v)\) derart, dass
+    \(v = Pr_U(v) + w\)
+  \end{bemerkung}
+\end{definition}
+
+\begin{satz}
+  Sei \(U \subset V\) ein UVR, \((V, <,>)\) euklidisch oder unit\"ar, 
+  \(v \in V, u \in U\). Folgende Aussagen sind dann \"aquivalent:
+  \begin{enumerate}
+    \item {
+      \(Pr_U(v) = u\)
+    }
+  \item {
+      \(\forall i_1 \subset U\setminus \{u\}, ||v - u_1|| > ||v - u||\)
+    }
+  \end{enumerate}
+  \begin{proof}
+  \begin{enumerate}
+    \item {
+        Kommt sp\"ater.
+    }
+  \item [b.) \(\Rightarrow\) a.)]{
+      \(v = u + (v - u)\)\\
+      Es gen\"ugt zu zeigen, dass \(v - u \in U^\bot\)\\
+      Sonst existiert ein \(u' \in U : \lb - <v - u, u'> \neq 0
+      \Rightarrow u' \neq 0\) O.b.d.A. \(||u'|| = 1\)\\
+      Sei \(u + \lb u' \in U \setminus \{u\}\)\\
+      \(||v - u||^2 < ||\underset{=<v - u - \lb u', v - i - \lb u'>}{v - (u + \lb u')}||^2\\
+      = ||v - u""^2 - \lb \underset{=\bar\lb}{<u', v - u>} - \bar \lb \underset{=\lb}{<v - u, u'>} + \lb \bar\lb ||u||^2
+      = ||v - u||^2 - \lb \bar\lb  - \lb \bar \lb + \lb \bar \lb < ||v - u||^2
+      \) Widerspruch!
+    }
+  \end{enumerate}
+  \end{proof}
+\end{satz}
+
+\chapter{Selbstadjungierte Endormorphismen und Hauptachsentransformationen}
+
+\begin{bemerkung}
+  Sei \((V, <, >)\) ein endlichdimensionaler euklidischer Raum
+  \(\Rightarrow (V, V, <, >)\) ist ein duales Paar.\\
+  Sei \(v \in V, <v, ->: V \to \R\) ist wohldefiniert falls v \(\neq\) 0\\
+  \(<,v, v> = ||v||^2 \neq 0\), falls \(v \neq 0\)\\
+  Falls V ein endlichdimensionaler unit\"arer Raum ist, dann ist
+  \(<, -> : V \to \C\) nicht linear.\\
+  L\"osung: Wir definieren eine neue Struktur auf V als \(\C\)-Vektorraum.\\
+  \(\lb \cdot_{\text{konj}} v = \bar{\lb} v\)\\
+  Somit ist \((V, V_{konj}, <, >)\) ein duales Paar, da
+  \(<v, v> = ||v||^2 \neq 0\) f\"r \(v \neq 0\).\\
+  Folgerung:\\
+  Sei V ein endlichdimensionaler unit\"arer oder euklidischer Raum. 
+  Jeder Endomorphismus \(F : V \to V\) besitzt einen adjungierten Endomorphismus
+  \(F^T : V \to V : \forall v, w \in V : <v, F(W)> = <F^T(v), w>\)\\
+  Alternative Beschreibung:\\
+  Sei \(B = \{b_1, \dots, b_n\}\) eine ONB von V. Seien
+  \(v, w in V \Rightarrow w = \sum_{i=1}^n \underset{<w, b_i>}{\lb_i} b_i\)\\
+  \(<v, F(w)>
+  = <v, \sum_{i=1}^n <w, b_i> F(b_i)>
+  = \sum_{i=1}^n \overline{<w, b_i>}<v, F(b_i> 
+  = \sum_{i=1}^n <v, F(b_i)><b_i, w>
+  = <\sum_{i=1}^n<v, F(b_i)> \cdot b_i, w>
+  = <F^T(v), w>\\
+  \Rightarrow F^T(v) = \sum{i=1}^n <v, F(b_i)> b_i\)
+\end{bemerkung}
+
+\begin{definition}[adjungierte Matrix]
+  Sei \(K = \R\) oder \(\C\), \(A \in M_{n \times n}(K)\)\\
+  Die adjungierte Matrix \(A^*\) von A ist die Matrix \(A^* = (\bar{a_{ji}})\)
+  \begin{bemerkung}
+    \(A \in M_{n \times n}(\R) : A^* = A^T\)\\
+    leicht zu zeigen:\\
+    \((A^*)^* = A\)\\
+    \((A + B)^* = A^* + B^*\\
+    (\lb A^*) = \bar\lb \cdot A^*\)\\
+    \(A B)^* = B^* A^*\)
+  \end{bemerkung}
+\end{definition}
+
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
