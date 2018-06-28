@@ -3099,8 +3099,162 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
     (\lb A^*) = \bar\lb \cdot A^*\)\\
     \(A B)^* = B^* A^*\)
   \end{bemerkung}
+  \begin{bemerkung}
+    Falls A regul\"ar ist, dann \(\det(A^*) = \overline{\det(A)}\)
+  \end{bemerkung}
 \end{definition}
 
+\begin{lemma}
+  Sei \(F : V \to V\) ein Endormorphismus eines euklidischen oder unit\"aren
+  endlichdimensioanlen Vektorraumes V und A die Darstellungsmatrix von F
+  bez\"uglich den orthonormalbasen \(B = \{b_1, \dots, b_n\}\),
+  \(D = \{d_1, \dots, d_n\}\).\\
+  Dannn hat \(F^T : V\ to V\) Darstellungsmatrix \(A^*\) bzgl \(D\) und \(B\).
+  \begin{proof}
+    \(F^T(d_i) = \sum_{j=1}^n <F^T(d_i), b_j\)\\
+    \(A = (a_{ij})
+    \Rightarrow F(b_j) = \sum_{i=1}^n = \underset{=<F(b_i), d_i>}{a_{ij}} d_i\\
+    \bar{a_{ij}} = \overline{<F(b_j), d_i>} = <d_i, F(b_j)> = <F^T(d_i), b_j>
+    = c_{ji}
+    \)
+  \end{proof}
+\end{lemma}
+
+\begin{bemerkung}
+  Von Hier and sei \((V, <, >\) ein endlichdimensionaler euklidischer oder
+  unit\"arer Vektorraum
+\end{bemerkung}
+
+\begin{definition}[Normale Homomorphismen]
+  \(F : V \to V\) ist normal, falls \(F \circ F^T = F^T \circ F\) 
+\end{definition}
+
+\begin{lemma} % was called a proposition
+  Folgende Aussagen sind \"aquivalent:\\
+  \begin{enumerate}
+    \item {
+      \(F : V \to V\) ist normal;  
+    }
+    \item {
+        \(\forall v, w \in V : <F(v), F(w)> = F^T(v), F^T(w)>\)
+    }
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item[1.) \(\Rightarrow\) 2.)] {
+          \(<F(v), F(w)>
+          = <F^T(F(v)), w>
+          = <F(F^T(v)), w>
+          = \overline{<w, F(F^T(v))>}
+          = \overline{<F^T(w), F^T(v)>}
+          = <F^T(w), F^T(v)>
+          \)
+      }
+    \item[2.) \(\Rightarrow\) 1.)] {
+          zu Zeigen: \(F \circ F^T(v) = F^T \circ F(v)\)\\
+          Oder \"Aquivalent dazu, dass \(F \circ F^T(v) - F^T \circ F(v) = 0\)\\
+          \(
+           \Leftrightarrow \forall w \in V : < F \circ F^T(v) - F^T \circ F(v), w> = 0\\
+           \Leftrightarrow <F\circ F^T(v), w> = <F^T \circ F(v), w>\\
+          \)
+          \(
+            <F^T \circ F(v), w> = <F(v), F(w)> = <F^T(v), F^T(w)>
+            = <F \circ F^T(v), w> = \overline{<w, F \circ F^T(v)>}
+            = \overline{<F^T(w), F^T(v)>}
+          \)
+      }
+    \end{enumerate}
+  \end{proof}
+\end{lemma}
+
+\begin{bemerkung}
+  \(F : V \to V\) mit Darstellungsmatrix A bzgl der ONB
+  \(B = \{b_1, \dots, b_n\}\) von V. \(F^T\) hat Darstellungsmatrix \(A^*\)\\
+  \(F^T \circ F \rightarrow A^* A\\
+  F \circ F^T \rightarrow A A^*\)\\
+\end{bemerkung}
+
+\begin{definition}[normale Matrix]
+  Eine Matrix \(A \in M_{n \times n}\) ist normal, falls \(A^* A = A A^*\).
+\end{definition}
+
+\begin{bemerkung}
+  F ist normal, gdw. F eine normale Darstellungsmatrix bzgl. JEDER ONB von V
+  besitzt.
+\end{bemerkung}
+
+\begin{lemma}
+  \(F : V \to V\) normal.\\
+  \(v \in V'\) ist ein Eigenvektor von F bzgl \(\lb\) gdw. v ein Eigenvektor
+  von \(F^t\) bzgl \(\bar\lb\) ist.
+  \begin{proof}
+    \(||F(v) - \lb v||^2 = <F(v) - \lb v, F(v) - \lb v>
+    = <F(v), F(v)> - \bar\lb <F(v), v> - \lb<v, F(v) + \lb \bar\lb <v, v>
+    = <F^T(v), F^T(v)> - \bar\lb \overline{<F^T(v), v>} - <F^T(v), \bar\lb v>
+      + <\lb v, \lb v>
+    = <F^T(v), F^T(v)> - \bar\lb <v, F^(T),v > - <F^T(v), \bar\lb v> + <\lb v, \lb v>
+    = <F^T(v) - \bar\lb v, F^T(v) - \lb v>
+    = ||F^T(v) - \bar\lb v||^2
+    \)
+  \end{proof}
+\end{lemma}
+
+\begin{satz}
+  Sei \(F : V \to V\) derart, dass \(\chi_F(T)\) in Linearfaktoren zerf\"allt.
+  Folgende Aussagen sind \"aquivalent:\\
+  \begin{enumerate}
+    \item {
+      F ist normal.
+    }
+    \item {
+      Es existiert eine ONB \(\{b_1, \dots, b_n\}\) von V, welche aus
+      Eigenvektoren von F besteht.
+    }
+  \end{enumerate}
+  \begin{proof}
+  \item[1.) \(\Rightarrow\) 2.)] {
+      Induktion auf \(\dim(V)\).\\
+      \(\dim(V) = 1 \Rightarrow\) F besitzt einen Eigenvektor \(v\) zum
+      Eigenwert \(\lb\). \(||v|| \neq 0 \Rightarrow \frac{v}{||v||}\) ist auch
+      ein Eigenvektor. \(\{\frac{v}{||v||}\}\) ist eine ONB von V.\\
+      Sei nun \(\dim(V) \ge 2\):\\
+      \(\chi_F(T)\) zerf\"allt in Linearfaktoren
+      \((T - lb_1), \dots, (T - \lb_n)\).
+      Sei \(b_1 \in V\) Eigenvektor zom Eigenwert \(\lb_1\). OBdA.
+      \(||b_1|| = 1\). \(V = \Span(b_1) \oplus U, U = \Span(b_1)^\bot\)\\
+      \(\dim(U) = n - 1\).\\
+      \textbf{Beh.} U ift F-invariant.\\
+      Beweis kommt n\"achste woche.\\
+      \(F|_U : U \to U\) ist ein Endomorphismus.\\
+      \textbf{Behauptung}
+      U ist \(T^T\)-invariant und \(F|_U)^T = F^T |_U\)\\
+      Beweis:\\
+      U \(F^T\)-invariant ist wie oben.\\
+      \(\forall u_1, u_2 \in U : <u_1, \underset{F|_U(u_2)}{F(u_2)}> = <\underset{F^T|_U}{F^T(u_1)}, u_2>\)
+      Aus der Eindeutigkeit von adjungierten Endormorphismen folgt
+      \(F^T|_U = (F|_U)^T\)\\
+      Insbesondere ist \(F|_U\) normal. \(\overset{Induktion}{\Rightarrow}\)
+      \(\exists \{b_2, \dots, b_n\}\) eine ONB von U welche aus Eigenvektoren
+      von \(F|_U\) besteht.\\
+      \(\{b_1, b_2, \dots, b_n\}\) ist eine Basis von Eigenvektoren.
+    }
+    \item[2.) \(\Rightarrow\) 1.)] {
+        Sei \(B = \{b_1, \dots, b_n\}\) eine ONB von Eigenvektoren von F.
+        \(F(b_i) = \lb_i b_i\)\\
+        Setze \(G : V\ to V : b_i \mapsto \bar\lb_i \cdot b_i\)\\
+        \(G \circ F(b_i) = G(\lb_i b_I) \lb_i G(b_i) = \lb_i \bar \lb+i b_i = \bar\lb_i(\lb_i b_i) = \bar\lb_i(F(b_I)) = F(\bar\lb_i b_i) = F(G(b_i))\\
+        \Rightarrow F \circ G = G \circ F\) auf V.\\
+        Aber \(G = F^T\), da \(b_i\) Eigenvektor von \(F^T\) zum Eigenwert
+        \(\bar\lb_i\) ist.\\
+        \(\Rightarrow F^(T)(b_i) = \bar\lb_i = G(b_i) \Rightarrow G = F^T\)
+    }
+  \end{proof}
+\end{satz}
+
+\begin{bemerkung} % Foglerung
+  Jeder normale Endomorphismus eines unit\"aren endlichen Raumes ist
+  diagonalisierbar.
+\end{bemerkung}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
