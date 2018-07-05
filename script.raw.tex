@@ -3256,6 +3256,105 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   diagonalisierbar.
 \end{bemerkung}
 
+% lecture tuesday beginning of july missing
+
+\begin{satz}[Sylvester]
+  Sei \(A \in M_{n \times n}(\R)\) symmetrisch. Dann sind folgende Aussagen \"aquivalent.
+
+  \begin{proof}
+    \begin{enumerate}
+      \item[\(1 \Leftrightarrow 2\)] { ok }
+      \item[\(1 \Rightarrow 3\)] {
+        Die Bilinearform \(\varphi \R^n \times \R^n \to \R : (v, w) \mapsto v^T A w\) ist positiv definit.\\
+        \(\det(A) = \Pi_{i=1}^n \lb_i > 0\)\\
+        \(\forall U \in \R^n\) UVR \(\rightarrow \varphi_{|_U} : U \times U \to \R\) ist auch positiv definit.
+        Sei \(U = \Span(e_1, \dots, e_k)\)\\
+        \(\varphi_{|_U} : U \times U \to \R : (v, w) \mapsto v^T \ve{a_{11} \dots a_{1k}\\\vdots\\a_{k1}} w\\
+        \Rightarrow \det( \ve{a_{11} \dots a_{1k}\\\vdots\\a_{k1}}) > 0\)
+      }
+      \item[\(3 \Rightarrow 1\)] {
+        Induktion auf n.\\
+        \(n=1\): \\
+        \(A = (\lb) \Rightarrow \lb > 0\\
+        x^T A x = \lb x^2 \ge 0 \Rightarrow, \lb  x^2 = 0 \Rightarrow x = 0 \Rightarrow\) A ist positiv definit.
+        F\"ur \(U = \Span(e_1, \dots, e_{n+1})\)\\
+        Darstellungsmatrix von \(\varphi|_U\) hat auch alle Hauptminome echt positiv \(\Rightarrow \varphi|_U\) ist positiv definit.\\
+        \(\Rightarrow\) Hauptachesntransformationssatz?  Es gibt eine Orthonormalbasis \(\{b_1, \dots, b_n\}\) von V, so dass \(\varphi\)
+        Diagonalform bzgl. \(b_1, \dots, b_n\) hat.
+        Falls \(\varphi\) nicht postiiv definit w\"are, g\"abe es \(i : \varphi(b_i, b_i) = \lb_i < 0\)
+        \(\Rightarrow \det(A) = \Pi \lb_i > 0\)\\
+        \(\Rightarrow \exists j \neq i : \lb_i < 0\)i\\
+        \(b_i = \sum_{k=1}^n \mu_k^i e_k, b_j = \sum_{k=1}^n \mu_k^j e_k\)\\
+        \(\Rightarrow \exists 'alpha, \beta \in \R\) nicht beide null, so dass \(\alpha b_i + \beta b_j \in Span(e_1, \dots, e_{n+1}) = U\)\\
+        \(\mu_N^i = 0 \Rightarrow \alpha = 1, \beta = 0\\
+        \alpha = \mu_n^i, \beta = -\mu_n^i, 0 = \mu_n^j\) genau so.
+        \(\varphi(\alpha b_i + \beta b_j, \alpha b_i + \beta b-j) = \varphi(v, v) = \underset{\ge 0}{(\xi_1, \dots, \xi_{n-1}, 0)\ve{a_{11} & \dots\\\vdots} \ve{\xi_1 \\ \vdots \\ xi_{n-1} \\ 0}}\)
+        \(= \underset{<0}{\alpha ^2 \lb_i + \alpha \beta^2 + 0}\)
+        Widerspruch.
+      }
+    \end{enumerate}
+  \end{proof}
+\end{satz}
+
+\chapter{Orthogonale Abbildungen und Drehungen}
+
+\begin{definition}[Orthogonale Abbildungen]
+  Sei V eukldidisch oder unit\"ar.
+  \(F : V \to V\) ist orthogonal (manchmal auch unit\"ar genannt, falls V unit\"ar ist), falls
+  \(\forall v, w \in V : <v, w> = <F(v), F(w)>\)
+\end{definition}
+
+\begin{lemma}
+  Folgende Aussagen sind \"aquivalent:\\
+  \begin{enumerate}
+    \item {
+      \(F : V \to V\) ist orthogonal
+    }
+    \item {
+      \(\forall v \in V: ||v|| = ||F(v)||\)
+    }
+    \item {
+      F\"ur jedes OrthonormaleSystem \(\{e_1, \dots, e_n\}\) ist \(\{F(e_1), \dots, F(e_n)\}\) auch ein orthonormales System.
+    }
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item[\(1 \rightarrow 2\)] {
+          \(||v||^2 = <v, v> = <F(v), F(v)> = ||F(v)||^2\)
+      }
+      \item [\(2 \Rightarrow 3\)] {
+          Es gen\"ugt zu eigen, dass \(F(e_i) \bot F(e_j) \forall i \neq j\) (da die norm nach 2 erhalten wird).  \\
+          1. Fall: V ist euklidisch:\\
+          \(<F(e_i + e_j), F(e_i + e_j)> = ||F(e_i + e_j)||^2 = ||e_i + e_j||^2 = <e_i + e_j, e_i + e_j> = 2\\
+          <F(e_i + e_j>, F(e_i +e_j)> = <F(e_I), F(e_i)> + <F(e_i), F(e_j)> + <F(e_j), F(e_i)> + <F(e_j), F(e_j)>\)\\
+          Insbesondere \(2 <F(e_i, F(e_j)> = 0 \Rightarrow F(e_i)\bot F(e_j)\)\\
+          2. Fall: V ist unit\"ar:\\
+          \(<e_i + \underset{=\sqrt{-1}}{i} e_j> = ||F(e_i + i e_j)||^2
+          = ||e_i||^2 + ||ie_j||^2 = 2\\
+          ||F(e_i + i e_j)||^2 = <F(e_I) + iF(e_j), F(e_i) + i F(e_j)>
+          = ||F(e_i)||^2 + ||F(e_j)||^2 + i(<F(e_i), F(e_j)> - <F(e_i), F(e_j)>)
+          \Rightarrow <F(e_i), F(e_j)>  = <F(e_j), F(e_i)> = -\overline{<F(e_i), F(e_j)>}\)
+          Rest der argumentation analog zum ersten Fall.
+      }
+    \item [\(3 \Rightarrow 2\)] {
+          \(forall v, w \in V\)\\
+        z.Z. \(<v, w> = <F(v), F(w)> \)\\
+        \(v = 0 \Rightarrow\) ok!\\
+       Sonst \(v \neq 0\).\\
+        1. Fall \(\{v, w\}\) linear abgh\"angig, also \(w = \lb v\)\\
+        \(v \neq 0 \Rightarrow \frac{v}{||v}\) orthonormal \(\Rightarrow F(\frac{v}{||v||})\) auch
+        \(\Rightarrow ||F(\frac{v}{||v||}|| = 1 \ Rightarrow ||v|| = ||F(v)||\)\\
+        \(<v, w> = <v, \lb v> = \bar\lb <v, v> = \bar\lb ||v||^2 = \bar\lb||F(V)||^2 = \bar\lb <F(v), F(v)> = <F(v), \lb F(v)> = <F(v), F(w)>\)\\
+        2. Fall: v, w lienare unabh\"angig.\\
+        GramSchidt: \(\exists b_1, b_2\) orthonormales System, so dass \(\Span(v, w) = \Span(b_1, b_2)\)\\
+        \(v=  \lb_1 b_1 + \lb_2 + b_2, w = \mu_1 b_1 + \mu_2 + b_2\)\\
+        \(<v, w> = \lb_1 \bar\mu_1 ||b_1||^2 + \lb_2 \bar\mu_2 ||b_2||^2 = <F(\lb_1b_1 + \lb_2b)2), F(\mu_1 b_1 + \mu_2 b_2)>\) da \(b_1 \bot b_2\).
+      }
+    \end{enumerate}
+  \end{proof}
+  \end{lemma}
+
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
