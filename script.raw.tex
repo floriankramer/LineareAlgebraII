@@ -3334,7 +3334,7 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
           ||F(e_i + i e_j)||^2 = <F(e_I) + iF(e_j), F(e_i) + i F(e_j)>
           = ||F(e_i)||^2 + ||F(e_j)||^2 + i(<F(e_i), F(e_j)> - <F(e_i), F(e_j)>)
           \Rightarrow <F(e_i), F(e_j)>  = <F(e_j), F(e_i)> = -\overline{<F(e_i), F(e_j)>}\)
-          Rest der argumentation analog zum ersten Fall.
+          Rest der Argumentation analog zum ersten Fall.
       }
     \item [\(3 \Rightarrow 2\)] {
           \(forall v, w \in V\)\\
@@ -3352,8 +3352,178 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
       }
     \end{enumerate}
   \end{proof}
-  \end{lemma}
+\end{lemma}
 
+\begin{satz}
+  Jede orthogonale Abbildung ist injektiv.
+  \begin{proof}
+    Sei F eine orthogonale Abbildung, \(F : V \to V\), \(v \in \Ker(F)\)\\
+    \(0 = F(v) \Rightarrow o = ||F(v)|| = ||v|| \Rightarrow v = 0\)
+  \end{proof}
+\end{satz}
+
+\begin{satz}
+  Sei V endlichdimensionaler unit\"arer oder euklidischer Raum und
+  \(F : V \to V\) eine bijektive lienare Abbildung. Dann sind folgende
+  Aussagen \"aquivalent:
+  \begin{enumerate}
+    \item{F ist orthogonal}
+    \item{Der adjungierte Endomorphismus \(F^t\) von F ist \(F^{-1}\)}
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item[\(1.) \Rightarrow 2.)\)] {
+        \(\forall v, w \in V : <w, F(v)> = <F^t(w), v>\)\\
+        \(w = F(F^{-1}(w)), <w, F(v)> = <F^{-1}(w), v)>
+        \Rightarrow F^t = F^{-1}\) Da \(F^t\) eindeutig ist.
+      }
+      \item[\(2.) \Rightarrow 1.)\)] {
+          \(<F(v), F(w)> = <F^{-1}(F(w)), F(v)> = <F^{-1}(F(v)), w) = <v, w>\),
+          da \(F^{-1} = F^t\).\\
+          Damit ist F orthogonal.
+      }
+    \end{enumerate}
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  \(F : V \to V\) sei eine endliche uni\"are oder eukldische orthogonale Abbildung.
+  \(\Rightarrow\) F ist bijektiv und normal, mit \(F^{-1} = F^*\)
+  \begin{proof}
+    F orthogonal \(\Rightarrow\) F ist injektiv, da V endlichdim \(\Rightarrow\)
+    F ist bijektiv \(\Rightarrow F^t = F^{-1} \Rightarrow\) F ist normal
+    (\(F^t F = F^{-1} F = F F^{-1} = F F^t\)).
+  \end{proof}
+\end{korrolar}
+
+\begin{satz}
+  Sei V endlichdimensional euklidisch oder unit\"ar und \(F : V \to V\)
+  orthogonal.\\
+  Dann haben alle Eigenwerte von F absolutbetrag 1. Ferner ist \(|\det(F)| = 1\)
+  \begin{proof}
+    \begin{bemerkung}
+      Beachte, dass 0 kein Eigenwert von F ist (weil F injektiv ist).
+    \end{bemerkung}
+    Sei \(\lb \in K\) ein Eigenwert von F, \(v \in V \setminus \{0\}\) ein
+    Eigenvektor.\\
+    \( |\lb| ||v|| ||\lb v|| = ||F(v)|| = ||v||\)
+    \(\Rightarrow \lb = 1\) (da \(\lb \neq 0\)).\\
+    Sei A die Darstellungsmatrix von F bzgl. einer ONB von V.\\
+    \(|\det(F)| = |\det(A)| = |\overline{\det(A)}| = |\det(\bar A)|
+    = |\det(\bar A^T)| = |\det(F^t)| \underset{\text{orthogonal}}{=}
+    |\det(F^{-1})| = |\det(F)|^{-1}\\
+    \Rightarrow |\det(F)|^2 = 1\)
+  \end{proof}
+  \begin{bemerkung}
+    Sei B eine ONB von V.\\
+    A die Dartesllungsmatrix von F bzgl. B\\
+    \(A^*\) die Darstellungsmatrix von \(F^t\) bzgl. B\\
+    \(A^{-1}\) die Darstellungsmtarix von \(F^{-1}\) bzgl B\\
+    \(F^{-1} = F^t \Leftrightarrow A^{-1} = A^*\)
+  \end{bemerkung}
+\end{satz}
+
+\begin{definition}[Orthogonale Matrix]
+  Sei \(A \in M_{n \times n}(K)\). A ist orthogonal, falls \(A^{-1} = A^*\) 
+\end{definition}
+
+\begin{bemerkung}
+  F ist orthogonale \(\Leftrightarrow\) Die Darstellungsmatrix von F bzgl ONB 
+  ist orthogonal.
+\end{bemerkung}
+
+\begin{korrolar}
+  \(A \in \Mat_{n \times n}\) regul\"ar ist orthogonal \(\Leftrightarrow\)
+  die Zeilenvektoren (bzw. Spaltenvektoren) ein orthonormalsystem in \(K^n\)
+  bilden (und somit eine ONB).
+  \begin{proof}
+    \(A orthogonal
+    \Leftrightarrow A^{-1} = A^*
+    \Leftrightarrow AA^* = Id_n = A A^{-1}\)\\
+    \(\Leftrightarrow \sum_{k=1}^n a_{ik} \cdot \bar{a_{jk}} =
+    <\bar{a_i}, \bar{a_j}>\) (in \(K^n\) mit dem Standardskalarprodukt).
+  \end{proof}
+\end{korrolar}
+
+\begin{korrolar}
+  Sei \(F : V \to V\) eine normale Abbildung eines endlichdimensionalen
+  unit\"aren Raumes V derart, dass alle Eigenwerrte von F Absolutbetrag 1 haben.
+  Dann ist F orthogonal.
+  \begin{proof}
+    \(\chi_F(T) \in \C[T]\) zerf\"allt in Linearfaktoren, F normal
+    \(\Rightarrow\) Es existiert eine ONB \(\{b_1,\dots, b_n\}\) von
+    Eigenvektoren von F \(F(b_i) = \lb_i b_i\)\\
+    F hat Darstellungsmatrix:\\
+    \(\ve{
+    \lb_1\\
+    &\ddots\\
+    &&\lb_n
+  }\) bzgk, \(B = \{b_1, \dots, b_n\}\)\\
+    \(F^t\) hat damit Darstellungsmatrix
+    \(\ve{
+    \bar\lb_1\\
+    &\ddots\\
+    &&\bar\lb_n
+  }\) bzgl., \(B = \{b_1, \dots, b_n\}\)\\
+  \(\lb_i \bar\lb_i = |\lb_i|^2 = 1 \Rightarrow \bar\lb_i = \lb_I^{-1}\)\\
+    \(F^t\) hat die Darstellungsmatrix
+    \(
+    \ve {
+      \frac{1}{\lb_1}\\
+      &\ddots\\
+      &&\frac{1}{\lb_n}
+    }
+    \)
+    bzgl. \(B = \{b_1, \dots, b_n\}\)
+    \(\Rightarrow F^t = F^{-1} \Rightarrow\) F ist orthogonal.
+  \end{proof}
+\end{korrolar}
+
+\begin{definition}[Orthognalisierbarkeit von Matrizen]
+  Die Matrix \(A \ in \Mat_{n \times n}\) ist orthogonal diagonalisierbar, falls
+  es eine orthogonale (regul\"are) Matrix S gibt, so dass
+  \(S^{-1}AS\) in diagonalform ist.
+\end{definition}
+
+\begin{lemma}[Proposition]
+  Jede normale Matrix \(A \in M_{n \times n}(K)\) deren charakteristisches
+  Polynom in Linearfaktoren zerf\"allt ist diagonalisierbar.
+  \begin{proof}
+    Sei \(F_A : K^n \to K^n\) die zugeh\"orige lineare Abbildung.
+    \(\Rightarrow F_A\) ist normal. \(\chi_A(T)\) zerf\"allt in Linearfaktoren.
+    Es gibt eine ONB \(\{b_1, \dots, b_n\}\) von Eigenvektoren von F
+    (d.h. von A). Sei \(S = (b1 | \dots | b_n)\).\\
+    Es gen\"ugt zu zeigen, dass S eine orthogonale Matrix ist. Die
+    Spaltenvektoren von S bilden ein orthonormales System, damit ist S
+    orthogonal.
+  \end{proof}
+\end{lemma}
+
+\begin{korrolar}
+  Jede symmetrische \(n \times n\) MAtrix \"uber \(\R\) bzw. jede
+  hermitssche Matrix \"uber \(\C\) ist orthogonal diagonalisierbar.
+\end{korrolar}
+
+\begin{definition}[Drehung]
+  Sei V eindlidimensionaler euklidischer Raum. \(F : V \to V\) orthognale
+  Abbildung ist eine Drehung falls \(\det(F) = 1\).
+  \begin{bemerkung}
+    Die Kollektion aller Drehungen bilden eine Gruppe.
+  \end{bemerkung}
+\end{definition}
+
+\begin{satz}
+  Sei \(V = \R^2\) mit dem Standarskalarprodukt als euklidischer Raum.
+  \(F = V \to V\) ist eine Drehung, gdw. F Darsellungsmatrix bzgl
+  \(\{e_1, e_2\}\) der Form\\
+  \(
+  \ve {
+    \cos(\al) & -\sin(\al)\\
+    \sin(\al) & \cos(\al)
+  },
+  \al \in [0, 2 \pi)
+  \)
+\end{satz}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
