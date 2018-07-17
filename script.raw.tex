@@ -3525,6 +3525,131 @@ Insbesondere \(b_i*(V) = b_i* (\sum_{j=1}^n \lb_j b_j) = \lb_i\)
   \)
 \end{satz}
 
+\begin{satz}:
+  Gegeben zwei K-VR U und V gibt es einen K-VR T, zusammen mit einer bilibnearen
+  abbildung \(\otimes : U \times V \to T\) derart, dass f\"ur jeden K-VR
+  W und jede bilineraere Abbildung existiert eine eindeutig bestimmes
+  \(f : T \to \N\) so dass \(f \circ \otimes = g\) Ferner ist \((T, \otimes)\) bis auf 
+  Isomorphie eindeutig bestimmt.
+  \\
+  \(U \times V \overset{\otimes}{\to} T, U \overset{g}{\times} V \to W\)\\
+  Wir schreiebn T als \(U \otimes V\).
+  \begin{proof}
+    Sei \(\{a_i\}_{i\in I}\) eine Basis von U\\ 
+    Sei \(\{a_i\}_{i\in I}\) eine Basis von U\\ 
+
+    Eindeutigkeit:\\
+    Sei \(T'\) auch ein Tensorprodukt von U, V:\\
+    \(\otimes' : U \times V \to T'\). Dann gilt:\\
+    \(
+      U \times V \overset{\otimes}{\to}T\\
+      U \times V \overset{\otimes'}{\to}T'\\
+      T \overset{f}{\to} T'\\
+      T' \overset{f'}{\to} T\\
+      T \overset{Id}{\to} T\\
+      \Rightarrow Id = f'\circ f\\
+    \) Analog:\\
+    \(
+      f \circ f' = Id\\
+      \Rightarrow f : T \to T
+    \) ist ein Isomorphismus.
+  \end{proof}
+\end{satz}
+
+\begin{korrolar}
+  F\"ur jede Basis \(\{a-I\}_{i \in I}\) von U und jede Basis
+  \(\{b_j\}_{j \in J}\) von V ist
+  \(\{a_i \otimes b_j\}_{(i, j) \in I \times J}\) eine Basis.
+\end{korrolar}
+
+\begin{korrolar}
+  Jedes Element \(w\) von \(U \otimes V\) l\"asst sich schreiben als
+  \(\sum_{k=1}^n  a_{i_k} \otimes v_k\) f\"ur \(v_k \in V\) eindeutig bestimmt.
+  \begin{proof}
+    \(w \in U \otimes V \Rightarrow \sum \lb_j a_i \otimes b_j\\
+    = \sum a_i \otimes \lb_{ij} b_j\\
+    = \sum_i \sum_j a_i \otimes \lb_{ij} b_j\\
+    = \sum_I a_i \otimes \underset{v_i \in V}{\sum_j \lb_{ij} b_j}\)\\
+    Frage: Warum sind die \(v_I\)'s eindeutig bestimmt?\\
+    \(w = \sum a_i \otimes (\sum \mu_{ij} b_j) = \sum_i \sum_j \mu_{ij} a_i \otimes b_j\)\\
+    \(\Rightarrow \lb_{ij} = \mu_{ij} \Rightarrow v_i = v_i'\).
+  \end{proof}
+\end{korrolar}
+
+Achtung:
+Nicht jedes Element von \(U \otimes V\) l\"asst sich als ein rein Tensor
+\(u \otimes v\) schreiben!
+\begin{proof}
+  \(U = V = \R^2\) mit der Standardbasis \(\{e_1, e_2\}\).\\
+  Behauptung: \(w = e)1 \otimes e_2 + e_2 \otimes e_1 \in \R^2 \otimes \R^2\)\\
+  \(w \overset{?}{=} u \otimes v, u, v \in \R^2\).\\
+  \( u = \lb_1 e_1 + \lb_2 e_2, v = \mu_1 e_1 + \mu_2 e_2\)\\
+  \(\lb_1 \mu_1 e_1 \otimes e_1 + \lb_1 \mu_2 e_1 \otimes 2_1 + \lb_2 \mu_1 e_2 \otimes e_1 + \lb_2 \mu_2 e_2 \otimes e_2\)\\
+  \(\Rightarrow \lb_1 \mu_1 = 0, \lb_2 \mu_2 = 0, \lb_1\mu_2 = 1, \lb_2\mu_1 = 1\\
+  \Rightarrow \lb_1 \neq 0 \land \mu_1 = 0 \land \lb_2 \neq 0, \mu_2 = 0\\
+  \Rightarrow v = 0 \Rightarrow u \otimes v = 0 \neq e_1 \otimes e_2 + e_2 \otimes e_1\)
+\end{proof}
+
+\begin{lemma}
+  Sei \(V\) ein K-VR.\\
+  \(K \otimes V \simeq V\)\\
+  \begin{proof}
+    Wir wollen zuerst eine Abbildung von \(K \otimes V \to V\) konstruieren.\\
+    \(K \times V \to V : (\lb, v) \mapsto \lb \cdot v\) ist bilinear.
+    \(\exists ! f : K \otimes V \to V : F(\lb \otimes v) = \lb v\)\\
+    \(G = V \to K \otimes V : v \mapsto 1 \otimes v\) ist linear.\\
+    G ist surjektiv. Jedes Element laesst sicheindeutig schreiben als
+    \(\lb (1 \otimes v)\), da 1 eine Basis von K \"uber K ist.\\
+    \(\lb (1 \otimes v) = 1 \otimes \lb v = G(\lb v)\)\\
+    z.Z.: \(F : K \otimes V \to V\) ist eine isomorphismus.\\
+    \(G \circ F (\lb \otimes V) = G(\lb v) = 1 \otimes \lb v
+    = \lb (1 \otimes v) = \lb \otimes v\)\\
+    \(F \circ G (v) = F(1 \circ v) = 1 v = v\)\\
+    F und G sind Inverse voneinander.
+  \end{proof}
+\end{lemma}
+
+
+\begin{lemma}
+  \begin{enumerate}
+    \item {
+        \(F : U \to T'\) lineare Abbildung, \(G : V \to V'\)
+        \(\Rightarrow F \otimes G : U \otimes V \to U' \otimes V; : u \otimes v \to F(u) \otimes G(v)\) ist linear
+    }
+    \item {
+        \(Id_u \otimes Id_V = Id_{u \otimes v}\)
+    }
+    \item {
+        \(F_1 + F_2) \otimes G = F_1 \otimes G + F_2 \otimes G\)
+    }
+    \item {
+        \((\lb G) \otimes G = \lb (F \otimes G)\)
+    }
+    \item {
+        \(F_2 \circ F_2) \otimes (G_2 \circ G) = (F_2 \otimes G_2) \circ (F_1 \otimes G_1)
+        U \overset{f_1}{\to} U_1 \overset{F_2}{\to} U_2\)
+        \(V \overset{G_1}{\to} V_1 \overset{G_2}{\to} V_2\)
+    }
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item{ 
+        Sei \(U \times V \to U' \otimes V' : (u, v) \mapsto F(u) \otimes G(v)\) ist bilinear.
+        \(\otimes(u, v) \mapsto U \otimes V \overset{F \otimes G}{\to} F(u) \otimes G(v)\)
+      }
+      \item { trivial }
+      \item { einfach }
+      \item { einfach }
+      \item {
+        \((F_2 \circ F_1) \otimes (G_2 \circ G_1) (u \otimes v) = F_2 \circ F_1 (u) \otimes g_2 \circ G_1(v)
+        = F_2(f_1(u)) \otimes G_2(g_1(v))
+        = f_2 \otimes G_2(f_1(u) \otimes G_1(v))
+        = F_2 \otimes G_2 ((F_1 \otimes G_1)(u \otimes v))\)
+      }
+    \end{enumerate}
+  \end{proof}
+\end{lemma}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 % \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
